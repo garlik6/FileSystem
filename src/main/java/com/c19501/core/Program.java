@@ -10,7 +10,6 @@ import java.util.Properties;
 
 public class Program {
     public static void main(String[] args) throws IOException {
-
         Properties properties = ConfigLoader.load(new File("src/config.properties"));
         File dir = new File(properties.getProperty("fs.SystemRepository"));
         String name = properties.getProperty("fs.systemFileName");

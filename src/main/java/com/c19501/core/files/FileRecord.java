@@ -8,5 +8,4 @@ public class FileRecord {
     String getFileType;
     int volumeInBlocks;
     Date creationDate;
-
 }

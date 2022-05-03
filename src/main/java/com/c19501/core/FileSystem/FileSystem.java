@@ -4,7 +4,7 @@ import com.c19501.core.BinRepository.BinRepository;
 import com.c19501.core.configLoader.ConfigLoader;
 import com.c19501.core.files.Segment;
 
-import java.io.*;
+import java.io.File;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Properties;
@@ -15,57 +15,22 @@ public class FileSystem {
     private String systemFileName;
     private String systemRepository;
     private BinRepository binRepository;
-    private Segment[] segments = new Segment[31];
+    private final Segment[] segments = new Segment[Segment.getMaxSegmentNumber()];
 
-
-//    public boolean init(){
-//
-//    }
 
     public static boolean checkIfExists(File directory, String filename) {
         return Arrays.stream(Objects.requireNonNull(directory.listFiles())).anyMatch(file -> file.getName().equals(filename));
     }
 
-    public boolean save() {
-
+    public void save() {
         File binFile = new File(systemRepository + "/" + systemFileName);
-        FileOutputStream fos;
-        try {
-            fos = new FileOutputStream(binFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-        ObjectOutputStream objectOutputStreams;
-        try {
-            objectOutputStreams = new ObjectOutputStream(fos);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        try {
-            binRepository.print(objectOutputStreams);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+        binRepository.writeBinFile(binFile);
     }
 
-    public boolean load() throws IOException {
 
-
+    public void load() {
         File binFile = new File(systemRepository + "/" + systemFileName);
-        FileInputStream fis = new FileInputStream(binFile);
-        ObjectInputStream oin = new ObjectInputStream(fis);
-
-        try {
-            binRepository = (BinRepository) oin.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+        binRepository = BinRepository.loadBinFile(binFile);
     }
 
     public static FileSystem createNew(File directory, String filename) {

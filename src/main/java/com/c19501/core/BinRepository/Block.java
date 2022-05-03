@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Block implements Serializable {
     private int cursor = 0;
     private int number;
-    private Word[] data = new Word[256];
+    private final Word[] data = new Word[256];
 
     Block(int number) {
         this.number = number;
@@ -28,13 +28,10 @@ public class Block implements Serializable {
     }
 
 
-    public boolean writeOnlyOneInteger(int integer) {
-        if (cursor != 0) {
-            return false;
-        } else {
+    public void writeOnlyOneInteger(int integer) {
+        if (cursor == 0) {
             String intString = integerToBinaryStringWithPadding(integer);
             writeOnlyOneString(intString);
-            return true;
         }
     }
 

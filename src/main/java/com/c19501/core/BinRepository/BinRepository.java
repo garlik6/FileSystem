@@ -8,10 +8,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class BinRepository implements Serializable {
+public class BinRepository implements Serializable,IBinRepository {
     private final ArrayList<Block> blocks = new ArrayList<>();
 
-    public void writeInStream(ObjectOutputStream objectOutputStreams) throws IOException {
+    private void writeInStream(ObjectOutputStream objectOutputStreams) throws IOException {
         objectOutputStreams.writeObject(this);
     }
 
@@ -25,7 +25,7 @@ public class BinRepository implements Serializable {
     public void writeSysInfo(FileSystem fileSystem) {
         addBlock();
         addBlock();
-        blocks.get(1).writeOnlyOneInteger(fileSystem.getSystemVersion());
+        blocks.get(1).writeOnlyOneIntegerAsString(fileSystem.getSystemVersion());
         addBlock();
         blocks.get(2).writeOnlyOneString(fileSystem.getSystemFileName());
         addBlock();
@@ -67,11 +67,24 @@ public class BinRepository implements Serializable {
     public void diskSegmentLayout() {
         Properties properties = ConfigLoader.load(new File("src/config.properties"));
         int maxSegm = Integer.parseInt(properties.getProperty("fs.maxSegmentAmountInCatalog")) - 1;
+        int maxBlock = Integer.parseInt(properties.getProperty("fs.maxBlockCount"));
         for (int i = 0; i <= maxSegm; i++) {
             Block block = addBlock();
             Segment segment = Segment.createSegment(i,0, 0);
             segment.writeSegmentInfoInBlock(block);
             addBlock();
         }
+        for (int i = 0; i <maxBlock - blocks.size(); i++) {
+            addBlock();
+        }
+    }
+
+    public ArrayList<Block> getBlocks() {
+        return blocks;
+    }
+
+    @Override
+    public IRepositoryIterator<Block> createIterator() {
+        return new RepositoryIterator(this);
     }
 }

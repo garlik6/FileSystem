@@ -2,18 +2,29 @@ package com.c19501.core.BinRepository;
 
 import java.io.Serializable;
 
-public class Block implements Serializable {
+public class Block implements Serializable, IBlock {
     private int cursor = 0;
-    private int number;
+
+
+    public int getNumber() {
+        return number;
+    }
+
+    private final int number;
     private final Word[] data = new Word[256];
+
+    public Word[] getData() {
+        return data;
+    }
 
     Block(int number) {
         this.number = number;
     }
 
-    public void moveCursorForward(int bits) {
-        if (bits > 0 && cursor + bits <= 255)
-            cursor += bits;
+    protected void moveCursorForward(int words) throws IllegalAccessException {
+        if (words > 0 && cursor + words <= 255)
+            cursor += words;
+        else throw new IllegalAccessException();
     }
 
     public boolean isFull() {
@@ -22,22 +33,31 @@ public class Block implements Serializable {
 
     public void addWord(char word) {
         if (!isFull()) {
-            data[cursor].bytes = word;
-            moveCursorForward(1);
+            data[cursor].setBytes(word);
+            try {
+                moveCursorForward(1);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
-
-    public void writeOnlyOneInteger(int integer) {
+    public void writeOnlyOneIntegerAsString(int integer) {
         if (cursor == 0) {
             String intString = integerToBinaryStringWithPadding(integer);
             writeOnlyOneString(intString);
         }
     }
 
-    public void writeOnlyOneString(String string) {
+    public void writeOnlyOneString(String string)  {
         if (checkString(string) && cursor == 0) {
-            moveCursorForward(255 - (string.length() - 1));
+            try {
+                moveCursorForward(255 - (string.length() - 1));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
             char[] chars = string.toCharArray();
             for (char i : chars
             ) {
@@ -46,11 +66,22 @@ public class Block implements Serializable {
         }
     }
 
+    @Override
+    public IBlockIterator<Word> createIterator() {
+        return new BlockIterator(this);
+    }
+
     private boolean checkString(String string) {
         return string.length() <= 256 && string.length() > 0;
     }
 
-    public String integerToBinaryStringWithPadding(int integer) {
+    private String integerToBinaryStringWithPadding(int integer) {
         return String.format(Integer.toBinaryString(integer), 32).replaceAll(" ", "0");
     }
+
+    public int getCursor() {
+        return cursor;
+    }
+
+
 }

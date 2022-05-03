@@ -24,7 +24,6 @@ public class Segment {
         segment.thisSegmentNumber = thisSegmentNumber;
         segment.currentFullSegmentAmountInCatalog = currentFullSegmentAmountInCatalog;
         return segment;
-
     }
 
     private Segment(int additionalBytesInFileRecord){
@@ -47,13 +46,10 @@ public class Segment {
             firstBlockNumber = (maxBlockCount / maxSegmentNumber + maxBlockCount % maxSegmentNumber);
             block.addWord((char) (maxBlockCount / maxSegmentNumber));
         }
-
     }
 
     public static int getMaxSegmentNumber() {
         return maxSegmentNumber;
     }
-
-
 
 }

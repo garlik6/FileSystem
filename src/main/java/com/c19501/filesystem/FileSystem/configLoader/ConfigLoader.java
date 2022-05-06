@@ -1,4 +1,4 @@
-package com.c19501.core.configLoader;
+package com.c19501.filesystem.FileSystem.configLoader;
 import java.io.*;
 import java.util.Properties;
 

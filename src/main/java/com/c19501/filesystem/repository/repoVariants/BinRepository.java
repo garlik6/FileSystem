@@ -2,8 +2,10 @@ package com.c19501.filesystem.repository.repoVariants;
 
 import com.c19501.filesystem.FileSystem.configLoader.ConfigLoader;
 import com.c19501.filesystem.repository.Repository;
+import com.c19501.filesystem.repository.files.Segment;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 public class BinRepository extends Repository implements Serializable  {
@@ -21,15 +23,14 @@ public class BinRepository extends Repository implements Serializable  {
 
     public void writeRepository() {
         try {
-
             File binFile = new File(systemRepository + "/" + systemFileName);
             FileOutputStream fos;
-            ObjectOutputStream objectOutputStreams;
+            ObjectOutputStream objectOutputStream;
             fos = new FileOutputStream(binFile);
-            objectOutputStreams = new ObjectOutputStream(fos);
-            this.writeInStream(objectOutputStreams);
-            objectOutputStreams.flush();
-            objectOutputStreams.close();
+            objectOutputStream = new ObjectOutputStream(fos);
+            this.writeInStream(objectOutputStream);
+            objectOutputStream.flush();
+            objectOutputStream.close();
             fos.flush();
             fos.close();
         } catch (IOException e) {
@@ -37,17 +38,17 @@ public class BinRepository extends Repository implements Serializable  {
         }
     }
 
-    public Repository loadRepository(){
-        String path = systemRepository + "/" + systemFileName;
-        File file = new File(path);
-        BinRepository binRepository = new BinRepository();
+    @Override
+    public void print() {
         try {
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream oin = new ObjectInputStream(fis);
-            binRepository = (BinRepository) oin.readObject();
-        } catch (IOException | ClassNotFoundException e) {
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(System.out);
+            this.writeInStream(objectOutputStream);
+            objectOutputStream.flush();
+            objectOutputStream.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return binRepository;
+
     }
+
 }

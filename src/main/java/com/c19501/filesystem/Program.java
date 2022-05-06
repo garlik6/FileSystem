@@ -6,7 +6,6 @@ public class Program {
     public static void main(String[] args) throws Exception {
 
        FileSystem fileSystem = new FileSystem();
-
        fileSystem.load();
        fileSystem.print();
     }

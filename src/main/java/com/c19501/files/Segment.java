@@ -1,23 +1,23 @@
-package com.c19501.filesystem.repository.files;
+package com.c19501.files;
 
-import com.c19501.filesystem.FileSystem.configLoader.ConfigLoader;
+import com.c19501.config.ConfigLoader;
 
 import java.io.File;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Properties;
+import java.util.*;
 
 public class Segment {
-    final int number;
-    final int amountOfBlocks;
-    ArrayList<FileRecord> fileRecords = new ArrayList<>();
-
+    private final int number;
+    private final int amountOfBlocks;
+    private final List<FileRecord> fileRecords = new ArrayList<>();
 
     public Segment() {
         number = 0;
         amountOfBlocks = 0;
+    }
+
+    public Segment(int number, int amountOfBlocks) {
+        this.number = number;
+        this.amountOfBlocks = amountOfBlocks;
     }
 
     public static Segment createSegment(int number) {
@@ -26,12 +26,11 @@ public class Segment {
         return new Segment(number, amountOfBlocks);
     }
 
-    public void addFileRecord(FileRecord fileRecord){
-        if(fileRecord.doesFileRecordFit(amountOfBlocks)){
+    public void addFileRecord(FileRecord fileRecord) {
+        if (fileRecord.doesFileRecordFit(amountOfBlocks)) {
             fileRecords.add(fileRecord);
             fileRecords.sort(Comparator.comparing(FileRecord::getFirstBlock));
-        }
-        else throw new IllegalArgumentException();
+        } else throw new IllegalArgumentException();
     }
 
     public FileRecord getFileRecordByNumber(int number) {
@@ -46,13 +45,7 @@ public class Segment {
         return amountOfBlocks;
     }
 
-    public ArrayList<FileRecord> getFileRecords() {
+    public List<FileRecord> getFileRecords() {
         return fileRecords;
-    }
-
-
-    public Segment(int number, int amountOfBlocks) {
-        this.number = number;
-        this.amountOfBlocks = amountOfBlocks;
     }
 }

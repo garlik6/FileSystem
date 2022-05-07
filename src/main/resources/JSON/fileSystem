@@ -1,0 +1,15 @@
+{
+  "systemVersion" : 1,
+  "owner" : "c19-501",
+  "systemFileName" : "fileSystem",
+  "systemRepository" : "src/main/resources/JSON",
+  "segments" : [ {
+    "number" : 0,
+    "amountOfBlocks" : 20,
+    "fileRecords" : [ ]
+  }, {
+    "number" : 1,
+    "amountOfBlocks" : 20,
+    "fileRecords" : [ ]
+  } ]
+}

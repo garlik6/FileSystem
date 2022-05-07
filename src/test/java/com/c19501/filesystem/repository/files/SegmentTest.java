@@ -1,3 +1,4 @@
+/*
 package com.c19501.filesystem.repository.files;
 
 import org.junit.jupiter.api.Test;
@@ -19,4 +20,4 @@ class SegmentTest {
         segment.addFileRecord(fileRecord1);
         assertEquals(fileRecord1, segment.getFileRecordByNumber(0));
     }
-}
+}*/

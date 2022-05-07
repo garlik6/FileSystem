@@ -6,7 +6,7 @@ import ru.c19501.core.repository.Repository;
 import java.io.*;
 import java.util.Properties;
 
-public class BinRepository extends Repository implements Serializable  {
+public class BinRepository extends Repository implements Serializable {
 
     public BinRepository() {
         super();

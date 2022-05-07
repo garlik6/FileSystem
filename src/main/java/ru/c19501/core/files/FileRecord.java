@@ -15,6 +15,7 @@ public class FileRecord {
     private int firstBlock;
     private int volumeInBlocks;
     private final String creationDate;
+    private int number;
 
     public FileRecord(String fileName, String fileType, int firstBlock, int volumeInBlocks) {
         isDeleted = false;
@@ -46,4 +47,14 @@ public class FileRecord {
     public void deleteFile() {
         isDeleted = true;
     }
+
+    public void addVolume(int addition){
+        volumeInBlocks += addition;
+    }
+
+    public void reduceVolume(int reduction){
+        volumeInBlocks -= reduction;
+    }
+
+
 }

@@ -1,11 +1,13 @@
 package ru.c19501.core.repository.repositories;
 
-import ru.c19501.core.config.ConfigLoader;
-import ru.c19501.core.repository.Repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import ru.c19501.core.config.ConfigLoader;
+import ru.c19501.core.repository.Repository;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 
@@ -23,7 +25,7 @@ public class JsonRepository extends Repository {
         try {
             ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
             File jsonFile = new File(systemRepository + '/' + systemFileName);
-            objectMapper.writeValue( new FileOutputStream(jsonFile), this);
+            objectMapper.writeValue(new FileOutputStream(jsonFile), this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -33,10 +35,10 @@ public class JsonRepository extends Repository {
     public void print() {
         try {
             ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-            objectMapper.writeValue( System.out, this);
+            String s = objectMapper.writeValueAsString(this);
+            System.out.print(s);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }

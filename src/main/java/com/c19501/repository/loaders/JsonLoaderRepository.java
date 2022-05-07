@@ -8,14 +8,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 
-public class JsonLoaderRepository extends LoaderRepository {
+public class JsonLoaderRepository implements LoaderRepository {
 
     @Override
     public Repository loadRepository() {
         JsonRepository jsonRepository = new JsonRepository();
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            objectMapper.readValue( new File(jsonRepository.getSystemRepository() + "/" + jsonRepository.getSystemFileName()), JsonRepository.class);
+            objectMapper.readValue( new File(jsonRepository.getSystemRepository() + '/' + jsonRepository.getSystemFileName()), JsonRepository.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

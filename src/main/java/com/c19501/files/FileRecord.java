@@ -1,8 +1,13 @@
-package com.c19501.filesystem.repository.files;
+package com.c19501.files;
+
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
+@Setter
+@Getter
 public class FileRecord {
     private boolean isDeleted;
     private String fileName;
@@ -34,52 +39,11 @@ public class FileRecord {
         return firstBlock;
     }
 
-
     public boolean doesFileRecordFit(int amountOfBlocks) {
         return volumeInBlocks < (amountOfBlocks - firstBlock + 1) && (firstBlock - 1) < amountOfBlocks;
     }
 
-    public void deleteFile(){
+    public void deleteFile() {
         isDeleted = true;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public String getFileName() {
-        return fileName;
-    }
-
-    public String getFileType() {
-        return fileType;
-    }
-
-    public int getVolumeInBlocks() {
-        return volumeInBlocks;
-    }
-
-    public String getCreationDate() {
-        return creationDate;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
-    public void setFirstBlock(int firstBlock) {
-        this.firstBlock = firstBlock;
-    }
-
-    public void setVolumeInBlocks(int volumeInBlocks) {
-        this.volumeInBlocks = volumeInBlocks;
     }
 }

@@ -1,13 +1,14 @@
-package com.c19501.filesystem.repository.repoVariants;
+package com.c19501.repository.loaders;
 
-import com.c19501.filesystem.repository.RepoLoader;
-import com.c19501.filesystem.repository.Repository;
+import com.c19501.repository.LoaderRepository;
+import com.c19501.repository.Repository;
+import com.c19501.repository.repositories.JsonRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
 
-public class JsonLoader extends RepoLoader {
+public class JsonLoaderRepository extends LoaderRepository {
 
     @Override
     public Repository loadRepository() {

@@ -1,5 +1,5 @@
 package com.c19501.repository;
 
-public abstract class LoaderRepository {
+public interface LoaderRepository {
     public abstract Repository loadRepository();
 }

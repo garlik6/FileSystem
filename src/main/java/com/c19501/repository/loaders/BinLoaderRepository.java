@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-public class BinLoaderRepository extends LoaderRepository {
+public class BinLoaderRepository implements LoaderRepository {
     @Override
     public Repository loadRepository() {
         BinRepository binRepository = new BinRepository();

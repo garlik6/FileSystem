@@ -1,3 +1,4 @@
+<<<<<<< HEAD:src/main/java/ru/c19501/core/system/FileSystemImpl.java
 package ru.c19501.core.system;
 
 import lombok.Getter;
@@ -9,6 +10,17 @@ import ru.c19501.core.repository.repositories.BinRepository;
 import ru.c19501.core.repository.loaders.JsonLoaderRepository;
 import ru.c19501.core.repository.repositories.JsonRepository;
 import ru.c19501.core.repository.Repository;
+=======
+package com.c19501.system;
+
+import com.c19501.config.ConfigLoader;
+import com.c19501.repository.LoaderRepository;
+import com.c19501.repository.loaders.BinLoaderRepository;
+import com.c19501.repository.repositories.BinRepository;
+import com.c19501.repository.loaders.JsonLoaderRepository;
+import com.c19501.repository.Repository;
+import com.c19501.repository.repositories.JsonRepository;
+>>>>>>> origin/master:src/main/java/com/c19501/system/FileSystem.java
 
 import java.io.File;
 import java.util.Objects;

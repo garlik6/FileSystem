@@ -5,8 +5,8 @@ import com.c19501.repository.LoaderRepository;
 import com.c19501.repository.loaders.BinLoaderRepository;
 import com.c19501.repository.repositories.BinRepository;
 import com.c19501.repository.loaders.JsonLoaderRepository;
-import com.c19501.repository.repositories.JsonRepository;
 import com.c19501.repository.Repository;
+import com.c19501.repository.repositories.JsonRepository;
 
 import java.io.File;
 import java.util.Objects;

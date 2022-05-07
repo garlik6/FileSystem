@@ -1,17 +1,20 @@
-package com.c19501.system;
+package ru.c19501.core.system;
 
-import com.c19501.config.ConfigLoader;
-import com.c19501.repository.LoaderRepository;
-import com.c19501.repository.loaders.BinLoaderRepository;
-import com.c19501.repository.repositories.BinRepository;
-import com.c19501.repository.loaders.JsonLoaderRepository;
-import com.c19501.repository.repositories.JsonRepository;
-import com.c19501.repository.Repository;
+import lombok.Getter;
+import ru.c19501.core.FileSystem;
+import ru.c19501.core.config.ConfigLoader;
+import ru.c19501.core.repository.LoaderRepository;
+import ru.c19501.core.repository.loaders.BinLoaderRepository;
+import ru.c19501.core.repository.repositories.BinRepository;
+import ru.c19501.core.repository.loaders.JsonLoaderRepository;
+import ru.c19501.core.repository.repositories.JsonRepository;
+import ru.c19501.core.repository.Repository;
 
 import java.io.File;
 import java.util.Objects;
 
-public class FileSystem {
+@Getter
+public class FileSystemImpl implements FileSystem {
 
     private Repository repository;
     private static LoaderRepository loader;
@@ -44,7 +47,7 @@ public class FileSystem {
 
     public static FileSystem createNew() throws Exception {
         String config = ConfigLoader.load(new File("src/main/resources/config.properties")).getProperty("fs.mode");
-        FileSystem fileSystem = new FileSystem();
+        FileSystemImpl fileSystem = new FileSystemImpl();
         if (Objects.equals(config, "BIN")) {
             fileSystem.repository = new BinRepository();
             return fileSystem;

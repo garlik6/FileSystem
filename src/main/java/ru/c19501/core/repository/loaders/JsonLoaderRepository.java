@@ -1,8 +1,8 @@
-package com.c19501.repository.loaders;
+package ru.c19501.core.repository.loaders;
 
-import com.c19501.repository.LoaderRepository;
-import com.c19501.repository.Repository;
-import com.c19501.repository.repositories.JsonRepository;
+import ru.c19501.core.repository.LoaderRepository;
+import ru.c19501.core.repository.Repository;
+import ru.c19501.core.repository.repositories.JsonRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;

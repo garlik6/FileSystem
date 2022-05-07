@@ -1,7 +1,7 @@
-package com.c19501.repository;
+package ru.c19501.core.repository;
 
-import com.c19501.config.ConfigLoader;
-import com.c19501.files.Segment;
+import ru.c19501.core.config.ConfigLoader;
+import ru.c19501.core.files.Segment;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -1,7 +1,7 @@
-package com.c19501.repository.repositories;
+package ru.c19501.core.repository.repositories;
 
-import com.c19501.config.ConfigLoader;
-import com.c19501.repository.Repository;
+import ru.c19501.core.config.ConfigLoader;
+import ru.c19501.core.repository.Repository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 

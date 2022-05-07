@@ -1,6 +1,6 @@
-package com.c19501.files;
+package ru.c19501.core.files;
 
-import com.c19501.config.ConfigLoader;
+import ru.c19501.core.config.ConfigLoader;
 
 import java.io.File;
 import java.util.*;

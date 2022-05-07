@@ -1,8 +1,8 @@
-package com.c19501.repository.loaders;
+package ru.c19501.core.repository.loaders;
 
-import com.c19501.repository.LoaderRepository;
-import com.c19501.repository.Repository;
-import com.c19501.repository.repositories.BinRepository;
+import ru.c19501.core.repository.LoaderRepository;
+import ru.c19501.core.repository.Repository;
+import ru.c19501.core.repository.repositories.BinRepository;
 
 import java.io.File;
 import java.io.FileInputStream;

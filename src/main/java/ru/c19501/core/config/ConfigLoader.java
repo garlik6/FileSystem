@@ -1,4 +1,4 @@
-package com.c19501.config;
+package ru.c19501.core.config;
 import java.io.*;
 import java.util.Properties;
 

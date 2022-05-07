@@ -1,4 +1,4 @@
-package com.c19501.files;
+package ru.c19501.core.files;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -2,14 +2,12 @@ package com.c19501.filesystem.repository.repoVariants;
 
 import com.c19501.filesystem.FileSystem.configLoader.ConfigLoader;
 import com.c19501.filesystem.repository.Repository;
-import com.c19501.filesystem.repository.files.Segment;
-import com.fasterxml.jackson.core.exc.StreamWriteException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import java.io.*;
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 

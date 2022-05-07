@@ -1,11 +1,9 @@
-package com.c19501.filesystem.repository.repoVariants;
+package com.c19501.repository.repositories;
 
-import com.c19501.filesystem.FileSystem.configLoader.ConfigLoader;
-import com.c19501.filesystem.repository.Repository;
-import com.c19501.filesystem.repository.files.Segment;
+import com.c19501.config.ConfigLoader;
+import com.c19501.repository.Repository;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Properties;
 
 public class BinRepository extends Repository implements Serializable  {
@@ -23,11 +21,9 @@ public class BinRepository extends Repository implements Serializable  {
 
     public void writeRepository() {
         try {
-            File binFile = new File(systemRepository + "/" + systemFileName);
-            FileOutputStream fos;
-            ObjectOutputStream objectOutputStream;
-            fos = new FileOutputStream(binFile);
-            objectOutputStream = new ObjectOutputStream(fos);
+            File binFile = new File(systemRepository + '/' + systemFileName);
+            FileOutputStream fos = new FileOutputStream(binFile);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fos);
             this.writeInStream(objectOutputStream);
             objectOutputStream.flush();
             objectOutputStream.close();

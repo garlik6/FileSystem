@@ -1,9 +1,11 @@
 package ru.c19501.core.repository.repositories;
 
 import ru.c19501.core.config.ConfigLoader;
+import ru.c19501.core.files.FileRecord;
 import ru.c19501.core.repository.Repository;
 
 import java.io.*;
+import java.util.List;
 import java.util.Properties;
 
 public class BinRepository extends Repository implements Serializable {
@@ -13,6 +15,16 @@ public class BinRepository extends Repository implements Serializable {
         Properties prop = ConfigLoader.load(new File("src/main/resources/config.properties"));
         this.systemFileName = prop.getProperty("fs.systemBinFileName");
         this.systemRepository = prop.getProperty("fs.systemBinRepository");
+    }
+
+    @Override
+    public String fileRecordsToString(FileRecord fileRecord) {
+        return null;
+    }
+
+    @Override
+    public String fileRecordsToString(List<FileRecord> fileRecords) {
+        return null;
     }
 
     private void writeInStream(ObjectOutputStream objectOutputStreams) throws IOException {

@@ -1,7 +1,8 @@
-/*
-package com.c19501.filesystem.repository.files;
+package ru.c19501.filesystem.repository.files;
+
 
 import org.junit.jupiter.api.Test;
+import ru.c19501.core.files.FileRecord;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,4 +25,5 @@ class FileRecordTest {
         assertFalse(fileRecord3.doesFileRecordFit(amountOfBlocks));
         assertFalse(fileRecord4.doesFileRecordFit(amountOfBlocks));
     }
-}*/
+}
+

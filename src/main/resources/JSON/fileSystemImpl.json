@@ -1,0 +1,100 @@
+{
+  "systemVersion" : 1,
+  "owner" : "c19-501",
+  "systemFileName" : "fileSystemImpl.json",
+  "systemRepository" : "src/main/resources/JSON",
+  "segments" : [ {
+    "number" : 0,
+    "amountOfBlocks" : 20,
+    "freeAndDeletedSpace" : 3,
+    "freeSpace" : 0,
+    "fileRecords" : [ {
+      "isDeleted" : false,
+      "fileName" : "a1",
+      "fileType" : "txt",
+      "firstBlock" : 0,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/08 12:03:50",
+      "number" : 0,
+      "deleted" : false
+    }, {
+      "isDeleted" : false,
+      "fileName" : "a1",
+      "fileType" : "txt",
+      "firstBlock" : 1,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/08 12:03:50",
+      "number" : 1,
+      "deleted" : false
+    }, {
+      "isDeleted" : true,
+      "fileName" : "ADDITIONAL",
+      "fileType" : "txt",
+      "firstBlock" : 2,
+      "volumeInBlocks" : 2,
+      "creationDate" : "2022/05/08 12:04:09",
+      "number" : 2,
+      "deleted" : true
+    }, {
+      "isDeleted" : false,
+      "fileName" : "a1",
+      "fileType" : "txt",
+      "firstBlock" : 4,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/08 12:03:50",
+      "number" : 3,
+      "deleted" : false
+    }, {
+      "isDeleted" : false,
+      "fileName" : "a1",
+      "fileType" : "txt",
+      "firstBlock" : 5,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/08 12:03:50",
+      "number" : 4,
+      "deleted" : false
+    }, {
+      "isDeleted" : false,
+      "fileName" : "a1",
+      "fileType" : "txt",
+      "firstBlock" : 6,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/08 12:03:50",
+      "number" : 5,
+      "deleted" : false
+    }, {
+      "isDeleted" : false,
+      "fileName" : "a1",
+      "fileType" : "txt",
+      "firstBlock" : 7,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/08 12:03:50",
+      "number" : 6,
+      "deleted" : false
+    }, {
+      "isDeleted" : false,
+      "fileName" : "a1",
+      "fileType" : "txt",
+      "firstBlock" : 8,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/08 12:03:50",
+      "number" : 7,
+      "deleted" : false
+    }, {
+      "isDeleted" : false,
+      "fileName" : "a1",
+      "fileType" : "txt",
+      "firstBlock" : 9,
+      "volumeInBlocks" : 11,
+      "creationDate" : "2022/05/08 12:03:50",
+      "number" : 8,
+      "deleted" : false
+    } ]
+  }, {
+    "number" : 1,
+    "amountOfBlocks" : 20,
+    "freeAndDeletedSpace" : 20,
+    "freeSpace" : 20,
+    "fileRecords" : [ ]
+  } ]
+}

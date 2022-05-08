@@ -1,6 +1,7 @@
 package ru.c19501.core.files;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonView;
 import ru.c19501.core.config.ConfigLoader;
 
@@ -41,43 +42,37 @@ public class Segment {
         return new Segment(number, amountOfBlocks);
     }
 
-    public void insertFileRecord(FileRecord fileRecord) {
-        if (fileRecord.doesFileRecordFit(amountOfBlocks)) {
-            freeAndDeletedSpace -= fileRecord.getVolumeInBlocks();
-            freeSpace -= fileRecord.getVolumeInBlocks();
-            fileRecord.setNumber(fileRecords.size());
-            fileRecords.add(fileRecord);
-            fileRecords.sort(Comparator.comparing(FileRecord::getFirstBlock));
-        } else throw new IllegalArgumentException();
-    }
 
-    public String addFileRecord(String name, String type, int volumeInBlocks) {
+    public String addFileRecord(String name, String type, int volumeInBlocks) throws DefragmentationNeeded {
         String id = "";
         if (freeAndDeletedSpace < volumeInBlocks) throw new ArrayIndexOutOfBoundsException("Not enough space left");
         mergeDeletedFiles();
-        Optional<FileRecord> foundFileRecord = findFirstFreeSpaceOfLength(volumeInBlocks);
-        if (foundFileRecord.isPresent() && foundFileRecord.get().getVolumeInBlocks() == volumeInBlocks) {
-            foundFileRecord.get().setFileName(name);
-            foundFileRecord.get().setFileType(type);
-            foundFileRecord.get().setDeleted(false);
-            foundFileRecord.get().updateDate();
-            id = foundFileRecord.get().getId();
+        Optional<FileRecord> findFileRecord = findFirstFreeSpaceOfLength(volumeInBlocks);
+
+        if (findFileRecord.isPresent() && findFileRecord.get().getVolumeInBlocks() == volumeInBlocks) {
+            FileRecord foundFileRecord = findFileRecord.get();
+            foundFileRecord.setFileName(name);
+            foundFileRecord.setFileType(type);
+            foundFileRecord.setDeleted(false);
+            foundFileRecord.updateDate();
+            foundFileRecord.setId(UUID.randomUUID().toString());
+            id = foundFileRecord.getId();
         }
-        if (foundFileRecord.isPresent() && foundFileRecord.get().getVolumeInBlocks() > volumeInBlocks) {
-            int reduction = foundFileRecord.get().getVolumeInBlocks() - volumeInBlocks;
-            foundFileRecord.get().reduceVolume(reduction);
-            FileRecord additionalEmptyFileRecord = new FileRecord("", "", foundFileRecord.get().getFirstBlock() + foundFileRecord.get().getVolumeInBlocks(), reduction);
-            additionalEmptyFileRecord.setNumber(foundFileRecord.get().getNumber() + 1);
-            additionalEmptyFileRecord.deleteFile();
-            foundFileRecord.get().setDeleted(false);
-            fileRecords.stream().filter(fileRecord -> fileRecord.getNumber() > foundFileRecord.get().getNumber()).forEach(fileRecord -> fileRecord.setNumber(fileRecord.getNumber() + 1));
+        if (findFileRecord.isPresent() && findFileRecord.get().getVolumeInBlocks() > volumeInBlocks) {
+            FileRecord foundFileRecord = findFileRecord.get();
+            int reduction = foundFileRecord.getVolumeInBlocks() - volumeInBlocks;
+            foundFileRecord.reduceVolume(reduction);
+            foundFileRecord.setDeleted(false);
+            id = foundFileRecord.getId();
+            fileRecords.stream().filter(fileRecord -> fileRecord.getNumber() > foundFileRecord.getNumber())
+                    .forEach(fileRecord ->
+                            fileRecord.setNumber(fileRecord.getNumber() + 1));
+            FileRecord additionalEmptyFileRecord = getAdditionalFileRecord(findFileRecord.orElseThrow(), reduction);
+            freeAndDeletedSpace -= findFileRecord.get().getVolumeInBlocks();
             fileRecords.add(additionalEmptyFileRecord);
             fileRecords.sort(Comparator.comparing(FileRecord::getNumber));
-            freeAndDeletedSpace -= foundFileRecord.get().getVolumeInBlocks();
-            id = foundFileRecord.get().getId();
-
         }
-        if (foundFileRecord.isEmpty() && freeSpace >= volumeInBlocks) {
+        if (findFileRecord.isEmpty() && freeSpace >= volumeInBlocks) {
             int lastBlock;
             if (fileRecords.isEmpty()) {
                 lastBlock = 0;
@@ -91,7 +86,17 @@ public class Segment {
             freeSpace -= newFileRecord.getVolumeInBlocks();
             id = newFileRecord.getId();
         }
+        if (Objects.equals(id, "")) {
+            throw new DefragmentationNeeded();
+        }
         return id;
+    }
+
+    private FileRecord getAdditionalFileRecord(FileRecord foundFileRecord, int reduction) {
+        FileRecord additionalEmptyFileRecord = new FileRecord("", "", foundFileRecord.getFirstBlock() + foundFileRecord.getVolumeInBlocks(), reduction);
+        additionalEmptyFileRecord.setNumber(foundFileRecord.getNumber() + 1);
+        additionalEmptyFileRecord.deleteFile();
+        return additionalEmptyFileRecord;
     }
 
     private Optional<FileRecord> findFirstFreeSpaceOfLength(int volumeInBlocks) {
@@ -100,19 +105,16 @@ public class Segment {
 
     private void mergeDeletedFiles() {
         while (anyDeletedFilesNotSingle()) {
-            // get without is present because we checked presence in the loop condition
-            int firstInRow = fileRecords.stream().filter(fileRecord -> fileRecord.isDeleted() && fileRecords.get(fileRecord.getNumber() + 1).isDeleted()).findFirst().get().getNumber();
-            int volume = fileRecords.stream().filter(fileRecord -> fileRecord.isDeleted() && fileRecords.get(fileRecord.getNumber() - 1).isDeleted()).takeWhile(fileRecord -> fileRecords.get(fileRecord.getNumber() - 1).isDeleted()).mapToInt(FileRecord::getVolumeInBlocks).sum();
-            int count = (int) fileRecords.stream().filter(fileRecord -> fileRecord.isDeleted() && fileRecords.get(fileRecord.getNumber() - 1).isDeleted()).takeWhile(fileRecord -> fileRecords.get(fileRecord.getNumber() - 1).isDeleted()).mapToInt(FileRecord::getVolumeInBlocks).count();
-
-            List<FileRecord> toDelete = fileRecords.stream().filter(fileRecord -> fileRecord.isDeleted() && fileRecords.get(fileRecord.getNumber() - 1).isDeleted()).takeWhile(fileRecord -> fileRecords.get(fileRecord.getNumber() - 1).isDeleted()).toList();
-
+            int firstInRow = getHeadInRow();
+            int tailEnd = getTailEnd();
+            int count = tailEnd - firstInRow;
+            List<FileRecord> toDelete = fileRecords.stream().filter(fileRecord -> fileRecord.getNumber() > firstInRow && fileRecord.getNumber() <= tailEnd).toList();
+            int volume = toDelete.stream().mapToInt(FileRecord::getVolumeInBlocks).sum();
             for (int i = 0; i < count; i++) {
                 fileRecords.remove(toDelete.get(i));
             }
-
             try {
-                fileRecords.stream().filter(FileRecord::isDeleted).findFirst().orElseThrow().addVolume(volume);
+                fileRecords.stream().filter(fileRecord -> fileRecord.getNumber() == firstInRow).findFirst().orElseThrow().addVolume(volume);
             } catch (NoSuchElementException e) {
                 e.printStackTrace();
             }
@@ -122,8 +124,44 @@ public class Segment {
         }
     }
 
+    private int getTailEnd() {
+        int tailEnd;
+        try {
+            tailEnd = fileRecords.stream().filter(this::isInTail).filter(fileRecord -> !fileRecords.get(fileRecord.getNumber() + 1).isDeleted()).findFirst().orElseThrow().getNumber();
+
+        } catch (NoSuchElementException e) {
+            tailEnd = fileRecords.size() - 1;
+        }
+        return tailEnd;
+    }
+
+
+    private boolean isInTail(FileRecord fileRecord) {
+        return fileRecord.isDeleted() && fileRecords.get(fileRecord.getNumber() - 1).isDeleted();
+    }
+
+
+    private int getHeadInRow() {
+        // get without is present because we checked presence in the loop condition
+        return fileRecords.stream().filter(this::isFirstInRow).findFirst().get().getNumber();
+    }
+
+    private boolean isFirstInRow(FileRecord fileRecord) {
+        return fileRecord.isDeleted() && fileRecord.getNumber() != fileRecords.size() - 1 && fileRecords.get(fileRecord.getNumber() + 1).isDeleted();
+    }
+
+
     private boolean anyDeletedFilesNotSingle() {
-        return fileRecords.stream().filter(FileRecord::isDeleted).anyMatch(fileRecord -> fileRecords.get(fileRecord.getNumber() + 1).isDeleted());
+        return fileRecords.stream().filter(FileRecord::isDeleted).anyMatch(fileRecord -> {
+
+                    if (fileRecord.getNumber() == fileRecords.size() - 1) {
+                        return false;
+                    } else {
+                        return fileRecords.get(fileRecord.getNumber() + 1).isDeleted();
+                    }
+                }
+        );
+
     }
 
     public void deleteFileRecordById(String id) {
@@ -142,21 +180,23 @@ public class Segment {
         return fileRecords.get(number);
     }
 
-    public int getNumber() {
-        return number;
-    }
-
     public int getAmountOfBlocks() {
         return amountOfBlocks;
     }
 
-    public List<FileRecord> getFileRecords() {
-        return fileRecords;
+    @JsonGetter("fileRecords")
+    public List<FileRecord> getFileRecordsCopy() {
+        return new ArrayList<>(fileRecords);
     }
 
-    public FileRecord findFileById(String id){return fileRecords.stream().filter(fileRecord -> Objects.equals(fileRecord.getId(), id)).findFirst().orElseThrow();}
+    public FileRecord findFileById(String id) {
+        return fileRecords.stream().filter(fileRecord -> Objects.equals(fileRecord.getId(), id)).findFirst().orElseThrow();
+    }
 
     public List<FileRecord> findFilesByCondition(Predicate<FileRecord> predicate) {
         return fileRecords.stream().filter(predicate).toList();
+    }
+
+    public static class DefragmentationNeeded extends Exception {
     }
 }

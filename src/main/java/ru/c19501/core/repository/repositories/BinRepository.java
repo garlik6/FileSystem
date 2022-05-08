@@ -32,15 +32,13 @@ public class BinRepository extends Repository implements Serializable {
     }
 
     public void writeRepository() {
-        try {
-            File binFile = new File(systemRepository + '/' + systemFileName);
-            FileOutputStream fos = new FileOutputStream(binFile);
+        File binFile = new File(systemRepository + '/' + systemFileName);
+        try (FileOutputStream fos = new FileOutputStream(binFile)) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fos);
             this.writeInStream(objectOutputStream);
             objectOutputStream.flush();
             objectOutputStream.close();
             fos.flush();
-            fos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,8 +1,7 @@
-/*
-package com.c19501.filesystem.configLoader;
+package ru.c19501.filesystem.configLoader;
 
-import com.c19501.filesystem.FileSystem.configLoader.ConfigLoader;
 import org.junit.jupiter.api.Test;
+import ru.c19501.core.config.ConfigLoader;
 
 import java.io.File;
 import java.util.Properties;
@@ -19,4 +18,4 @@ class ConfigLoaderTest {
         assertEquals("fileSystem2",properties.getProperty("fs.systemBinFileName"));
         assertEquals("src/main/resources/fileSystemFolder",properties.getProperty("fs.systemBinRepository"));
     }
-}*/
+}

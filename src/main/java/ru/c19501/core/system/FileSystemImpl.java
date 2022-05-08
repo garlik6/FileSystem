@@ -1,9 +1,12 @@
 
 package ru.c19501.core.system;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+
 import ru.c19501.core.FileSystem;
 import ru.c19501.core.config.ConfigLoader;
+import ru.c19501.core.files.Segment;
 import ru.c19501.core.repository.RepoLoader;
 import ru.c19501.core.repository.Repository;
 import ru.c19501.core.repository.loaders.BinLoaderRepository;
@@ -15,6 +18,8 @@ import java.util.Objects;
 @Getter
 public class FileSystemImpl implements FileSystem {
 
+
+    @Getter(AccessLevel.NONE)
     private Repository repository;
     private static RepoLoader loader;
     private static FileSystemImpl instance;
@@ -25,40 +30,42 @@ public class FileSystemImpl implements FileSystem {
     }
 
     @Override
-    public String addFileInSegment(String name, String type, int length, int segment){
-        return repository.getSegments().get(segment).addFileRecord(name,type,length);
+    public String addFileInSegment(String name, String type, int length, int segment) throws Segment.DefragmentationNeeded {
+        if(Objects.equals(name, ""))
+            throw new IllegalArgumentException("empty string is reserved name");
+        return repository.getSegmentsCopy().get(segment).addFileRecord(name,type,length);
     }
 
     @Override
     public void deleteFileInSegmentById(int segment, String id) {
-        repository.getSegments().get(segment).deleteFileRecordById(id);
+        repository.getSegmentsCopy().get(segment).deleteFileRecordById(id);
     }
 
     @Override
     public String findFileInSegmentById(int segment, String id) {
-        return repository.fileRecordsToString(repository.getSegments().get(segment).findFileById(id));
+        return repository.fileRecordsToString(repository.getSegmentsCopy().get(segment).findFileById(id));
     }
 
     @Override
     public String findFilesInSegmentByName(int segment, String name) {
-        return repository.fileRecordsToString(repository.getSegments().get(segment).findFilesByCondition(fileRecord -> Objects.equals(fileRecord.getFileName(), name)));
+        return repository.fileRecordsToString(repository.getSegmentsCopy().get(segment).findFilesByCondition(fileRecord -> Objects.equals(fileRecord.getFileName(), name)));
     }
 
     @Override
     public String findFilesInSegmentByType(int segment, String type) {
-        return repository.fileRecordsToString(repository.getSegments().get(segment).findFilesByCondition(fileRecord -> Objects.equals(fileRecord.getFileType(), type)));
+        return repository.fileRecordsToString(repository.getSegmentsCopy().get(segment).findFilesByCondition(fileRecord -> Objects.equals(fileRecord.getFileType(), type)));
     }
 
 
 
     @Override
     public int getFreeSpaceInSegment(int segment) {
-        return repository.getSegments().get(segment).getFreeAndDeletedSpace();
+        return repository.getSegmentsCopy().get(segment).getFreeAndDeletedSpace();
     }
 
     @Override
     public String retrieveAllFilesFromSegment(int segment) {
-        return repository.fileRecordsToString(repository.getSegments().get(segment).getFileRecords());
+        return repository.fileRecordsToString(repository.getSegmentsCopy().get(segment).getFileRecordsCopy());
     }
 
     private static void configure() {

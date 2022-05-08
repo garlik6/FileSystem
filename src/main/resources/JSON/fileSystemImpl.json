@@ -6,89 +6,89 @@
   "segments" : [ {
     "number" : 0,
     "amountOfBlocks" : 20,
-    "freeAndDeletedSpace" : 3,
-    "freeSpace" : 0,
+    "freeAndDeletedSpace" : 4,
+    "freeSpace" : 2,
     "fileRecords" : [ {
-      "isDeleted" : false,
+      "deleted" : false,
       "fileName" : "a1",
       "fileType" : "txt",
       "firstBlock" : 0,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/08 12:03:50",
+      "creationDate" : "2022/05/08 19:20:48",
       "number" : 0,
-      "deleted" : false
+      "id" : "16c2bd12-bde5-47af-9532-9379525ae7b0"
     }, {
-      "isDeleted" : false,
+      "deleted" : false,
       "fileName" : "a1",
       "fileType" : "txt",
       "firstBlock" : 1,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/08 12:03:50",
+      "creationDate" : "2022/05/08 19:20:48",
       "number" : 1,
-      "deleted" : false
+      "id" : "7111c6da-476f-47d3-94a3-9d55996033fe"
     }, {
-      "isDeleted" : true,
-      "fileName" : "ADDITIONAL",
+      "deleted" : false,
+      "fileName" : "a4",
       "fileType" : "txt",
       "firstBlock" : 2,
-      "volumeInBlocks" : 2,
-      "creationDate" : "2022/05/08 12:04:09",
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/08 19:20:48",
       "number" : 2,
-      "deleted" : true
+      "id" : "f0188303-d889-4c93-9c81-17cf150db57d"
     }, {
-      "isDeleted" : false,
-      "fileName" : "a1",
+      "deleted" : false,
+      "fileName" : "a5",
+      "fileType" : "txt",
+      "firstBlock" : 3,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/08 19:20:48",
+      "number" : 3,
+      "id" : "a5ab718d-0ff5-4df7-9361-8c630431266e"
+    }, {
+      "deleted" : false,
+      "fileName" : "a6",
       "fileType" : "txt",
       "firstBlock" : 4,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/08 12:03:50",
-      "number" : 3,
-      "deleted" : false
+      "creationDate" : "2022/05/08 19:20:48",
+      "number" : 4,
+      "id" : "7320c2e7-2879-49bf-8e77-635ad8b8848a"
     }, {
-      "isDeleted" : false,
-      "fileName" : "a1",
+      "deleted" : false,
+      "fileName" : "a7",
       "fileType" : "txt",
       "firstBlock" : 5,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/08 12:03:50",
-      "number" : 4,
-      "deleted" : false
+      "creationDate" : "2022/05/08 19:20:48",
+      "number" : 5,
+      "id" : "6f1ca126-cbca-4b45-83ef-8744d40831b5"
     }, {
-      "isDeleted" : false,
-      "fileName" : "a1",
+      "deleted" : false,
+      "fileName" : "a8",
       "fileType" : "txt",
       "firstBlock" : 6,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/08 12:03:50",
-      "number" : 5,
-      "deleted" : false
+      "creationDate" : "2022/05/08 19:20:48",
+      "number" : 6,
+      "id" : "1a2287ae-3983-481c-89ff-87a06156e891"
     }, {
-      "isDeleted" : false,
-      "fileName" : "a1",
+      "deleted" : false,
+      "fileName" : "a10",
       "fileType" : "txt",
       "firstBlock" : 7,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/08 12:03:50",
-      "number" : 6,
-      "deleted" : false
+      "creationDate" : "2022/05/08 19:20:48",
+      "number" : 7,
+      "id" : "4b96ae3d-046a-4513-a70c-7fa4a9c7eda5"
     }, {
-      "isDeleted" : false,
-      "fileName" : "a1",
+      "deleted" : false,
+      "fileName" : "a10",
       "fileType" : "txt",
       "firstBlock" : 8,
-      "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/08 12:03:50",
-      "number" : 7,
-      "deleted" : false
-    }, {
-      "isDeleted" : false,
-      "fileName" : "a1",
-      "fileType" : "txt",
-      "firstBlock" : 9,
-      "volumeInBlocks" : 11,
-      "creationDate" : "2022/05/08 12:03:50",
+      "volumeInBlocks" : 10,
+      "creationDate" : "2022/05/08 19:20:48",
       "number" : 8,
-      "deleted" : false
+      "id" : "2ed31b28-6cfe-4949-b8d7-4cf9ea34e07e"
     } ]
   }, {
     "number" : 1,

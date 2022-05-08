@@ -46,14 +46,14 @@ public class FileRecord {
         this.creationDate = dtf.format(LocalDateTime.now());
     }
 //
-//    public FileRecord() {
-//        this.isDeleted = false;
-//        this.fileName = "";
-//        this.fileType = "";
-//        this.firstBlock = 0;
-//        this.volumeInBlocks = 0;
-//        this.creationDate = "";
-//    }
+    public FileRecord() {
+        this.deleted = false;
+        this.fileName = "";
+        this.fileType = "";
+        this.firstBlock = 0;
+        this.volumeInBlocks = 0;
+        this.creationDate = "";
+    }
 
 
     public boolean doesFileRecordFit(int amountOfBlocks) {

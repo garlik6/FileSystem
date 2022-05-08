@@ -4,7 +4,7 @@ package ru.c19501.core.system;
 import lombok.Getter;
 import ru.c19501.core.FileSystem;
 import ru.c19501.core.config.ConfigLoader;
-import ru.c19501.core.repository.LoaderRepository;
+import ru.c19501.core.repository.RepoLoader;
 import ru.c19501.core.repository.Repository;
 import ru.c19501.core.repository.loaders.BinLoaderRepository;
 import ru.c19501.core.repository.loaders.JsonLoaderRepository;
@@ -16,7 +16,7 @@ import java.util.Objects;
 public class FileSystemImpl implements FileSystem {
 
     private Repository repository;
-    private static LoaderRepository loader;
+    private static RepoLoader loader;
     private static FileSystemImpl instance;
 
 
@@ -24,18 +24,41 @@ public class FileSystemImpl implements FileSystem {
         repository.writeRepository();
     }
 
-    public void addFileInSegment(String name, String type, int length, int segment){
-        repository.getSegments().get(segment).addFileRecord(name,type,length);
+    @Override
+    public String addFileInSegment(String name, String type, int length, int segment){
+        return repository.getSegments().get(segment).addFileRecord(name,type,length);
     }
 
     @Override
-    public void deleteFileInSegmentById(int segment, int fileId) {
-        repository.getSegments().get(segment).deleteFileRecord(fileId);
+    public void deleteFileInSegmentById(int segment, String id) {
+        repository.getSegments().get(segment).deleteFileRecordById(id);
     }
+
+    @Override
+    public String findFileInSegmentById(int segment, String id) {
+        return repository.fileRecordsToString(repository.getSegments().get(segment).findFileById(id));
+    }
+
+    @Override
+    public String findFilesInSegmentByName(int segment, String name) {
+        return repository.fileRecordsToString(repository.getSegments().get(segment).findFilesByCondition(fileRecord -> Objects.equals(fileRecord.getFileName(), name)));
+    }
+
+    @Override
+    public String findFilesInSegmentByType(int segment, String type) {
+        return repository.fileRecordsToString(repository.getSegments().get(segment).findFilesByCondition(fileRecord -> Objects.equals(fileRecord.getFileType(), type)));
+    }
+
+
 
     @Override
     public int getFreeSpaceInSegment(int segment) {
-        return repository.getSegments().get(segment).getFreeSpaceRemained();
+        return repository.getSegments().get(segment).getFreeAndDeletedSpace();
+    }
+
+    @Override
+    public String retrieveAllFilesFromSegment(int segment) {
+        return repository.fileRecordsToString(repository.getSegments().get(segment).getFileRecords());
     }
 
     private static void configure() {

@@ -1,6 +1,6 @@
 package ru.c19501.core.repository.loaders;
 
-import ru.c19501.core.repository.LoaderRepository;
+import ru.c19501.core.repository.RepoLoader;
 import ru.c19501.core.repository.Repository;
 import ru.c19501.core.repository.repositories.BinRepository;
 
@@ -9,7 +9,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
-public class BinLoaderRepository implements LoaderRepository {
+public class BinLoaderRepository implements RepoLoader {
     @Override
     public Repository loadRepository() {
         BinRepository binRepository = new BinRepository();

@@ -1,9 +1,8 @@
 package ru.c19501.core;
 
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
+
 
 
 /*
@@ -11,9 +10,7 @@ import lombok.ToString;
 * DTO for storing Json results of queries to core
 *
 * */
-@Getter
-@Setter
-@ToString
+@Data
 public class FileRecord {
     boolean isDeleted;
     String fileName;

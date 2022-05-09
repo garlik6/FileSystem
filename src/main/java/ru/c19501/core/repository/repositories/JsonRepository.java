@@ -62,6 +62,7 @@ public class JsonRepository extends Repository {
         try {
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             String s = objectMapper.writerWithView(Views.Public.class).writeValueAsString(this);
+            //TODO add logging to spot bugs
             System.out.print(s);
             objectMapper.disable(SerializationFeature.INDENT_OUTPUT);
         } catch (IOException e) {

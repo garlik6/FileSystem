@@ -3,7 +3,6 @@ package ru.c19501.core;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import ru.c19501.core.files.Segment;
 import ru.c19501.core.system.FileSystemFactoryImpl;
 
 public class ExampleSaving {

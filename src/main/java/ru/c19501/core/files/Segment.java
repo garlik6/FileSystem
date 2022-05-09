@@ -65,8 +65,7 @@ public class Segment {
             foundFileRecord.setDeleted(false);
             id = foundFileRecord.getId();
             fileRecords.stream().filter(fileRecord -> fileRecord.getNumber() > foundFileRecord.getNumber())
-                    .forEach(fileRecord ->
-                            fileRecord.setNumber(fileRecord.getNumber() + 1));
+                    .forEach(fileRecord -> fileRecord.setNumber(fileRecord.getNumber() + 1));
             FileRecord additionalEmptyFileRecord = getAdditionalFileRecord(findFileRecord.orElseThrow(), reduction);
             freeAndDeletedSpace -= findFileRecord.get().getVolumeInBlocks();
             fileRecords.add(additionalEmptyFileRecord);
@@ -143,7 +142,7 @@ public class Segment {
 
     private int getHeadInRow() {
         // get without is present because we checked presence in the loop condition
-        return fileRecords.stream().filter(this::isFirstInRow).findFirst().get().getNumber();
+        return fileRecords.stream().filter(this::isFirstInRow).findFirst().orElseThrow().getNumber();
     }
 
     private boolean isFirstInRow(FileRecord fileRecord) {

@@ -109,12 +109,8 @@ public class FileAdder {
             for (int i = 0; i < count; i++) {
                 segment.getFileRecords().remove(toDelete.get(i));
             }
-            try {
                 segment.getFileRecords().stream()
                         .filter(fileRecord -> fileRecord.getNumber() == firstInRow).findFirst().orElseThrow().addVolume(volume);
-            } catch (NoSuchElementException e) {
-                e.printStackTrace();
-            }
             for (int i = firstInRow + 1; i < segment.getFileRecords().size(); i++) {
                 segment.getFileRecords().get(i).setNumber(segment.getFileRecords().get(i).getNumber() - count);
             }
@@ -123,15 +119,15 @@ public class FileAdder {
 
     private int getTailEnd() {
         int tailEnd;
-        try {
             tailEnd = segment.getFileRecords().stream()
                     .filter(this::isInTail)
-                    .filter(fileRecord -> !segment.getFileRecords().get(fileRecord.getNumber() + 1)
-                            .isDeleted()).findFirst().orElseThrow().getNumber();
-
-        } catch (NoSuchElementException e) {
-            tailEnd = segment.getFileRecords().size() - 1;
-        }
+                    .filter(fileRecord -> {
+                        if (fileRecord.getNumber() == segment.getFileRecords().size() - 1) {
+                            return true;
+                        }
+                        return !segment.getFileRecords().get(fileRecord.getNumber() + 1).isDeleted();
+                    })
+                    .findFirst().orElseThrow().getNumber();
         return tailEnd;
     }
 

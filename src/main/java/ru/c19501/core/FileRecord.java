@@ -1,10 +1,5 @@
 package ru.c19501.core;
-
-
 import lombok.Data;
-
-
-
 /*
 *
 * DTO for storing Json results of queries to core

@@ -12,14 +12,10 @@ import java.io.IOException;
 public class JsonLoaderRepository implements RepoLoader {
 
     @Override
-    public Repository loadRepository() {
+    public Repository loadRepository() throws IOException {
         JsonRepository jsonRepository = new JsonRepository();
         ObjectMapper objectMapper = new ObjectMapper();
-        try {
             jsonRepository = objectMapper.readerWithView(Views.Internal.class).readValue(new File(jsonRepository.getSystemRepository() + '/' + jsonRepository.getSystemFileName()), JsonRepository.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return jsonRepository;
     }
 }

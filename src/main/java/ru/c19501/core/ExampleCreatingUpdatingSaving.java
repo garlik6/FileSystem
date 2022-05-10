@@ -7,9 +7,9 @@ import ru.c19501.core.system.FileSystemFactoryImpl;
 import java.util.Arrays;
 import java.util.List;
 
-import static ru.c19501.core.ExampleSaving.objectMapper;
+import static ru.c19501.core.ExampleLoading.objectMapper;
 
-public class ExampleCreatingUpdating {
+public class ExampleCreatingUpdatingSaving {
     public static void main(String[] args) throws Segment.DefragmentationNeeded, JsonProcessingException {
         FileSystemFactory factory = new FileSystemFactoryImpl();
         FileSystem fileSystem = factory.getSystem();

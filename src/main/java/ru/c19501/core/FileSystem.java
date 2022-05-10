@@ -2,6 +2,7 @@ package ru.c19501.core;
 
 import ru.c19501.core.files.Segment;
 
+
 public interface FileSystem {
 
     /**
@@ -9,10 +10,11 @@ public interface FileSystem {
      */
     void save();
 
-    /**
-     * Loads system in format, path specified in config.properties
+
+    /**  Loads system in format, path specified in config.properties
+     * @return is loading successful
      */
-    void load();
+    boolean load();
 
     /**
      * @param name    name of the file, being added

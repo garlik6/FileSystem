@@ -13,6 +13,7 @@ import ru.c19501.core.repository.loaders.BinLoaderRepository;
 import ru.c19501.core.repository.loaders.JsonLoaderRepository;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 
 @Getter
@@ -78,9 +79,14 @@ public class FileSystemImpl implements FileSystem {
         }
     }
 
-    public void load() {
+    public boolean load()  {
         configure();
-        repository = loader.loadRepository();
+        try {
+            repository = loader.loadRepository();
+        }catch (IOException e){
+            return false;
+        }
+        return true;
     }
 
     public void print() {

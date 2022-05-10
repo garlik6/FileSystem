@@ -16,14 +16,14 @@ public class ExampleCreatingUpdatingSaving {
         String fileId = fileSystem.addFileInSegment("a1", "txt", 1, 0);
         fileSystem.addFileInSegment("a1", "txt", 1, 0);
         String id1  = fileSystem.addFileInSegment("a3", "txt", 1, 0);
-        fileSystem.deleteFileInSegmentById(0,id1);
+        fileSystem.deleteFileFromSegmentById(0,id1);
         fileSystem.addFileInSegment("a4", "txt", 1, 0);
         fileSystem.addFileInSegment("a5", "txt", 1, 0);
 
         fileSystem.addFileInSegment("a6", "txt", 1, 0);
         fileSystem.addFileInSegment("a7", "txt", 1, 0);
         String id2 =  fileSystem.addFileInSegment("a8", "txt", 2, 0);
-        fileSystem.deleteFileInSegmentById(0,id2);
+        fileSystem.deleteFileFromSegmentById(0,id2);
         fileSystem.addFileInSegment("a9", "txt", 1, 0);
         fileSystem.addFileInSegment("a10", "txt", 1, 0);
         fileSystem.addFileInSegment("a10", "txt", 10, 0);

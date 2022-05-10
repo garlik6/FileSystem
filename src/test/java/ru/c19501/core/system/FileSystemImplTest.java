@@ -23,9 +23,9 @@ class FileSystemImplTest {
             fileSystem.addFileInSegment("a1","txt", 10, 0);
         });
 
-        fileSystem.deleteFileInSegmentById(0, id1);
+        fileSystem.deleteFileFromSegmentById(0, id1);
         assertThrows(IllegalStateException.class, () -> {
-            fileSystem.deleteFileInSegmentById(0, id1);
+            fileSystem.deleteFileFromSegmentById(0, id1);
         });
 
     }
@@ -47,9 +47,9 @@ class FileSystemImplTest {
         fileSystem.addFileInSegment("a1", "txt", 1, 0);
         fileSystem.addFileInSegment("a1", "txt", 1, 0);
         fileSystem.addFileInSegment("a1","txt", 11, 0);
-        fileSystem.deleteFileInSegmentById(0, id1);
-        fileSystem.deleteFileInSegmentById(0, id2);
-        fileSystem.deleteFileInSegmentById(0, id3);
+        fileSystem.deleteFileFromSegmentById(0, id1);
+        fileSystem.deleteFileFromSegmentById(0, id2);
+        fileSystem.deleteFileFromSegmentById(0, id3);
         fileSystem.addFileInSegment("ADDITIONAL","txt", 1, 0);
     }
 
@@ -69,9 +69,9 @@ class FileSystemImplTest {
         fileSystem.addFileInSegment("a1", "txt", 1, 0);
         fileSystem.addFileInSegment("a1", "txt", 1, 0);
         fileSystem.addFileInSegment("a1","txt", 11, 0);
-        fileSystem.deleteFileInSegmentById(0, id1);
-        fileSystem.deleteFileInSegmentById(0, id2);
-        fileSystem.deleteFileInSegmentById(0, id3);
+        fileSystem.deleteFileFromSegmentById(0, id1);
+        fileSystem.deleteFileFromSegmentById(0, id2);
+        fileSystem.deleteFileFromSegmentById(0, id3);
         fileSystem.addFileInSegment("ADDITIONAL","txt", 1, 0);
     }
 

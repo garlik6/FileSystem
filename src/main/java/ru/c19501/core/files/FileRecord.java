@@ -36,6 +36,16 @@ public class FileRecord {
     @JsonView(Views.Public.class)
     private String id = UUID.randomUUID().toString();
 
+    public FileRecord(Segment.NewFileParams fileParams, int firstBlock) {
+        deleted = false;
+        this.fileName = fileParams.name;
+        this.fileType = fileParams.type;
+        this.firstBlock = firstBlock;
+        this.volumeInBlocks = fileParams.volumeInBlocks;
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        this.creationDate = dtf.format(LocalDateTime.now());
+    }
+
     public FileRecord(String fileName, String fileType, int firstBlock, int volumeInBlocks) {
         deleted = false;
         this.fileName = fileName;
@@ -45,7 +55,8 @@ public class FileRecord {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         this.creationDate = dtf.format(LocalDateTime.now());
     }
-//
+
+    //
     public FileRecord() {
         this.deleted = false;
         this.fileName = "";

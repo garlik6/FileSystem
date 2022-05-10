@@ -38,7 +38,7 @@ public class FileSystemImpl implements FileSystem {
     }
 
     @Override
-    public void deleteFileInSegmentById(int segment, String id) {
+    public void deleteFileFromSegmentById(int segment, String id) {
         repository.getSegmentsCopy().get(segment).deleteFileRecordById(id);
     }
 

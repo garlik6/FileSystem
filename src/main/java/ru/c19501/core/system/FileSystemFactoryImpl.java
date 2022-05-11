@@ -12,7 +12,7 @@ import java.util.Objects;
 public class FileSystemFactoryImpl implements FileSystemFactory {
     @Override
     public  FileSystem getSystem() {
-        String config = ConfigLoader.load(new File("src/main/resources/config.properties")).getProperty("fs.mode");
+        String config = ConfigLoader.properties.getProperty("fs.mode");
         FileSystemImpl fileSystem = FileSystemImpl.getInstance();
         if (Objects.equals(config, "BIN")) {
             fileSystem.initRepository(new BinRepository());

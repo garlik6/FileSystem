@@ -6,13 +6,12 @@ import lombok.Getter;
 
 import ru.c19501.core.FileSystem;
 import ru.c19501.core.config.ConfigLoader;
-import ru.c19501.core.files.Segment;
+import ru.c19501.exceptions.CoreException;
 import ru.c19501.core.repository.RepoLoader;
 import ru.c19501.core.repository.Repository;
 import ru.c19501.core.repository.loaders.BinLoaderRepository;
 import ru.c19501.core.repository.loaders.JsonLoaderRepository;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
@@ -31,7 +30,7 @@ public class FileSystemImpl implements FileSystem {
     }
 
     @Override
-    public String addFileInSegment(String name, String type, int length, int segment) throws Segment.DefragmentationNeeded {
+    public String addFileInSegment(String name, String type, int length, int segment) throws CoreException {
         if(Objects.equals(name, ""))
             throw new IllegalArgumentException("empty string is reserved name");
         return repository.getSegmentsCopy().get(segment).addFileRecord(name,type,length);
@@ -70,7 +69,7 @@ public class FileSystemImpl implements FileSystem {
     }
 
     private static void configure() {
-        String config = ConfigLoader.load(new File("src/main/resources/config.properties")).getProperty("fs.mode");
+        String config = ConfigLoader.properties.getProperty("fs.mode");
         if (Objects.equals(config, "JSON")) {
             loader = new JsonLoaderRepository();
         }

@@ -3,14 +3,16 @@ import java.io.*;
 import java.util.Properties;
 
 public class ConfigLoader {
-    public static Properties load(File configFile){
+
+    static public Properties properties;
+    static {
         Properties prop = new Properties();
-        try (InputStream input = new FileInputStream(configFile)){
+        try (InputStream input = new FileInputStream("src/main/resources/config.properties")){
             prop.load(input);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return prop;
+        properties = prop;
     }
 
     private ConfigLoader(){}

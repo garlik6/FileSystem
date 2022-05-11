@@ -38,11 +38,10 @@ public abstract class Repository {
     protected final List<Segment> segments = new ArrayList<>();
 
     protected Repository() {
-        File file = new File("src/main/resources/config.properties");
-        Properties properties = ConfigLoader.load(file);
+        Properties properties = ConfigLoader.properties;
         systemVersion = Integer.parseInt(properties.getProperty("fs.systemVersion"));
         owner = properties.getProperty("fs.owner");
-        int maxSegments = Integer.parseInt(properties.getProperty("fs.SegmentAmountInCatalog"));
+        int maxSegments = Integer.parseInt(properties.getProperty("fs.segmentAmountInCatalog"));
         for (int i = 0; i < maxSegments; i++) {
             segments.add(Segment.createSegment(i));
         }

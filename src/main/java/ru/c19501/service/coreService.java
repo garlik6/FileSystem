@@ -1,13 +1,18 @@
 package ru.c19501.service;
 
-import ru.c19501.core.FileSystem;
-import ru.c19501.core.FileSystemFactory;
-import ru.c19501.core.system.FileSystemFactoryImpl;
+import ru.c19501.service.model.FileRecordDTO;
+import ru.c19501.service.model.FileRecordReturnDTO;
 
-public class coreService {
-    FileSystem fileSystem;
-    public coreService(FileSystem fileSystem) {
-        FileSystemFactory factory = new FileSystemFactoryImpl();
-        this.fileSystem = factory.getSystem();
-    }
+import java.util.List;
+
+public interface CoreService {
+
+    boolean createFile(String name, String type, int length);
+
+    FileRecordReturnDTO foundFile(String name, String type);
+
+    List<FileRecordDTO> readFiles();
+
+    boolean deleteFile(String name, String type);
+
 }

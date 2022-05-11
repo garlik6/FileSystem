@@ -1,6 +1,6 @@
 package ru.c19501.core;
 
-import ru.c19501.core.files.Segment;
+import ru.c19501.exceptions.CoreException;
 
 
 public interface FileSystem {
@@ -23,7 +23,7 @@ public interface FileSystem {
      * @param segment segment to add file to(amount of segments is controlled by config.properties)
      * @return returns unique id of the added file
      */
-    String addFileInSegment(String name, String type, int length, int segment) throws Segment.DefragmentationNeeded;
+    String addFileInSegment(String name, String type, int length, int segment) throws CoreException;
 
     /**
      * @param segment segment to delete file from

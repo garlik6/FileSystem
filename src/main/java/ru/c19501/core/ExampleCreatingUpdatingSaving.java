@@ -3,7 +3,7 @@ package ru.c19501.core;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import ru.c19501.exceptions.CoreException;
 import ru.c19501.core.system.FileSystemFactoryImpl;
-import ru.c19501.service.model.FileRecordDTO;
+import ru.c19501.model.FileRecord.FileRecordDTO;
 
 import java.util.Arrays;
 import java.util.List;

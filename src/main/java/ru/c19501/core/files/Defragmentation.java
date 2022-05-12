@@ -63,4 +63,8 @@ public class Defragmentation {
 
         return false;
     }
+
+    public int howMuchSpace(Segment segment) {
+        return segment.getFreeAndDeletedSpace();
+    }
 }

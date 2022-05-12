@@ -26,4 +26,24 @@ public class Defragmentation {
         }
     }
 
+    public int maxLengthToInsert(Segment segment) {
+        int maxRes = 0;
+        int currentRes = 0;
+
+        for (FileRecord fileRecord: segment.getFileRecords()) {
+            if (fileRecord.isDeleted()) {
+                currentRes += fileRecord.getVolumeInBlocks();
+            }
+            else {
+                if (currentRes > maxRes) {
+                    maxRes = currentRes;
+                }
+
+                currentRes = 0;
+            }
+        }
+
+        return maxRes;
+    }
+
 }

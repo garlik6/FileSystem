@@ -33,10 +33,10 @@ public class FileAdder {
         }
         if (foundFileRecord.getVolumeInBlocks() > fileParams.volumeInBlocks) {
             int reduction = foundFileRecord.getVolumeInBlocks() - fileParams.volumeInBlocks;
-            addAdditionalFileRecord(foundFileRecord, reduction);
             updateRestOfFiles(foundFileRecord);
+            addAdditionalFileRecord(foundFileRecord, reduction);
             adjustFoundFile(foundFileRecord, reduction);
-
+            segment.getFileRecords().sort(Comparator.comparing(FileRecord::getNumber));
         }
     }
 
@@ -62,9 +62,9 @@ public class FileAdder {
     }
 
     private void updateRestOfFiles(FileRecord foundFileRecord) {
-        segment.getFileRecords().stream().filter(fileRecord -> fileRecord.getNumber() > foundFileRecord.getNumber() + 1)
+        segment.getFileRecords().stream().filter(fileRecord -> fileRecord.getNumber() > foundFileRecord.getNumber())
                 .forEach(fileRecord -> fileRecord.setNumber(fileRecord.getNumber() + 1));
-        segment.getFileRecords().sort(Comparator.comparing(FileRecord::getNumber));
+
     }
 
     private void addAdditionalFileRecord(FileRecord findFileRecord, int reduction) {
@@ -151,7 +151,6 @@ public class FileAdder {
 
     private boolean anyDeletedFilesNotSingle() {
         return segment.getFileRecords().stream().filter(FileRecord::isDeleted).anyMatch(fileRecord -> {
-
                     if (fileRecord.getNumber() == segment.getFileRecords().size() - 1) {
                         return false;
                     } else {

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.c19501.exceptions.CoreException;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -153,7 +154,20 @@ class SegmentTest {
         segment.deleteFileRecordById(id8);
         assertThrows(CoreException.class, () ->
                 segment.addFileRecord("ADDITIONAL", "txt", 4));
+    }
 
+
+    @DisplayName("Difragmentation NEEDED")
+    @Test
+    void addFileRecord6() throws CoreException {
+        Segment segment = Segment.createSegment(0);
+        String id1 = segment.addFileRecord("1", "txt", 2);
+        String id2 = segment.addFileRecord("1", "txt", 1);
+        segment.deleteFileRecordById(id1);
+        String id3 = segment.addFileRecord("2", "txt", 1);
+        String id4 = segment.addFileRecord("3", "txt", 1);
+
+        assertEquals("[0, 1, 2]", Arrays.toString(segment.getFileRecords().stream().mapToInt(FileRecord::getNumber).toArray()));
     }
 
 }

@@ -3,6 +3,7 @@ package ru.c19501.core.files;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Defragmentation {
     public void defragment(Segment segment) {
@@ -66,5 +67,14 @@ public class Defragmentation {
 
     public int howMuchSpace(Segment segment) {
         return segment.getFreeAndDeletedSpace();
+    }
+
+    public double defradExt(Segment segment) {
+        int numberOfUnusedBlocks = segment.getFileRecords().stream().filter(fileRecord -> fileRecord.isDeleted())
+                .collect(Collectors.toList()).size();
+        double averageFileLen = segment.getFreeAndDeletedSpace() / numberOfUnusedBlocks;
+        int maxLenToInsert = maxLengthToInsert(segment);
+
+        return 1 - (maxLenToInsert/segment.getFreeAndDeletedSpace() - averageFileLen/maxLenToInsert);
     }
 }

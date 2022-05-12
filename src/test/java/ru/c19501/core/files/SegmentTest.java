@@ -174,14 +174,17 @@ class SegmentTest {
     @Test
     void addFileRecord7() throws CoreException {
         Segment segment = Segment.createSegment(0);
-        String id1 = segment.addFileRecord("1", "txt", 2);
-        String id2 = segment.addFileRecord("1", "txt", 1);
+        String id1 = segment.addFileRecord("1", "txt", 19);
+        String id2 = segment.addFileRecord("2", "txt", 1);
         segment.deleteFileRecordById(id1);
         segment.deleteFileRecordById(id2);
-        String id3 = segment.addFileRecord("2", "txt", 1);
-        String id4 = segment.addFileRecord("3", "txt", 1);
+        String id3 = segment.addFileRecord("3", "txt", 10);
+        String id4 = segment.addFileRecord("4", "txt", 3);
 
         assertEquals("[0, 1, 2]", Arrays.toString(segment.getFileRecords().stream().mapToInt(FileRecord::getNumber).toArray()));
+        assertEquals("3", segment.getFileRecords().get(0).getFileName());
+        assertEquals("4", segment.getFileRecords().get(1).getFileName());
+
     }
 
 

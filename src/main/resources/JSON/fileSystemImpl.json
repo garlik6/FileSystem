@@ -6,7 +6,7 @@
   "segments" : [ {
     "number" : 0,
     "amountOfBlocks" : 20,
-    "freeAndDeletedSpace" : 5,
+    "freeAndDeletedSpace" : 6,
     "freeSpace" : 4,
     "fileRecords" : [ {
       "deleted" : false,
@@ -23,9 +23,9 @@
       "fileType" : "txt",
       "firstBlock" : 2,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/12 23:35:01",
+      "creationDate" : "2022/05/12 23:47:21",
       "number" : 1,
-      "id" : "3125e93d-8a26-4cda-824d-b5b94779c6ef"
+      "id" : "67afc74f-9aed-4a39-932d-82f23b8ed253"
     }, {
       "deleted" : false,
       "fileName" : "a3",

@@ -34,8 +34,8 @@ public class FileAdder {
         if (foundFileRecord.getVolumeInBlocks() > fileParams.volumeInBlocks) {
             int reduction = foundFileRecord.getVolumeInBlocks() - fileParams.volumeInBlocks;
             updateRestOfFiles(foundFileRecord);
+            adjustFoundFile(foundFileRecord, reduction, fileParams);
             addAdditionalFileRecord(foundFileRecord, reduction);
-            adjustFoundFile(foundFileRecord, reduction);
             segment.getFileRecords().sort(Comparator.comparing(FileRecord::getNumber));
         }
     }
@@ -73,9 +73,9 @@ public class FileAdder {
         segment.getFileRecords().add(additionalEmptyFileRecord);
     }
 
-    private void adjustFoundFile(FileRecord foundFileRecord, int reduction) {
+    private void adjustFoundFile(FileRecord foundFileRecord, int reduction, Segment.NewFileParams fileParams) {
+        transformFoundToNew(fileParams, foundFileRecord);
         foundFileRecord.reduceVolume(reduction);
-        foundFileRecord.setDeleted(false);
     }
 
     private void transformFoundToNew(Segment.NewFileParams fileParams, FileRecord foundFileRecord) {

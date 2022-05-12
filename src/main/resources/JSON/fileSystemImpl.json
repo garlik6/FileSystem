@@ -6,10 +6,10 @@
   "segments" : [ {
     "number" : 0,
     "amountOfBlocks" : 20,
-    "freeAndDeletedSpace" : 4,
+    "freeAndDeletedSpace" : 6,
     "freeSpace" : 4,
     "fileRecords" : [ {
-      "deleted" : false,
+      "deleted" : true,
       "fileName" : "a1",
       "fileType" : "txt",
       "firstBlock" : 0,
@@ -18,7 +18,7 @@
       "number" : 0,
       "id" : "c9b9ef34-9ebd-43c2-81bb-14f19e3cd840"
     }, {
-      "deleted" : false,
+      "deleted" : true,
       "fileName" : "a2",
       "fileType" : "txt",
       "firstBlock" : 1,

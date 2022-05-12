@@ -157,7 +157,7 @@ class SegmentTest {
     }
 
 
-    @DisplayName("Difragmentation NEEDED")
+    @DisplayName("Defragmentation NEEDED")
     @Test
     void addFileRecord6() throws CoreException {
         Segment segment = Segment.createSegment(0);
@@ -169,5 +169,21 @@ class SegmentTest {
 
         assertEquals("[0, 1, 2]", Arrays.toString(segment.getFileRecords().stream().mapToInt(FileRecord::getNumber).toArray()));
     }
+
+    @DisplayName("Deleted files row at the beginning(bug check related)")
+    @Test
+    void addFileRecord7() throws CoreException {
+        Segment segment = Segment.createSegment(0);
+        String id1 = segment.addFileRecord("1", "txt", 2);
+        String id2 = segment.addFileRecord("1", "txt", 1);
+        segment.deleteFileRecordById(id1);
+        segment.deleteFileRecordById(id2);
+        String id3 = segment.addFileRecord("2", "txt", 1);
+        String id4 = segment.addFileRecord("3", "txt", 1);
+
+        assertEquals("[0, 1, 2]", Arrays.toString(segment.getFileRecords().stream().mapToInt(FileRecord::getNumber).toArray()));
+    }
+
+
 
 }

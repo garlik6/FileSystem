@@ -59,7 +59,7 @@ public class Segment {
         return fileAdder.addFileRecord(fileParams);
     }
 
-    public void deleteFileRecordById(String id) {
+    public void deleteFileRecordById(String id) throws IllegalStateException{
         FileRecord fileRecord = findFileById(id);
         if (fileRecord.isDeleted())
             throw new IllegalStateException("trying to delete file that is already deleted");

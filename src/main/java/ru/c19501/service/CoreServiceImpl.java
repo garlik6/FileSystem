@@ -5,19 +5,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.c19501.core.FileSystem;
 import ru.c19501.core.config.ConfigLoader;
 import ru.c19501.exceptions.CoreException;
-import ru.c19501.service.mapper.FileRecordMapper;
 import ru.c19501.model.FileRecord.FileRecordDTO;
 import ru.c19501.model.FileRecord.FileRecordReturnDTO;
+import ru.c19501.service.mapper.FileRecordMapper;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CoreServiceImpl implements CoreService {
 
-    int countSegments;
-    FileSystem fileSystem;
-    ObjectMapper objectMapper;
+    private final int countSegments;
+    private final FileSystem fileSystem;
+    private final ObjectMapper objectMapper;
 
     public CoreServiceImpl(FileSystem fileSystem, ObjectMapper objectMapper) {
         this.countSegments = Integer.parseInt(ConfigLoader.properties.getProperty("fs.segmentAmountInCatalog"));
@@ -25,89 +24,93 @@ public class CoreServiceImpl implements CoreService {
         this.objectMapper = objectMapper;
     }
 
-    //TODO добавить валидацию
     @Override
     public boolean createFile(String name, String type, int length) {
+
+        //TODO добавить валидацию
         if (foundFile(name, type) == null) {
             try {
                 for (int i = 0; i < countSegments; i++) {
-                    int freeSpace = fileSystem.getFreeSpaceInSegment(i);
-                    if (freeSpace >= length) {
+                    if (fileSystem.getFreeSpaceInSegment(i) >= length) {
                         fileSystem.addFileInSegment(name, type, length, i);
                         return true;
                     }
                 }
             } catch (CoreException e) {
-                System.err.println(e);
+                System.err.println(e.getMessage());
             }
         }
         return false;
     }
 
-    //TODO добавить валидацию
     @Override
     public FileRecordReturnDTO foundFile(String name, String type) {
-        FileRecordDTO file = foundFileByNameAndType(name, type);
-        if (file == null) return null;
-        return FileRecordMapper.dtoToReturnDto(file);
+
+        //TODO добавить валидацию
+        FileRecordDTO file;
+        for (int i = 0; i < countSegments; i++) {
+            file = foundFileByNameAndType(name, type, i);
+            if (file != null && !file.isDeleted()) {
+                return FileRecordMapper.dtoToReturnDto(file);
+            }
+        }
+        return null;
     }
 
     @Override
     public List<FileRecordReturnDTO> readFiles() {
+        List<FileRecordDTO> fileRecordDTOList = new ArrayList<>();
         try {
-
-            List<FileRecordDTO> fileRecordDTOList = new ArrayList<>();
             for (int i = 0; i < countSegments; i++) {
                 FileRecordDTO[] fileRecordDTOs = getFilesBySegment(i);
-                fileRecordDTOList.addAll(Arrays.asList(fileRecordDTOs));
+                for (FileRecordDTO file : fileRecordDTOs) {
+                    if (!file.isDeleted()) {
+                        fileRecordDTOList.add(file);
+                    }
+                }
             }
-
-            return fileRecordDTOList.stream()
-                    .map(FileRecordMapper::dtoToReturnDto)
-                    .toList();
-
         } catch (JsonProcessingException e) {
             e.getMessage();
         }
-
-        return new ArrayList<>();
+        return fileRecordDTOList.stream()
+                .map(FileRecordMapper::dtoToReturnDto)
+                .toList();
     }
 
     @Override
     public boolean deleteFile(String name, String type) {
-        FileRecordDTO file = foundFileByNameAndType(name, type);
-/*        if (file == null) {
-            try {
-                fileSystem.deleteFileFromSegmentById(file.getId());
-            } catch () {
-
+        try {
+            FileRecordDTO file;
+            for (int i = 0; i < countSegments; i++) {
+                file = foundFileByNameAndType(name, type, i);
+                if (file != null) {
+                    fileSystem.deleteFileFromSegmentById(i, file.getId());
+                    return true;
+                }
             }
-        }*/
+        } catch (IllegalStateException e) {
+            System.err.println(e.getMessage());
+        }
         return false;
     }
 
     @Override
     public void defragmentation() {
-
     }
 
-    private FileRecordDTO foundFileByNameAndType(String name, String type) {
+    private FileRecordDTO foundFileByNameAndType(String name, String type, int segmentId) {
+        List<FileRecordDTO> fileRecordDTOList = new ArrayList<>();
         try {
-
-            List<FileRecordDTO> fileRecordDTOList = new ArrayList<>();
-            for (int i = 0; i < countSegments; i++) {
-                FileRecordDTO[] fileRecordDTOs = getFilesBySegmentAndName(i, name);
-                fileRecordDTOList.addAll(Arrays.asList(fileRecordDTOs));
-            }
+            FileRecordDTO[] fileRecordDTOs = getFilesBySegmentAndName(segmentId, name);
+            fileRecordDTOList.addAll(List.of(fileRecordDTOs));
 
             for (FileRecordDTO file : fileRecordDTOList) {
                 if (file.getFileType().equals(type)) {
                     return file;
                 }
             }
-
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         return null;
     }

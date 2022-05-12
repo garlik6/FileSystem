@@ -4,7 +4,7 @@ import java.util.Properties;
 
 public class ConfigLoader {
 
-    static public Properties properties;
+    static public final Properties properties;
     static {
         Properties prop = new Properties();
         try (InputStream input = new FileInputStream("src/main/resources/config.properties")){

@@ -11,6 +11,8 @@ import ru.c19501.service.mapper.FileRecordMapper;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CoreServiceImpl implements CoreService {
 
@@ -27,7 +29,6 @@ public class CoreServiceImpl implements CoreService {
     @Override
     public boolean createFile(String name, String type, int length) {
 
-        //TODO добавить валидацию
         if (foundFile(name, type) == null) {
             try {
                 for (int i = 0; i < countSegments; i++) {
@@ -46,7 +47,11 @@ public class CoreServiceImpl implements CoreService {
     @Override
     public FileRecordReturnDTO foundFile(String name, String type) {
 
-        //TODO добавить валидацию
+        if(isCorrectName(name)){
+            System.err.println("Not correct name");
+            return null;
+        }
+
         FileRecordDTO file;
         for (int i = 0; i < countSegments; i++) {
             file = foundFileByNameAndType(name, type, i);
@@ -79,6 +84,11 @@ public class CoreServiceImpl implements CoreService {
 
     @Override
     public boolean deleteFile(String name, String type) {
+        if(isCorrectName(name)){
+            System.err.println("Not correct name");
+            return false;
+        }
+
         try {
             FileRecordDTO file;
             for (int i = 0; i < countSegments; i++) {
@@ -96,6 +106,7 @@ public class CoreServiceImpl implements CoreService {
 
     @Override
     public void defragmentation() {
+
     }
 
     private FileRecordDTO foundFileByNameAndType(String name, String type, int segmentId) {
@@ -121,6 +132,12 @@ public class CoreServiceImpl implements CoreService {
 
     private FileRecordDTO[] getFilesBySegment(int segmentId) throws JsonProcessingException {
         return objectMapper.readValue(fileSystem.retrieveAllFilesFromSegment(segmentId), FileRecordDTO[].class);
+    }
+
+    private boolean isCorrectName(String name){
+        Pattern p = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
+        Matcher matcher = p.matcher(name);
+        return  matcher.find();
     }
 
 }

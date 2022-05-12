@@ -3,8 +3,6 @@ x
 Hsrc/main/java/ru/c19501/core/repository/loaders/BinLoaderRepository.java,1/3/134148ca248a906792f93e444133b0df1ad377df
 w
 Gsrc/main/java/ru/c19501/core/repository/repositories/BinRepository.java,f/b/fb4411c3cafe59b56dce57af3a9a355d22777252
-e
-5src/main/java/ru/c19501/core/config/ConfigLoader.java,2/f/2fac93d8a3d6864fa53fc3fb4db56506bbd36f61
 u
 Esrc/test/java/ru/c19501/filesystem/configLoader/ConfigLoaderTest.java,e/7/e7b0120385e5449beb657c4002d58b8da1a57647
 b

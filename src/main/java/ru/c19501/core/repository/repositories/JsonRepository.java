@@ -20,7 +20,7 @@ public class JsonRepository extends Repository {
 
     public JsonRepository() {
         super();
-        Properties prop = ConfigLoader.load(new File("src/main/resources/config.properties"));
+        Properties prop = ConfigLoader.properties;
         this.systemFileName = prop.getProperty("fs.systemJSONFileName");
         this.systemRepository = prop.getProperty("fs.systemJSONRepository");
     }

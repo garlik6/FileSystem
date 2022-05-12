@@ -1,6 +1,7 @@
 package ru.c19501.core.files;
 
 import lombok.AllArgsConstructor;
+import ru.c19501.exceptions.CoreException;
 
 import java.util.*;
 
@@ -10,7 +11,7 @@ public class FileAdder {
     Segment segment;
 
 
-    public String addFileRecord(Segment.NewFileParams fileParams) throws Segment.DefragmentationNeeded {
+    public String addFileRecord(Segment.NewFileParams fileParams) throws CoreException {
         if (segment.getFreeAndDeletedSpace() < fileParams.volumeInBlocks) {
             throw new ArrayIndexOutOfBoundsException("Not enough space left");
         }
@@ -23,7 +24,7 @@ public class FileAdder {
         if (segment.getFreeSpace() >= fileParams.volumeInBlocks) {
             return addNewFileRecord(new FileRecord(fileParams, getLastBlock()));
         }
-        throw new Segment.DefragmentationNeeded();
+        throw new CoreException("There is not enough space, defragmentation is needed");
     }
 
     private void exchangeFoundToNew(FileRecord foundFileRecord, Segment.NewFileParams fileParams) {

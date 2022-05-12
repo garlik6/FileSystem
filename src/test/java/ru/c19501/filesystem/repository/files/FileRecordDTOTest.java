@@ -6,7 +6,7 @@ import ru.c19501.core.files.FileRecord;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FileRecordTest {
+class FileRecordDTOTest {
 
     @Test
     void doesFileRecordFit() {

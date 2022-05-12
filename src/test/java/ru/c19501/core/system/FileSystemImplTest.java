@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ru.c19501.core.FileSystem;
 import ru.c19501.core.FileSystemFactory;
-import ru.c19501.core.files.Segment;
+import ru.c19501.exceptions.CoreException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +12,7 @@ class FileSystemImplTest {
 
 
     @Test
-    void addFileInSegmentExceptions() throws Segment.DefragmentationNeeded {
+    void addFileInSegmentExceptions() throws CoreException {
 
         FileSystemFactory factory = new FileSystemFactoryImpl();
         FileSystem fileSystem = factory.getSystem();
@@ -34,7 +34,7 @@ class FileSystemImplTest {
 
     @DisplayName("Case when there is deleted record with volume < new volume")
     @Test
-    void addFileInSegmentCase1() throws Segment.DefragmentationNeeded {
+    void addFileInSegmentCase1() throws CoreException {
         FileSystemFactory factory = new FileSystemFactoryImpl();
         FileSystem fileSystem = factory.getSystem();
         fileSystem.addFileInSegment("a1", "txt", 1, 0);
@@ -56,7 +56,7 @@ class FileSystemImplTest {
 
     @DisplayName("Case when there is deleted record with volume = new volume")
     @Test
-    void addFileInSegmentCase2() throws Segment.DefragmentationNeeded {
+    void addFileInSegmentCase2() throws CoreException {
         FileSystemFactory factory = new FileSystemFactoryImpl();
         FileSystem fileSystem = factory.getSystem();
         fileSystem.addFileInSegment("a1", "txt", 1, 0);

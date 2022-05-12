@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import ru.c19501.core.config.ConfigLoader;
+import ru.c19501.exceptions.CoreException;
 
-import java.io.File;
 import java.util.*;
 import java.util.function.Predicate;
 
@@ -47,13 +47,13 @@ public class Segment {
     }
 
     public static Segment createSegment(int number) {
-        Properties properties = ConfigLoader.load(new File("src/main/resources/config.properties"));
+        Properties properties = ConfigLoader.properties;
         int amountOfBlocks = Integer.parseInt(properties.getProperty("fs.maxBlockCountInSegment"));
         return new Segment(number, amountOfBlocks);
     }
 
 
-    public String addFileRecord(String name, String type, int volumeInBlocks) throws Segment.DefragmentationNeeded{
+    public String addFileRecord(String name, String type, int volumeInBlocks) throws CoreException {
         FileAdder fileAdder = new FileAdder(this);
         NewFileParams fileParams = new NewFileParams(name, type, volumeInBlocks);
         return fileAdder.addFileRecord(fileParams);
@@ -95,9 +95,6 @@ public class Segment {
 
     public List<FileRecord> findFilesByCondition(Predicate<FileRecord> predicate) {
         return fileRecords.stream().filter(predicate).toList();
-    }
-
-    public static class DefragmentationNeeded extends Exception {
     }
 
     public void setFreeAndDeletedSpace(int freeAndDeletedSpace) {

@@ -1,13 +1,19 @@
-package ru.c19501.core;
+package ru.c19501.service.model;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 /*
 *
 * DTO for storing Json results of queries to core
 *
 * */
 @Data
-public class FileRecord {
-    boolean isDeleted;
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class FileRecordDTO {
     String fileName;
     String fileType;
     int volumeInBlocks;

@@ -1,8 +1,9 @@
 package ru.c19501.core;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import ru.c19501.core.files.Segment;
+import ru.c19501.exceptions.CoreException;
 import ru.c19501.core.system.FileSystemFactoryImpl;
+import ru.c19501.service.model.FileRecordDTO;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 import static ru.c19501.core.ExampleLoading.objectMapper;
 
 public class ExampleCreatingUpdatingSaving {
-    public static void main(String[] args) throws Segment.DefragmentationNeeded, JsonProcessingException {
+    public static void main(String[] args) throws CoreException, JsonProcessingException {
         FileSystemFactory factory = new FileSystemFactoryImpl();
         FileSystem fileSystem = factory.getSystem();
         String fileId = fileSystem.addFileInSegment("a1", "txt", 1, 0);
@@ -27,8 +28,8 @@ public class ExampleCreatingUpdatingSaving {
         fileSystem.addFileInSegment("a9", "txt", 1, 0);
         fileSystem.addFileInSegment("a10", "txt", 1, 0);
         fileSystem.addFileInSegment("a10", "txt", 10, 0);
-        List<FileRecord> foundFiles = Arrays.asList(objectMapper.readValue(fileSystem.findFilesInSegmentByName(0, "a1"), FileRecord[].class));
-        FileRecord foundFile = objectMapper.readValue(fileSystem.findFileInSegmentById(0, fileId), FileRecord.class);
+        List<FileRecordDTO> foundFiles = Arrays.asList(objectMapper.readValue(fileSystem.findFilesInSegmentByName(0, "a1"), FileRecordDTO[].class));
+        FileRecordDTO foundFile = objectMapper.readValue(fileSystem.findFileInSegmentById(0, fileId), FileRecordDTO.class);
 
         System.out.println(foundFiles);
         System.out.println(foundFile.toString());

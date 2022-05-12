@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import ru.c19501.core.system.FileSystemFactoryImpl;
+import ru.c19501.service.model.FileRecordDTO;
 
 public class ExampleLoading {
     static ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
@@ -14,6 +15,6 @@ public class ExampleLoading {
         if (!fileSystem.load())
             System.out.println("Нет сохраненной системы");
         else System.out.println("Есть сохраненная система");
-        System.out.println(objectMapper.writeValueAsString(objectMapper.readValue(fileSystem.retrieveAllFilesFromSegment(0), FileRecord[].class)));
+        System.out.println(objectMapper.writeValueAsString(objectMapper.readValue(fileSystem.retrieveAllFilesFromSegment(0), FileRecordDTO[].class)));
     }
 }

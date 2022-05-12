@@ -12,7 +12,7 @@ public class BinRepository extends Repository implements Serializable {
 
     public BinRepository() {
         super();
-        Properties prop = ConfigLoader.load(new File("src/main/resources/config.properties"));
+        Properties prop = ConfigLoader.properties;
         this.systemFileName = prop.getProperty("fs.systemBinFileName");
         this.systemRepository = prop.getProperty("fs.systemBinRepository");
     }

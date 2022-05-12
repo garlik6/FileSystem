@@ -2,6 +2,7 @@ package ru.c19501.core.files;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ru.c19501.exceptions.CoreException;
 
 import java.util.Objects;
 
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SegmentTest {
     @DisplayName("file addition when there is fitting unused space")
     @Test
-    void addFileRecord1() throws Segment.DefragmentationNeeded {
+    void addFileRecord1() throws CoreException {
         Segment segment = Segment.createSegment(0);
         String id = segment.addFileRecord("addition", "txt", segment.getAmountOfBlocks());
         FileRecord fileRecord = segment.findFileById(id);
@@ -24,7 +25,7 @@ class SegmentTest {
 
     @Test
     @DisplayName("file addition when there is fitting(same or more volume) deleted file(file chain) present")
-    void addFileRecord2() throws Segment.DefragmentationNeeded {
+    void addFileRecord2() throws CoreException {
         Segment segment = Segment.createSegment(0);
         String id1 = segment.addFileRecord("1", "txt", 1);
         String id2 = segment.addFileRecord("2", "txt", 1);
@@ -67,7 +68,7 @@ class SegmentTest {
 
     @DisplayName("adding at last block")
     @Test
-    void addFileRecord13() throws Segment.DefragmentationNeeded {
+    void addFileRecord13() throws CoreException {
         Segment segment = Segment.createSegment(0);
 
 
@@ -98,7 +99,7 @@ class SegmentTest {
 
     @DisplayName("adding at several last deleted blocks volume < deleted volume")
     @Test
-    void addFileRecord4() throws Segment.DefragmentationNeeded {
+    void addFileRecord4() throws CoreException {
         Segment segment = Segment.createSegment(0);
         String id1 = segment.addFileRecord("1", "txt", 1);
         String id2 = segment.addFileRecord("2", "txt", 1);
@@ -127,7 +128,7 @@ class SegmentTest {
 
     @DisplayName("REFACTORING NEEDED")
     @Test
-    void addFileRecord5() throws Segment.DefragmentationNeeded {
+    void addFileRecord5() throws CoreException {
         Segment segment = Segment.createSegment(0);
         String id1 = segment.addFileRecord("1", "txt", 1);
         String id2 = segment.addFileRecord("2", "txt", 1);
@@ -150,7 +151,7 @@ class SegmentTest {
         segment.deleteFileRecordById(id4);
         segment.deleteFileRecordById(id5);
         segment.deleteFileRecordById(id8);
-        assertThrows(Segment.DefragmentationNeeded.class, () ->
+        assertThrows(CoreException.class, () ->
                 segment.addFileRecord("ADDITIONAL", "txt", 4));
 
     }

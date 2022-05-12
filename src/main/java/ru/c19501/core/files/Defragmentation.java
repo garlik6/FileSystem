@@ -77,4 +77,8 @@ public class Defragmentation {
 
         return 1 - (maxLenToInsert/segment.getFreeAndDeletedSpace() - averageFileLen/maxLenToInsert);
     }
+
+    public boolean checkDef(Segment segment) {
+        return defradExt(segment) > 0.15;
+    }
 }

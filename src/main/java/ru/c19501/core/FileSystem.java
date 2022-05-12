@@ -29,7 +29,7 @@ public interface FileSystem {
      * @param segment segment to delete file from
      * @param id      unique id of the file to delete
      */
-    void deleteFileFromSegmentById(int segment, String id);
+    void deleteFileFromSegmentById(int segment, String id) throws IllegalStateException;
 
     /**
      * @param segment segment to find file in

@@ -20,16 +20,27 @@ public class Application {
 
             CoreService coreService = new CoreServiceImpl(fileSystem, JacksonConfig.createObjectMapper());
 
-            coreService.createFile("a1", "txt", 1);
-            coreService.createFile("a2", "txt", 1);
-            coreService.createFile("a3", "txt", 1);
-            coreService.createFile("a4", "txt", 1);
+            System.out.println(coreService.createFile("a1", "txt", 1));
+            System.out.println(coreService.createFile("a2", "txt", 1));
+            System.out.println(coreService.createFile("a3", "txt", 1));
+            System.out.println(coreService.createFile("a4", "txt", 1));
 
+            System.out.println("Вывод");
             for (FileRecordReturnDTO file : coreService.readFiles()) {
                 System.out.println(file);
             }
 
+            System.out.println("Поиск");
+            System.out.println(coreService.foundFile("a2", "txt"));
             System.out.println(coreService.foundFile("a5", "txt"));
+
+            System.out.println("Удаление");
+            System.out.println(coreService.deleteFile("a2", "txt"));
+
+            System.out.println("Вывод");
+            for (FileRecordReturnDTO file : coreService.readFiles()) {
+                System.out.println(file);
+            }
         }
 
         fileSystem.save();

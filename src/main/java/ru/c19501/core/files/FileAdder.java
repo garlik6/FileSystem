@@ -134,7 +134,7 @@ public class FileAdder {
 
 
     private boolean isInTail(FileRecord fileRecord) {
-        return fileRecord.isDeleted() && segment.getFileRecords().get(fileRecord.getNumber() - 1).isDeleted();
+        return fileRecord.isDeleted() && fileRecord.getNumber() != 0 && segment.getFileRecords().get(fileRecord.getNumber() - 1).isDeleted();
     }
 
 

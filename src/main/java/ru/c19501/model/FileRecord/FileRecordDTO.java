@@ -1,4 +1,4 @@
-package ru.c19501.service.model;
+package ru.c19501.model.FileRecord;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

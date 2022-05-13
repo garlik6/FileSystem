@@ -15,9 +15,10 @@ public class Defragmentation {
         while (currentIndex < fileRecords.size()) {
             if (!fileRecords.get(currentIndex).isDeleted() && currentIndex > nextReplacedIndex) {
                 Collections.swap(fileRecords, currentIndex, nextReplacedIndex);
-                currentIndex += 1;
                 nextReplacedIndex += 1;
             }
+
+            currentIndex += 1;
         }
 
         //numbering the elements of the array

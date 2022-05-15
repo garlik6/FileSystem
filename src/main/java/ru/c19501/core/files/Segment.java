@@ -84,7 +84,7 @@ public class Segment {
         return new ArrayList<>(fileRecords);
     }
 
-    List<FileRecord> getFileRecords() {
+    public List<FileRecord> getFileRecords() {
         return fileRecords;
     }
 

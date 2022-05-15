@@ -2,7 +2,7 @@ package ru.c19501.core.files;
 
 import java.util.stream.Collectors;
 
-public class DefragmentationFuntions {
+public class DefragmentationFunctions {
 
     public int maxLengthToInsert(Segment segment) {
         int maxLen = 0;

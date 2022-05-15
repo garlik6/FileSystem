@@ -6,7 +6,7 @@ import ru.c19501.core.files.Segment;
 import java.util.Collections;
 import java.util.List;
 
-public class Defragmentatiton {
+public class Defragmentation {
     public void defragment(Segment segment) {
         int currentIndex = 0;
         int nextReplacedIndex = 0;

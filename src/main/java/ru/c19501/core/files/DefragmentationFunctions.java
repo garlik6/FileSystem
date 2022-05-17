@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 public class DefragmentationFunctions {
 
-    public int maxLengthToInsert(Segment segment) {
+    public static int maxLengthToInsert(Segment segment) {
         int maxLen = 0;
         int currentLen = 0;
 
@@ -21,10 +21,13 @@ public class DefragmentationFunctions {
             }
         }
 
+        if (currentLen > maxLen) {
+            maxLen = currentLen;
+        }
         return maxLen;
     }
 
-    public boolean possibleToInsert(Segment segment, int len) {
+    public static boolean possibleToInsert(Segment segment, int len) {
         int currentLen = 0;
 
         for (FileRecord fileRecord : segment.getFileRecords()) {
@@ -34,7 +37,7 @@ public class DefragmentationFunctions {
                 currentLen = 0;
             }
 
-            if (currentLen > len) {
+            if (currentLen >= len) {
                 return true;
             }
         }
@@ -42,11 +45,11 @@ public class DefragmentationFunctions {
         return false;
     }
 
-    public int howMuchSpace(Segment segment) {
+    public static int howMuchSpace(Segment segment) {
         return segment.getFreeAndDeletedSpace();
     }
 
-    public double defradExt(Segment segment) {
+    public static double defragExt(Segment segment) {
         int numberOfUnusedBlocks = segment.getFileRecords().stream().filter(fileRecord -> fileRecord.isDeleted())
                 .collect(Collectors.toList()).size();
         double averageFileLen = segment.getFreeAndDeletedSpace() / numberOfUnusedBlocks;
@@ -55,7 +58,7 @@ public class DefragmentationFunctions {
         return 1 - (maxLenToInsert/segment.getFreeAndDeletedSpace() - averageFileLen/maxLenToInsert);
     }
 
-    public boolean checkDef(Segment segment) {
-        return defradExt(segment) > 0.15;
+    public static boolean checkDef(Segment segment) {
+        return defragExt(segment) > 0.15;
     }
 }

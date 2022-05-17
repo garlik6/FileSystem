@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class Defragmentation {
-    public void defragment(Segment segment) {
+    public static void defragment(Segment segment) {
         int currentIndex = 0;
         int nextReplacedIndex = 0;
         List<FileRecord> fileRecords = segment.getFileRecords();
@@ -26,6 +26,7 @@ public class Defragmentation {
         currentIndex = 0;
         while (currentIndex < fileRecords.size()) {
             fileRecords.get(currentIndex).setNumber(currentIndex);
+            currentIndex++;
         }
     }
 }

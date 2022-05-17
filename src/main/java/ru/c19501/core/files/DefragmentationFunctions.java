@@ -1,5 +1,6 @@
 package ru.c19501.core.files;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class DefragmentationFunctions {
@@ -7,8 +8,9 @@ public class DefragmentationFunctions {
     public static int maxLengthToInsert(Segment segment) {
         int maxLen = 0;
         int currentLen = 0;
+        List<FileRecord> fileRecords = segment.getFileRecords();
 
-        for (FileRecord fileRecord: segment.getFileRecords()) {
+        for (FileRecord fileRecord: fileRecords) {
             if (fileRecord.isDeleted()) {
                 currentLen += fileRecord.getVolumeInBlocks();
             }
@@ -19,6 +21,14 @@ public class DefragmentationFunctions {
 
                 currentLen = 0;
             }
+        }
+
+        //count the free space in the end of the segment
+        if (fileRecords.get(fileRecords.size() - 1).isDeleted()) {
+            currentLen += segment.getFreeSpace();
+        }
+        else {
+            currentLen = segment.getFreeSpace();
         }
 
         if (currentLen > maxLen) {
@@ -50,8 +60,7 @@ public class DefragmentationFunctions {
     }
 
     public static double defragExt(Segment segment) {
-        int numberOfUnusedBlocks = segment.getFileRecords().stream().filter(fileRecord -> fileRecord.isDeleted())
-                .collect(Collectors.toList()).size();
+        int numberOfUnusedBlocks = (int) segment.getFileRecords().stream().filter(FileRecord::isDeleted).count();
         double averageFileLen = segment.getFreeAndDeletedSpace() / numberOfUnusedBlocks;
         int maxLenToInsert = maxLengthToInsert(segment);
 

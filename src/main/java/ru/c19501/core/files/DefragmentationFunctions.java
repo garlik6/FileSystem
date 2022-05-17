@@ -61,6 +61,7 @@ public class DefragmentationFunctions {
 
     public static double defragExt(Segment segment) {
         int numberOfUnusedBlocks = (int) segment.getFileRecords().stream().filter(FileRecord::isDeleted).count();
+        if(numberOfUnusedBlocks == 0) numberOfUnusedBlocks = 1;
         double averageFileLen = segment.getFreeAndDeletedSpace() / numberOfUnusedBlocks;
         int maxLenToInsert = maxLengthToInsert(segment);
 
@@ -68,6 +69,6 @@ public class DefragmentationFunctions {
     }
 
     public static boolean checkDef(Segment segment) {
-        return defragExt(segment) > 0.15;
+        return defragExt(segment) > 1;
     }
 }

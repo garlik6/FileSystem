@@ -3,53 +3,44 @@
   "owner" : "c19-501",
   "systemFileName" : "fileSystemImpl.json",
   "systemRepository" : "src/main/resources/JSON",
+  "space" : 6,
+  "freeSpace" : 3,
+  "readyToAddSpace" : 4,
+  "maxSegments" : 2,
   "segments" : [ {
-    "number" : 0,
-    "amountOfBlocks" : 20,
-    "freeAndDeletedSpace" : 7,
-    "freeSpace" : 4,
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
     "fileRecords" : [ {
-      "deleted" : false,
+      "fileStatus" : "NOT_DELETED",
       "fileName" : "a1",
       "fileType" : "txt",
       "firstBlock" : 0,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/11 22:45:30",
+      "creationDate" : "2022/05/19 16:57:19",
       "number" : 0,
-      "id" : "c9b9ef34-9ebd-43c2-81bb-14f19e3cd840"
+      "id" : "bc3bc39f-4876-4088-bf50-f495a3af54be"
     }, {
-      "deleted" : true,
-      "fileName" : "a2",
+      "fileStatus" : "NOT_DELETED",
+      "fileName" : "a1",
       "fileType" : "txt",
-      "firstBlock" : 2,
+      "firstBlock" : 1,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/13 11:16:59",
+      "creationDate" : "2022/05/19 16:57:19",
       "number" : 1,
-      "id" : "bf9eeec9-c6ee-4642-b766-530bf748539d"
-    }, {
-      "deleted" : false,
-      "fileName" : "a3",
-      "fileType" : "txt",
-      "firstBlock" : 2,
-      "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/11 22:45:30",
-      "number" : 2,
-      "id" : "db4356b2-049d-4968-8b60-f179ac9a25a4"
-    }, {
-      "deleted" : false,
-      "fileName" : "a4",
-      "fileType" : "txt",
-      "firstBlock" : 3,
-      "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/11 22:45:30",
-      "number" : 3,
-      "id" : "c148033c-41ed-4f72-919d-036a651c5c2f"
+      "id" : "c02de1dd-15bc-4e9c-8f25-54c5e30425ae"
     } ]
   }, {
-    "number" : 1,
-    "amountOfBlocks" : 20,
-    "freeAndDeletedSpace" : 20,
-    "freeSpace" : 20,
-    "fileRecords" : [ ]
+    "maxRecordAmount" : 2,
+    "startingBlock" : 4,
+    "fileRecords" : [ {
+      "fileStatus" : "NOT_DELETED",
+      "fileName" : "a3",
+      "fileType" : "txt",
+      "firstBlock" : 4,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/19 16:57:19",
+      "number" : 0,
+      "id" : "cb00647e-d790-4e22-a05d-65bb0b1e4947"
+    } ]
   } ]
 }

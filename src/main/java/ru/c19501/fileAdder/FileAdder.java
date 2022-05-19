@@ -10,7 +10,6 @@ import java.util.*;
 
 @AllArgsConstructor
 public class FileAdder {
-
     Repository repository;
     Segment currentSegment;
 
@@ -104,7 +103,7 @@ public class FileAdder {
 
     private Optional<FileRecord> findFirstReadyToAddSpaceOfLength(int volumeInBlocks) {
         return currentSegment.getFileRecords().stream()
-                .filter(fileRecord -> fileRecord.isDeleted() && fileRecord.getVolumeInBlocks() >= volumeInBlocks)
+                .filter(fileRecord -> fileRecord.isDeletedOrFree() && fileRecord.getVolumeInBlocks() >= volumeInBlocks)
                 .findFirst();
     }
 
@@ -135,14 +134,14 @@ public class FileAdder {
                     if (fileRecord.getNumber() == currentSegment.getFileRecords().size() - 1) {
                         return true;
                     }
-                    return !currentSegment.getFileRecords().get(fileRecord.getNumber() + 1).isDeleted();
+                    return !currentSegment.getFileRecords().get(fileRecord.getNumber() + 1).isDeletedOrFree();
                 })
                 .findFirst().orElseThrow().getNumber();
         return tailEnd;
     }
 
     private boolean isInTail(FileRecord fileRecord) {
-        return fileRecord.isDeleted() && fileRecord.getNumber() != 0 && currentSegment.getFileRecords().get(fileRecord.getNumber() - 1).isDeleted();
+        return fileRecord.isDeletedOrFree() && fileRecord.getNumber() != 0 && currentSegment.getFileRecords().get(fileRecord.getNumber() - 1).isDeletedOrFree();
     }
 
     private int getHeadInRow() {
@@ -150,17 +149,17 @@ public class FileAdder {
     }
 
     private boolean isFirstInRow(FileRecord fileRecord) {
-        return fileRecord.isDeleted() &&
+        return fileRecord.isDeletedOrFree() &&
                 (fileRecord.getNumber() != (currentSegment.getFileRecords().size() - 1)) &&
-                currentSegment.getFileRecords().get(fileRecord.getNumber() + 1).isDeleted();
+                currentSegment.getFileRecords().get(fileRecord.getNumber() + 1).isDeletedOrFree();
     }
 
     private boolean anyDeletedFilesNotSingle() {
-        return currentSegment.getFileRecords().stream().filter(FileRecord::isDeleted).anyMatch(fileRecord -> {
+        return currentSegment.getFileRecords().stream().filter(FileRecord::isDeletedOrFree).anyMatch(fileRecord -> {
                     if (fileRecord.getNumber() == currentSegment.getFileRecords().size() - 1) {
                         return false;
                     } else {
-                        return currentSegment.getFileRecords().get(fileRecord.getNumber() + 1).isDeleted();
+                        return currentSegment.getFileRecords().get(fileRecord.getNumber() + 1).isDeletedOrFree();
                     }
                 }
         );

@@ -2,6 +2,7 @@ package ru.c19501.core.repository;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -33,14 +34,14 @@ public abstract class Repository {
     @JsonView(Views.Internal.class)
     protected String systemRepository;
 
+    @JsonView(Views.Public.class)
     protected int space;
-
+    @JsonView(Views.Public.class)
     protected int freeSpace;
-
+    @JsonView(Views.Public.class)
     protected int readyToAddSpace;
-
+    @JsonView(Views.Public.class)
     protected int maxSegments;
-
     @JsonView(Views.Public.class)
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
@@ -80,6 +81,8 @@ public abstract class Repository {
     public abstract String fileRecordsToString(FileRecord fileRecord);
 
     public abstract String fileRecordsToString(List<FileRecord> fileRecords);
+
+
 
     public abstract void writeRepository();
 
@@ -124,11 +127,12 @@ public abstract class Repository {
         throw new NoSuchElementException("No such segment");
     }
 
+    @JsonIgnore
     public List<FileRecord> getAllFilesCopy() {
 
         return new ArrayList<>(getAllFiles());
     }
-
+    @JsonIgnore
     protected List<FileRecord> getAllFiles() {
         Stream<FileRecord> stream = segments.get(0).getFileRecords().stream();
         for (int i = 1; i < segments.size(); i++) {

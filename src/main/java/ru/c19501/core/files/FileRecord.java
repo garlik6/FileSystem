@@ -1,5 +1,6 @@
 package ru.c19501.core.files;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @Setter
 @Getter
 public class FileRecord {
+    @JsonIgnore
     public boolean isDeleted() {
         return fileStatus == FileStatus.DELETED;
     }
@@ -79,9 +81,6 @@ public class FileRecord {
         this.creationDate = "";
     }
 
-    public boolean doesFileRecordFit(int amountOfBlocks) {
-        return volumeInBlocks < (amountOfBlocks - firstBlock + 1) && (firstBlock - 1) < amountOfBlocks;
-    }
 
     public void deleteFile() throws CoreException {
         if (fileStatus == FileStatus.EMPTY_SPACE) {
@@ -103,5 +102,9 @@ public class FileRecord {
     public void updateDate() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         this.creationDate = dtf.format(LocalDateTime.now());
+    }
+
+    public boolean isDeletedOrFree(){
+        return fileStatus == FileStatus.EMPTY_SPACE || fileStatus == FileStatus.DELETED;
     }
 }

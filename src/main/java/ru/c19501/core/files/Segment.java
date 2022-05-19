@@ -1,6 +1,7 @@
 package ru.c19501.core.files;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -64,6 +65,7 @@ public class Segment {
         fileRecords.sort(Comparator.comparing(FileRecord::getNumber));
     }
 
+    @JsonIgnore
     public int getFileRecordsSize() {
         return fileRecords.size();
     }

@@ -1,4 +1,4 @@
-package ru.c19501.core.defragmentation;
+package ru.c19501.defragmentation;
 
 import ru.c19501.core.files.FileRecord;
 import ru.c19501.core.files.Segment;

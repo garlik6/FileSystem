@@ -1,9 +1,8 @@
 package ru.c19501.filesystem.configLoader;
 
 import org.junit.jupiter.api.Test;
-import ru.c19501.core.config.ConfigLoader;
+import ru.c19501.config.ConfigLoader;
 
-import java.io.File;
 import java.util.Properties;
 
 import static org.junit.jupiter.api.Assertions.*;

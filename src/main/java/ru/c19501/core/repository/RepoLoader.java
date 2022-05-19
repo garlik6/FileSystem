@@ -4,4 +4,6 @@ import java.io.IOException;
 
 public interface RepoLoader {
     Repository loadRepository() throws IOException;
+
+    Repository getCopy(Repository repository);
 }

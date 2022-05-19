@@ -3,6 +3,7 @@ package ru.c19501.core.files;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
+import ru.c19501.exceptions.CoreException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,12 +12,24 @@ import java.util.UUID;
 @Setter
 @Getter
 public class FileRecord {
+    public boolean isDeleted() {
+        return fileStatus == FileStatus.DELETED;
+    }
+
+    public void freeSpace() {
+        fileStatus = FileStatus.EMPTY_SPACE;
+    }
+
+    @Getter
+    public enum FileStatus {
+        DELETED, NOT_DELETED, EMPTY_SPACE
+    }
+
     @JsonView(Views.Public.class)
-    private boolean deleted;
+    private FileStatus fileStatus;
 
     @JsonView(Views.Public.class)
     private String fileName;
-
 
     @JsonView(Views.Public.class)
     private String fileType;
@@ -37,7 +50,7 @@ public class FileRecord {
     private String id = UUID.randomUUID().toString();
 
     public FileRecord(Segment.NewFileParams fileParams, int firstBlock) {
-        deleted = false;
+        fileStatus = FileStatus.EMPTY_SPACE;
         this.fileName = fileParams.name;
         this.fileType = fileParams.type;
         this.firstBlock = firstBlock;
@@ -47,7 +60,7 @@ public class FileRecord {
     }
 
     public FileRecord(String fileName, String fileType, int firstBlock, int volumeInBlocks) {
-        deleted = false;
+        fileStatus = FileStatus.EMPTY_SPACE;
         this.fileName = fileName;
         this.fileType = fileType;
         this.firstBlock = firstBlock;
@@ -57,22 +70,26 @@ public class FileRecord {
     }
 
     //
-    public FileRecord() {
-        this.deleted = false;
+    public FileRecord(int firstBlock) {
+        fileStatus = FileStatus.EMPTY_SPACE;
         this.fileName = "";
         this.fileType = "";
-        this.firstBlock = 0;
+        this.firstBlock = firstBlock;
         this.volumeInBlocks = 0;
         this.creationDate = "";
     }
-
 
     public boolean doesFileRecordFit(int amountOfBlocks) {
         return volumeInBlocks < (amountOfBlocks - firstBlock + 1) && (firstBlock - 1) < amountOfBlocks;
     }
 
-    public void deleteFile() {
-        deleted = true;
+    public void deleteFile() throws CoreException {
+        if (fileStatus == FileStatus.EMPTY_SPACE) {
+            throw new CoreException("deleting free space");
+        }
+        if (fileStatus == FileStatus.DELETED) {
+            throw new CoreException("deleting deleted file");
+        }
     }
 
     public void addVolume(int addition) {
@@ -82,7 +99,6 @@ public class FileRecord {
     public void reduceVolume(int reduction) {
         volumeInBlocks -= reduction;
     }
-
 
     public void updateDate() {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");

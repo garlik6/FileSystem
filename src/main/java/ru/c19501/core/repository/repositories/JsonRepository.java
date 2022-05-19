@@ -3,7 +3,7 @@ package ru.c19501.core.repository.repositories;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import ru.c19501.core.config.ConfigLoader;
+import ru.c19501.config.ConfigLoader;
 import ru.c19501.core.files.FileRecord;
 import ru.c19501.core.files.Views;
 import ru.c19501.core.repository.Repository;
@@ -20,6 +20,13 @@ public class JsonRepository extends Repository {
 
     public JsonRepository() {
         super();
+        Properties prop = ConfigLoader.properties;
+        this.systemFileName = prop.getProperty("fs.systemJSONFileName");
+        this.systemRepository = prop.getProperty("fs.systemJSONRepository");
+    }
+
+    public JsonRepository(Repository repository) {
+        super(repository);
         Properties prop = ConfigLoader.properties;
         this.systemFileName = prop.getProperty("fs.systemJSONFileName");
         this.systemRepository = prop.getProperty("fs.systemJSONRepository");

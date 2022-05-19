@@ -1,15 +1,13 @@
-
-package ru.c19501.core.system;
+package ru.c19501.system;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 
-import ru.c19501.core.FileSystem;
-import ru.c19501.core.config.ConfigLoader;
+import ru.c19501.config.ConfigLoader;
+import ru.c19501.core.files.FileRecord;
 import ru.c19501.exceptions.CoreException;
 import ru.c19501.core.repository.RepoLoader;
 import ru.c19501.core.repository.Repository;
-import ru.c19501.core.repository.loaders.BinLoaderRepository;
 import ru.c19501.core.repository.loaders.JsonLoaderRepository;
 
 import java.io.IOException;
@@ -17,7 +15,6 @@ import java.util.Objects;
 
 @Getter
 public class FileSystemImpl implements FileSystem {
-
 
     @Getter(AccessLevel.NONE)
     private Repository repository;
@@ -30,51 +27,50 @@ public class FileSystemImpl implements FileSystem {
     }
 
     @Override
-    public String addFileInSegment(String name, String type, int length, int segment) throws CoreException {
+    public String addFile(String name, String type, int length) throws CoreException {
         if(Objects.equals(name, ""))
             throw new IllegalArgumentException("empty string is reserved name");
-        return repository.getSegmentsCopy().get(segment).addFileRecord(name,type,length);
+        return repository.addFileRecord(name, type, length);
     }
 
     @Override
-    public void deleteFileFromSegmentById(int segment, String id) throws IllegalStateException{
-        repository.getSegmentsCopy().get(segment).deleteFileRecordById(id);
+    public void deleteFileById(String id) throws CoreException {
+        FileRecord fileRecord = repository.findFileById(id);
+        repository.setReadyToAddSpace(repository.getReadyToAddSpace() + fileRecord.getVolumeInBlocks());
+        repository.deleteFileRecordById(id);
     }
 
     @Override
-    public String findFileInSegmentById(int segment, String id) {
-        return repository.fileRecordsToString(repository.getSegmentsCopy().get(segment).findFileById(id));
+    public String findFileById(String id) {
+        return repository.fileRecordsToString(repository.findFileById(id));
     }
 
     @Override
-    public String findFilesInSegmentByName(int segment, String name) {
-        return repository.fileRecordsToString(repository.getSegmentsCopy().get(segment).findFilesByCondition(fileRecord -> Objects.equals(fileRecord.getFileName(), name)));
+    public String findFilesByName(String name) {
+        return repository.fileRecordsToString(repository.findFilesByCondition(fileRecord -> Objects.equals(fileRecord.getFileName(), name)));
     }
 
     @Override
-    public String findFilesInSegmentByType(int segment, String type) {
-        return repository.fileRecordsToString(repository.getSegmentsCopy().get(segment).findFilesByCondition(fileRecord -> Objects.equals(fileRecord.getFileType(), type)));
+    public String findFilesByType(String type) {
+        return repository.fileRecordsToString(repository.findFilesByCondition(fileRecord -> Objects.equals(fileRecord.getFileType(), type)));
     }
 
 
 
     @Override
-    public int getFreeSpaceInSegment(int segment) {
-        return repository.getSegmentsCopy().get(segment).getFreeAndDeletedSpace();
+    public int getFreeSpace() {
+        return repository.getReadyToAddSpace();
     }
 
     @Override
-    public String retrieveAllFilesFromSegment(int segment) {
-        return repository.fileRecordsToString(repository.getSegmentsCopy().get(segment).getFileRecordsCopy());
+    public String retrieveAllFiles() {
+        return repository.fileRecordsToString(repository.getAllFilesCopy());
     }
 
     private static void configure() {
         String config = ConfigLoader.properties.getProperty("fs.mode");
         if (Objects.equals(config, "JSON")) {
             loader = new JsonLoaderRepository();
-        }
-        if (Objects.equals(config, "BIN")) {
-            loader = new BinLoaderRepository();
         }
     }
 

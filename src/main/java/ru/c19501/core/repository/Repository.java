@@ -61,7 +61,7 @@ public abstract class Repository {
         readyToAddSpace = space;
         freeSpace = space;
         for (int i = 0; i < maxSegments; i++) {
-            segments.add(Segment.createSegment(this));
+            segments.add(Segment.createSegment());
         }
     }
 

@@ -21,7 +21,7 @@ public class Segment {
     @JsonView(Views.Internal.class)
     private int startingBlock;
     @JsonView(Views.Public.class)
-    private final List<FileRecord> fileRecords = new ArrayList<>();
+    private List<FileRecord> fileRecords = new ArrayList<>();
 
     public int getStartingBlock() {
         return startingBlock;
@@ -31,7 +31,6 @@ public class Segment {
         this.startingBlock = startingBlock;
     }
 
-    final Repository repository;
 
     public int currentDeletedAndNotRecords() {
         return (int) fileRecords.stream().filter(fileRecord -> fileRecord.isDeleted() || fileRecord.getFileStatus() == FileRecord.FileStatus.NOT_DELETED).count();
@@ -45,20 +44,25 @@ public class Segment {
         int volumeInBlocks;
     }
 
-    public Segment(Repository repository) {
-        this.repository = repository;
+    public Segment() {
+
     }
 
-    public Segment(int maxRecordAmount, Repository repository, Repository repository1) {
-        this.repository = repository;
+    public Segment(int maxRecordAmount) {
         startingBlock = 0;
         this.maxRecordAmount = maxRecordAmount;
     }
 
-    public static Segment createSegment(Repository repository) {
+    public Segment(int maxRecordAmount, int startingBlock, ArrayList<FileRecord> fileRecords) {
+        this.maxRecordAmount = maxRecordAmount;
+        this.startingBlock = startingBlock;
+        this.fileRecords = fileRecords;
+    }
+
+    public static Segment createSegment() {
         Properties properties = ConfigLoader.properties;
         int maxRecordAmount = Integer.parseInt(properties.getProperty("fs.defaultMaxRecordAmountInSegment"));
-        return new Segment(maxRecordAmount, repository, repository);
+        return new Segment(maxRecordAmount);
     }
 
     public void sortFileRecords() {

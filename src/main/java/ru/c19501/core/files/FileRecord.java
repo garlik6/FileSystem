@@ -27,7 +27,7 @@ public class FileRecord {
         DELETED, NOT_DELETED, EMPTY_SPACE
     }
 
-    @JsonView(Views.Public.class)
+    @JsonView(Views.Internal.class)
     private FileStatus fileStatus;
 
     @JsonView(Views.Public.class)
@@ -104,7 +104,8 @@ public class FileRecord {
         this.creationDate = dtf.format(LocalDateTime.now());
     }
 
-    public boolean isDeletedOrFree(){
+    @JsonIgnore
+    public boolean isDeletedOrFree() {
         return fileStatus == FileStatus.EMPTY_SPACE || fileStatus == FileStatus.DELETED;
     }
 }

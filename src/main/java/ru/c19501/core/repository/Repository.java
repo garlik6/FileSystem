@@ -135,6 +135,7 @@ public abstract class Repository {
     @JsonIgnore
     protected List<FileRecord> getAllFiles() {
         Stream<FileRecord> stream = segments.get(0).getFileRecords().stream();
+        System.out.println(segments.get(0).getFileRecords().stream().toList());
         for (int i = 1; i < segments.size(); i++) {
             Stream<FileRecord> additionalStream = segments.get(i).getFileRecords().stream();
             stream = Stream.concat(stream, additionalStream);

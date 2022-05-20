@@ -45,10 +45,19 @@ public class JsonRepository extends Repository {
     }
 
     @Override
+    public String getJson() throws JsonProcessingException {
+        String result;
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        result = objectMapper.writerWithView(Views.Internal.class).writeValueAsString(this);
+        objectMapper.disable(SerializationFeature.INDENT_OUTPUT);
+        return result;
+    }
+
+    @Override
     public String fileRecordsToString(FileRecord fileRecord) {
         try {
             return objectMapper.writerWithView(Views.Public.class).writeValueAsString(fileRecord);
-        }catch (JsonProcessingException e){
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return "";
@@ -58,7 +67,7 @@ public class JsonRepository extends Repository {
     public String fileRecordsToString(List<FileRecord> fileRecords) {
         try {
             return objectMapper.writerWithView(Views.Public.class).writeValueAsString(fileRecords);
-        }catch (JsonProcessingException e){
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return "";

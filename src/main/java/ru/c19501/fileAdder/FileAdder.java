@@ -94,7 +94,7 @@ public class FileAdder {
     }
 
     private FileRecord getAdditionalFileRecord(FileRecord foundFileRecord, int reduction) {
-        FileRecord additionalEmptyFileRecord = new FileRecord("", "", foundFileRecord.getFirstBlock() + foundFileRecord.getVolumeInBlocks(), reduction);
+        FileRecord additionalEmptyFileRecord = new FileRecord("", "", foundFileRecord.getFirstBlock() + foundFileRecord.getVolumeInBlocks(), reduction,1);
         additionalEmptyFileRecord.setNumber(foundFileRecord.getNumber() + 1);
         additionalEmptyFileRecord.freeSpace();
         return additionalEmptyFileRecord;

@@ -61,7 +61,7 @@ public class FileRecord {
         this.creationDate = dtf.format(LocalDateTime.now());
     }
 
-    public FileRecord(String fileName, String fileType, int firstBlock, int volumeInBlocks) {
+    public FileRecord(String fileName, String fileType, int firstBlock, int volumeInBlocks, int number) {
         fileStatus = FileStatus.EMPTY_SPACE;
         this.fileName = fileName;
         this.fileType = fileType;
@@ -69,6 +69,7 @@ public class FileRecord {
         this.volumeInBlocks = volumeInBlocks;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         this.creationDate = dtf.format(LocalDateTime.now());
+        this.number = number;
     }
 
     //

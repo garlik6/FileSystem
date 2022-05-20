@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -85,6 +86,8 @@ public abstract class Repository {
 
 
     public abstract void writeRepository();
+
+    public abstract String getJson() throws JsonProcessingException;
 
     public abstract void print();
 

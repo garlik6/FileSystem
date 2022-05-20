@@ -89,6 +89,7 @@ public class FileRecord {
         if (fileStatus == FileStatus.DELETED) {
             throw new CoreException("deleting deleted file");
         }
+        fileStatus = FileStatus.DELETED;
     }
 
     public void addVolume(int addition) {

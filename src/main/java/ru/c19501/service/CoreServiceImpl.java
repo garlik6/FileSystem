@@ -79,7 +79,7 @@ public class CoreServiceImpl implements CoreService {
 //                    }
 //                }
 //            }
-            FileRecordDTO[] fileRecordDTOs = getFilesBySegment();
+            FileRecordDTO[] fileRecordDTOs = getFiles();
             for (FileRecordDTO file : fileRecordDTOs) {
                 if (!file.isDeleted()) {
                     fileRecordDTOList.add(file);
@@ -129,7 +129,7 @@ public class CoreServiceImpl implements CoreService {
     private FileRecordDTO foundFileByNameAndType(String name, String type) {
         List<FileRecordDTO> fileRecordDTOList = new ArrayList<>();
         try {
-            FileRecordDTO[] fileRecordDTOs = getFilesBySegmentAndName(name);
+            FileRecordDTO[] fileRecordDTOs = getFilesByName(name);
             fileRecordDTOList.addAll(List.of(fileRecordDTOs));
 
             for (FileRecordDTO file : fileRecordDTOList) {
@@ -143,11 +143,11 @@ public class CoreServiceImpl implements CoreService {
         return null;
     }
 
-    private FileRecordDTO[] getFilesBySegmentAndName( String name) throws JsonProcessingException {
+    private FileRecordDTO[] getFilesByName(String name) throws JsonProcessingException {
         return objectMapper.readValue(fileSystem.findFilesByName( name), FileRecordDTO[].class);
     }
 
-    private FileRecordDTO[] getFilesBySegment() throws JsonProcessingException {
+    private FileRecordDTO[] getFiles() throws JsonProcessingException {
         return objectMapper.readValue(fileSystem.retrieveAllFiles(), FileRecordDTO[].class);
     }
 

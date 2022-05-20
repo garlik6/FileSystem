@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import ru.c19501.config.ConfigLoader;
@@ -17,16 +18,16 @@ import ru.c19501.fileAdder.FileAdder;
 
 import java.util.*;
 import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public abstract class Repository {
     @JsonView(Views.Internal.class)
     protected int systemVersion;
     @JsonView(Views.Internal.class)
-    protected String owner;
+    protected String owner = "";
     @JsonView(Views.Internal.class)
     protected String systemFileName;
     @JsonView(Views.Internal.class)
@@ -44,7 +45,7 @@ public abstract class Repository {
     @Setter(AccessLevel.NONE)
     protected List<Segment> segments = new ArrayList<>();
 
-    protected Repository(int space, int freeSpace, int readyToAddSpace, List<Segment> segments){
+    protected Repository(int space, int freeSpace, int readyToAddSpace, List<Segment> segments) {
         this.space = space;
         this.freeSpace = freeSpace;
         this.readyToAddSpace = readyToAddSpace;
@@ -86,7 +87,6 @@ public abstract class Repository {
     public abstract String fileRecordsToString(FileRecord fileRecord);
 
     public abstract String fileRecordsToString(List<FileRecord> fileRecords);
-
 
 
     public abstract void writeRepository();
@@ -139,10 +139,11 @@ public abstract class Repository {
 
         return new ArrayList<>(getAllFiles());
     }
+
     @JsonIgnore
     protected List<FileRecord> getAllFiles() {
         List<FileRecord> fileRecords = segments.get(0).getFileRecords();
-        for (int i =1; i < segments.size(); i++) {
+        for (int i = 1; i < segments.size(); i++) {
             fileRecords.addAll(segments.get(i).getFileRecords());
         }
         return fileRecords;

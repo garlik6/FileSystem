@@ -27,6 +27,7 @@ class FileAdderTest {
      * Проверить до и после
      */
     @Test
+
     void addFileRecord() {
         FileSystemFactory fileSystemFactory = new FileSystemFactoryImpl();
         FileSystem fileSystem = fileSystemFactory.getSystem();

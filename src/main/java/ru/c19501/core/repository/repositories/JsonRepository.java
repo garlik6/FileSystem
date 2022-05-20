@@ -1,5 +1,6 @@
 package ru.c19501.core.repository.repositories;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -53,13 +54,15 @@ public class JsonRepository extends Repository {
         }
     }
 
+    @JsonIgnore
     @Override
     public String getJson() throws JsonProcessingException {
-        String result;
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        result = objectMapper.writerWithView(Views.Internal.class).writeValueAsString(this);
-        objectMapper.disable(SerializationFeature.INDENT_OUTPUT);
-        return result;
+        try {
+            return objectMapper.writerWithView(Views.Public.class).writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     @Override

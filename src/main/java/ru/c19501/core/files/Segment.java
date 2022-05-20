@@ -31,7 +31,6 @@ public class Segment {
         this.startingBlock = startingBlock;
     }
 
-
     public int currentDeletedAndNotRecords() {
         return (int) fileRecords.stream().filter(fileRecord -> fileRecord.isDeleted() || fileRecord.getFileStatus() == FileRecord.FileStatus.NOT_DELETED).count();
     }
@@ -87,6 +86,7 @@ public class Segment {
         return new ArrayList<>(fileRecords);
     }
 
+    @JsonIgnore
     public List<FileRecord> getFileRecords() {
         return fileRecords;
     }
@@ -107,5 +107,4 @@ public class Segment {
         fileRecords.stream().filter(fileRecord -> fileRecord.getNumber() > foundFileRecord.getNumber())
                 .forEach(fileRecord -> fileRecord.setNumber(fileRecord.getNumber() + 1));
     }
-
 }

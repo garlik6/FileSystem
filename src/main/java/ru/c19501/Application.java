@@ -30,12 +30,12 @@ public class Application {
                 System.out.println(file);
             }
 
-            System.out.println("Поиск");
-            System.out.println(coreService.foundFile("a2", "txt"));
-            System.out.println(coreService.foundFile("a5", "txt"));
-
-            System.out.println("Удаление");
-            System.out.println(coreService.deleteFile("a2", "txt"));
+//            System.out.println("Поиск");
+//            System.out.println(coreService.foundFile("a2", "txt"));
+//            System.out.println(coreService.foundFile("a5", "txt"));
+//
+//            System.out.println("Удаление");
+//            System.out.println(coreService.deleteFile("a2", "txt"));
 
             System.out.println("Вывод");
             for (FileRecordReturnDTO file : coreService.readFiles()) {

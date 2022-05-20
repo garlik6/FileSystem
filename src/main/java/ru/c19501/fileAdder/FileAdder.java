@@ -12,7 +12,6 @@ import java.util.*;
 public class FileAdder {
     Repository repository;
     Segment currentSegment;
-
     public String addFileRecord(Segment.NewFileParams fileParams) throws CoreException {
         if (repository.getReadyToAddSpace() < fileParams.getVolumeInBlocks()) {
             throw new ArrayIndexOutOfBoundsException("Not enough space left");

@@ -5,7 +5,7 @@
   "systemRepository" : "src/main/resources/JSON",
   "space" : 6,
   "freeSpace" : 0,
-  "readyToAddSpace" : 2,
+  "readyToAddSpace" : 1,
   "maxSegments" : 2,
   "segments" : [ {
     "maxRecordAmount" : 2,
@@ -16,9 +16,9 @@
       "fileType" : "txt",
       "firstBlock" : 0,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/20 19:11:56",
+      "creationDate" : "2022/05/20 20:29:35",
       "number" : 0,
-      "id" : "e3bc8910-7571-41ee-97cf-52dcff39704a",
+      "id" : "8188d5d7-b76a-4451-9bff-555d00fb1937",
       "deleted" : false
     }, {
       "fileStatus" : "NOT_DELETED",
@@ -26,36 +26,36 @@
       "fileType" : "txt",
       "firstBlock" : 1,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/20 19:11:56",
+      "creationDate" : "2022/05/20 20:29:35",
       "number" : 1,
-      "id" : "e2099413-0715-4f6b-befd-c11036cd421f",
+      "id" : "c9f47fc8-7a84-43db-9522-3965675b52fa",
+      "deleted" : false
+    } ],
+    "readyToAddSpace" : 0
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 2,
+    "fileRecords" : [ {
+      "fileStatus" : "NOT_DELETED",
+      "fileName" : "a1",
+      "fileType" : "txt",
+      "firstBlock" : 2,
+      "volumeInBlocks" : 3,
+      "creationDate" : "2022/05/20 20:29:36",
+      "number" : 0,
+      "id" : "cc85700b-970a-4bcd-b3cf-28d9eda22b84",
       "deleted" : false
     }, {
       "fileStatus" : "EMPTY_SPACE",
       "fileName" : "",
       "fileType" : "",
-      "firstBlock" : 2,
-      "volumeInBlocks" : 2,
-      "creationDate" : "2022/05/20 19:11:56",
-      "number" : 2,
-      "id" : "0e0a8e42-664b-40ad-af11-dd5e872c0246",
+      "firstBlock" : 5,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/20 20:29:36",
+      "number" : 1,
+      "id" : "7de798bd-559a-4398-8fae-6a4999cf068b",
       "deleted" : false
     } ],
-    "readyToAddSpace" : 2
-  }, {
-    "maxRecordAmount" : 2,
-    "startingBlock" : 4,
-    "fileRecords" : [ {
-      "fileStatus" : "NOT_DELETED",
-      "fileName" : "a3",
-      "fileType" : "txt",
-      "firstBlock" : 4,
-      "volumeInBlocks" : 2,
-      "creationDate" : "2022/05/20 19:11:56",
-      "number" : 0,
-      "id" : "08c074e4-06a0-4e97-b978-035811dbc5b1",
-      "deleted" : false
-    } ],
-    "readyToAddSpace" : 0
+    "readyToAddSpace" : 1
   } ]
 }

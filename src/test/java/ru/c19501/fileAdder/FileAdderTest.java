@@ -1,6 +1,7 @@
 package ru.c19501.fileAdder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.commons.lang.StringUtils;
 import org.junit.jupiter.api.Test;
 import ru.c19501.core.files.FileRecord;
 import ru.c19501.core.files.Segment;

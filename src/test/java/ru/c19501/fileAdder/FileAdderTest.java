@@ -2,14 +2,9 @@ package ru.c19501.fileAdder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.junit.jupiter.api.Test;
-import ru.c19501.core.files.FileRecord;
 import ru.c19501.core.files.Segment;
-import ru.c19501.core.repository.Repository;
 import ru.c19501.core.repository.repositories.JsonRepository;
 import ru.c19501.exceptions.CoreException;
-import ru.c19501.service.CoreService;
-import ru.c19501.service.CoreServiceImpl;
-import ru.c19501.service.config.JacksonConfig;
 import ru.c19501.system.FileSystem;
 import ru.c19501.system.FileSystemFactory;
 import ru.c19501.system.FileSystemFactoryImpl;
@@ -40,8 +35,8 @@ class FileAdderTest {
         try {
             repository.addFileRecord("a1","txt",1);
             repository2.addFileRecord("a1","txt",1);
-            System.out.println(repository.getJson());
-            System.out.println(repository2.getJson());
+            System.out.println(repository.getCurrentJson());
+            System.out.println(repository2.getCurrentJson());
         } catch (CoreException | JsonProcessingException e) {
             e.printStackTrace();
         }

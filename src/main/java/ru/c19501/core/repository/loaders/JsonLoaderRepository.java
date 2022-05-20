@@ -2,8 +2,7 @@ package ru.c19501.core.repository.loaders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import ru.c19501.core.files.Views;
+import ru.c19501.core.files.JsonRelated.Views;
 import ru.c19501.core.repository.RepoLoader;
 import ru.c19501.core.repository.Repository;
 import ru.c19501.core.repository.repositories.JsonRepository;

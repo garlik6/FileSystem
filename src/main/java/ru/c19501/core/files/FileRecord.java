@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
+import ru.c19501.core.files.JsonRelated.Views;
 import ru.c19501.exceptions.CoreException;
 
 import java.time.LocalDateTime;
@@ -13,7 +14,6 @@ import java.util.UUID;
 @Setter
 @Getter
 public class FileRecord {
-    @JsonIgnore
     public boolean isDeleted() {
         return fileStatus == FileStatus.DELETED;
     }

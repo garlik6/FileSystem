@@ -4,16 +4,56 @@
   "systemFileName" : "fileSystemImpl.json",
   "systemRepository" : "src/main/resources/JSON",
   "space" : 6,
-  "freeSpace" : 6,
-  "readyToAddSpace" : 6,
+  "freeSpace" : 2,
+  "readyToAddSpace" : 3,
   "maxSegments" : 2,
   "segments" : [ {
     "maxRecordAmount" : 2,
     "startingBlock" : 0,
-    "fileRecords" : [ ]
+    "fileRecords" : [ {
+      "fileStatus" : "NOT_DELETED",
+      "fileName" : "a1",
+      "fileType" : "txt",
+      "firstBlock" : 0,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/20 18:04:28",
+      "number" : 0,
+      "id" : "496777db-078d-45ea-bbe7-d6f4df45deba",
+      "deleted" : false
+    }, {
+      "fileStatus" : "DELETED",
+      "fileName" : "a2",
+      "fileType" : "txt",
+      "firstBlock" : 1,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/20 18:04:28",
+      "number" : 1,
+      "id" : "eb9e74be-2813-4fde-8730-63b0ebe25e12",
+      "deleted" : true
+    } ]
   }, {
     "maxRecordAmount" : 2,
-    "startingBlock" : 0,
-    "fileRecords" : [ ]
+    "startingBlock" : 2,
+    "fileRecords" : [ {
+      "fileStatus" : "NOT_DELETED",
+      "fileName" : "a3",
+      "fileType" : "txt",
+      "firstBlock" : 2,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/20 18:04:28",
+      "number" : 0,
+      "id" : "b5da9a9c-ccb3-42b5-bb78-e72a6552a571",
+      "deleted" : false
+    }, {
+      "fileStatus" : "NOT_DELETED",
+      "fileName" : "a4",
+      "fileType" : "txt",
+      "firstBlock" : 3,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/20 18:04:28",
+      "number" : 1,
+      "id" : "b55ec748-6bad-4c1b-aa5d-0f91f39b06aa",
+      "deleted" : false
+    } ]
   } ]
 }

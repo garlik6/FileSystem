@@ -17,6 +17,7 @@ public class ExampleCreatingUpdatingSaving {
         fileSystem.addFile("a1", "txt", 1);
         String id1  = fileSystem.addFile("a3", "txt", 1);
         fileSystem.deleteFileById(id1);
+        System.out.println(fileSystem.retrieveAllFiles());
 //        fileSystem.addFileInSegment("a4", "txt", 1, 0);
 //        fileSystem.addFileInSegment("a5", "txt", 1, 0);
 //

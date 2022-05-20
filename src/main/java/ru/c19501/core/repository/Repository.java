@@ -12,7 +12,7 @@ import lombok.Setter;
 import ru.c19501.config.ConfigLoader;
 import ru.c19501.core.files.FileRecord;
 import ru.c19501.core.files.Segment;
-import ru.c19501.core.files.Views;
+import ru.c19501.core.files.JsonRelated.Views;
 import ru.c19501.exceptions.CoreException;
 import ru.c19501.fileAdder.FileAdder;
 
@@ -91,7 +91,7 @@ public abstract class Repository {
 
     public abstract void writeRepository();
 
-    public abstract String getJson() throws JsonProcessingException;
+    public abstract String getCurrentJson() throws JsonProcessingException;
 
     public abstract void print();
 
@@ -142,7 +142,7 @@ public abstract class Repository {
 
     @JsonIgnore
     protected List<FileRecord> getAllFiles() {
-        List<FileRecord> fileRecords = segments.get(0).getFileRecords();
+        List<FileRecord> fileRecords = new ArrayList<>(segments.get(0).getFileRecords());
         for (int i = 1; i < segments.size(); i++) {
             fileRecords.addAll(segments.get(i).getFileRecords());
         }

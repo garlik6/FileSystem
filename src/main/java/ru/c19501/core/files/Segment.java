@@ -7,12 +7,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import ru.c19501.config.ConfigLoader;
-import ru.c19501.core.repository.Repository;
+import ru.c19501.core.files.JsonRelated.Views;
 import ru.c19501.exceptions.CoreException;
-import ru.c19501.fileAdder.FileAdder;
 
 import java.util.*;
-import java.util.function.Predicate;
 
 public class Segment {
     @Getter

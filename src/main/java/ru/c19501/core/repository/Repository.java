@@ -25,16 +25,12 @@ import java.util.stream.Stream;
 public abstract class Repository {
     @JsonView(Views.Internal.class)
     protected int systemVersion;
-
     @JsonView(Views.Internal.class)
     protected String owner;
-
     @JsonView(Views.Internal.class)
     protected String systemFileName;
-
     @JsonView(Views.Internal.class)
     protected String systemRepository;
-
     @JsonView(Views.Public.class)
     protected int space;
     @JsonView(Views.Public.class)
@@ -47,6 +43,14 @@ public abstract class Repository {
     @Getter(AccessLevel.NONE)
     @Setter(AccessLevel.NONE)
     protected List<Segment> segments = new ArrayList<>();
+
+    protected Repository(int space, int freeSpace, int readyToAddSpace, List<Segment> segments){
+        this.space = space;
+        this.freeSpace = freeSpace;
+        this.readyToAddSpace = readyToAddSpace;
+        this.segments = segments;
+        maxSegments = segments.size();
+    }
 
     protected Repository() {
         Properties properties = ConfigLoader.properties;

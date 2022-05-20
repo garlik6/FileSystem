@@ -34,7 +34,7 @@ public class FileAdder {
             return findFileRecord.get().getId();
         }
         if (repository.getFreeSpace() >= fileParams.getVolumeInBlocks()) {
-            repository.moveRestOfSegments(repository.getSegmentNumber(currentSegment), fileParams.getVolumeInBlocks() + 1);
+            repository.moveRestOfSegments(repository.getSegmentNumber(currentSegment), fileParams.getVolumeInBlocks());
             return addNewFileRecord(new FileRecord(fileParams, getLastBlock()));
         }
         throw new CoreException("There is not enough space, defragmentation is needed");

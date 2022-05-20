@@ -107,6 +107,11 @@ public abstract class Repository {
             }
         }
     }
+    public void clear() throws CoreException {
+        for(FileRecord fileRecord : getAllFiles()){
+            fileRecord.deleteFile();
+        }
+    }
 
     public int getMaxSegments() {
         return maxSegments;

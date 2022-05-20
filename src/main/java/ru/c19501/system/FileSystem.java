@@ -45,6 +45,12 @@ public interface FileSystem {
     String findFilesByType(String type);
 
     /**
+     * Очищение файловой системы
+     * @throws CoreException
+     */
+    void deleteAllFiles() throws CoreException;
+
+    /**
      * @return volume in blocks of deleted files + not yet used blocks
      */
     int getFreeSpace();
@@ -53,4 +59,5 @@ public interface FileSystem {
      * @return returns JSON representation of array of all files in this segment
      */
     String retrieveAllFiles();
+
 }

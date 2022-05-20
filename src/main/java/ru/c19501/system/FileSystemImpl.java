@@ -54,7 +54,10 @@ public class FileSystemImpl implements FileSystem {
         return repository.fileRecordsToString(repository.findFilesByCondition(fileRecord -> Objects.equals(fileRecord.getFileType(), type)));
     }
 
-
+    @Override
+    public void deleteAllFiles() throws CoreException {
+        repository.clear();
+    }
 
     @Override
     public int getFreeSpace() {
@@ -65,6 +68,7 @@ public class FileSystemImpl implements FileSystem {
     public String retrieveAllFiles() {
         return repository.fileRecordsToString(repository.getAllFilesCopy());
     }
+
 
     private static void configure() {
         String config = ConfigLoader.properties.getProperty("fs.mode");

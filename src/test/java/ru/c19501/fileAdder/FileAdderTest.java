@@ -88,7 +88,7 @@ class FileAdderTest {
         list = new ArrayList<Segment>();
         listRec = new ArrayList<FileRecord>();
         listRec.add(getFileRecordNotDeleted(new FileRecord("a1","txt",0,1,0)));
-        listRec.add(getFileRecordDeleted(new FileRecord("a4","txt",1,2,1)));
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a4","txt",1,2,1)));
         listRec.add(new FileRecord("","",3,1,2));
         list.add(new Segment(2,0,listRec));
         listRec = new ArrayList<FileRecord>();

@@ -134,13 +134,11 @@ public abstract class Repository {
     }
     @JsonIgnore
     protected List<FileRecord> getAllFiles() {
-        Stream<FileRecord> stream = segments.get(0).getFileRecords().stream();
-        System.out.println(segments.get(0).getFileRecords().stream().toList());
-        for (int i = 1; i < segments.size(); i++) {
-            Stream<FileRecord> additionalStream = segments.get(i).getFileRecords().stream();
-            stream = Stream.concat(stream, additionalStream);
+        List<FileRecord> fileRecords = segments.get(0).getFileRecords();
+        for (int i =1; i < segments.size(); i++) {
+            fileRecords.addAll(segments.get(i).getFileRecords());
         }
-        return stream.toList();
+        return fileRecords;
     }
 
     public FileRecord findFileById(String id) {

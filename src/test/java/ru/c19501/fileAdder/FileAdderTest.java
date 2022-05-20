@@ -1,6 +1,7 @@
 package ru.c19501.fileAdder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import ru.c19501.core.files.FileRecord;
 import ru.c19501.core.files.Segment;
@@ -20,7 +21,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FileAdderTest {
-    static int id = 0;
+
 
     public  static  FileRecord getFileRecordNotDeleted(FileRecord fileRecord)
     {
@@ -33,46 +34,42 @@ class FileAdderTest {
         fileRecord.setFileStatus(FileRecord.FileStatus.DELETED);
         return fileRecord;
     }
+
     /**
-     * Что будет если добавить 1 файл
-     * репо до и после
-     * репо вызывается фнукция
-     * создаеть систему до и после
-     * к системе до добавить функци добавления
-     * Проверить до и после
+     * Случай 0 из таблицы
+     * Самая простая вставка файла в пустой репозиторий
      */
     @Test
     void addFileRecordIntoFreeSpace() {
-        FileSystemFactory fileSystemFactory = new FileSystemFactoryImpl();
-        FileSystem fileSystem = fileSystemFactory.getSystem();
+
         List<Segment> list = new ArrayList<Segment>();
         list.add(new Segment(2));
         list.add(new Segment(2));
-
-
-       // JsonRepository jsonRepository = new JsonRepository(1, 1, 1, "1", 1, 1, 1, 1, 1, 1);
+        //Тестируемая сущность
         JsonRepository repository  = new JsonRepository(6, 6, 6, list);
+
         ArrayList<FileRecord> listRec = new ArrayList<FileRecord>();
         listRec.add(new FileRecord("a1","txt",1,1,0));
         list.remove(0);
         list.add(new Segment(2,0,listRec));
-
+        //Тестирующая сущность
         JsonRepository repository2  = new JsonRepository(6, 5, 5, list);
-        JsonRepository repository3  = new JsonRepository();
+
+        //Тестируемый блок
         try {
-            repository.addFileRecord("a1","txt",1);
-            System.out.println(repository.getCurrentJson());
-            System.out.println(repository2.getCurrentJson());
+            repository.addFileRecord("a1","txt",1);;
             assertEquals(repository.getCurrentJson(),repository2.getCurrentJson());
         } catch (CoreException | JsonProcessingException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Случай 1 из таблицы
+     * Вставка файла в удаленные блоки
+     */
     @Test
     void addFileRecordIntoDeletedSpace() {
-        FileSystemFactory fileSystemFactory = new FileSystemFactoryImpl();
-        FileSystem fileSystem = fileSystemFactory.getSystem();
         List<Segment> list = new ArrayList<Segment>();
         ArrayList<FileRecord> listRec = new ArrayList<FileRecord>();
         listRec.add(getFileRecordNotDeleted(new FileRecord("a1","txt",0,1,0)));
@@ -82,8 +79,8 @@ class FileAdderTest {
         listRec.add(getFileRecordNotDeleted(new FileRecord("a3","txt",4,2,0)));
         list.add(new Segment(2,4,listRec));
 
-
-        JsonRepository  repository =  new JsonRepository(6,0,3,list); //Тестируемая сущность
+        //Тестируемая сущность
+        JsonRepository  repository =  new JsonRepository(6,0,3,list);
 
         list = new ArrayList<Segment>();
         listRec = new ArrayList<FileRecord>();
@@ -95,11 +92,15 @@ class FileAdderTest {
         listRec.add(getFileRecordNotDeleted(new FileRecord("a3","txt",4,2,0)));
         list.add(new Segment(2,4,listRec));
 
-        JsonRepository  repository2 =  new JsonRepository(6,0,1,list); //Тестируемая сущность
+        //Тестирующая сущность
+        JsonRepository  repository2 =  new JsonRepository(6,0,1,list);
+
         //Тестируемый блок
         try {
             repository.addFileRecord("a4","txt",2);
-            //
+            //Функция просто проверяет на соответствие, если что-то не так показывает где пошло не так
+            System.out.println(StringUtils.difference(repository.getCurrentJson(),repository2.getCurrentJson()));
+
             assertEquals(repository.getCurrentJson(),repository2.getCurrentJson());
         } catch (CoreException | JsonProcessingException e) {
             e.printStackTrace();

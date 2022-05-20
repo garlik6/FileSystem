@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import lombok.AllArgsConstructor;
 import ru.c19501.config.ConfigLoader;
-import ru.c19501.core.files.FileRecord;
-import ru.c19501.core.files.Segment;
-import ru.c19501.core.files.Views;
+import ru.c19501.core.files.*;
+import ru.c19501.core.files.JsonRelated.MixInFR;
+import ru.c19501.core.files.JsonRelated.MixInR;
+import ru.c19501.core.files.JsonRelated.Views;
 import ru.c19501.core.repository.Repository;
 
 import java.io.File;
@@ -19,7 +19,7 @@ import java.util.Properties;
 
 
 public class JsonRepository extends Repository {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static ObjectMapper objectMapper = new ObjectMapper();
 
     public JsonRepository() {
         super();
@@ -56,12 +56,13 @@ public class JsonRepository extends Repository {
 
     @JsonIgnore
     @Override
-    public String getJson() throws JsonProcessingException {
+    public String getCurrentJson() throws JsonProcessingException {
         try {
-            return objectMapper.writerWithView(Views.Public.class).writeValueAsString(this);
+            return objectMapper.addMixIn(FileRecord.class, MixInFR.class).addMixIn(Repository.class, MixInR.class).writerWithView(Views.Internal.class).writeValueAsString(this);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+        objectMapper = new ObjectMapper();
         return "";
     }
 

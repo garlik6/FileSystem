@@ -61,9 +61,9 @@ class FileAdderTest {
         JsonRepository repository3  = new JsonRepository();
         try {
             repository.addFileRecord("a1","txt",1);
-            System.out.println(repository.getJson());
-            System.out.println(repository2.getJson());
-            assertEquals(repository.getJson(),repository2.getJson());
+            System.out.println(repository.getCurrentJson());
+            System.out.println(repository2.getCurrentJson());
+            assertEquals(repository.getCurrentJson(),repository2.getCurrentJson());
         } catch (CoreException | JsonProcessingException e) {
             e.printStackTrace();
         }
@@ -100,7 +100,7 @@ class FileAdderTest {
         try {
             repository.addFileRecord("a4","txt",2);
             //
-            assertEquals(repository.getJson(),repository2.getJson());
+            assertEquals(repository.getCurrentJson(),repository2.getCurrentJson());
         } catch (CoreException | JsonProcessingException e) {
             e.printStackTrace();
         }

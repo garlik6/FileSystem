@@ -13,10 +13,11 @@ public class ExampleCreatingUpdatingSaving {
     public static void main(String[] args) throws CoreException {
         FileSystemFactory factory = new FileSystemFactoryImpl();
         FileSystem fileSystem = factory.getSystem();
-        String fileId = fileSystem.addFile("a1", "txt", 1);
         fileSystem.addFile("a1", "txt", 1);
-        String id1  = fileSystem.addFile("a3", "txt", 1);
-        fileSystem.deleteFileById(id1);
+        String fileId = fileSystem.addFile("a1", "txt", 3);
+        fileSystem.addFile("a3", "txt", 2);
+        fileSystem.deleteFileById(fileId);
+        fileSystem.addFile("a1", "txt", 1);
         System.out.println(fileSystem.retrieveAllFiles());
 //        fileSystem.addFileInSegment("a4", "txt", 1, 0);
 //        fileSystem.addFileInSegment("a5", "txt", 1, 0);

@@ -17,9 +17,9 @@ public class FileAdder {
             throw new ArrayIndexOutOfBoundsException("Not enough space left");
         }
         for (int i = 0; i < repository.getMaxSegments(); i++) {
+            currentSegment = repository.getSegmentsCopy().get(i);
             int deletedAndNot =  repository.getSegmentsCopy().get(i).currentDeletedAndNotRecords();
-            if (deletedAndNot < repository.getSegmentsCopy().get(i).getMaxRecordAmount()) {
-                currentSegment = repository.getSegment(i);
+            if (deletedAndNot < currentSegment.getMaxRecordAmount() || currentSegment.getReadyToAddSpace() >= fileParams.getVolumeInBlocks()) {
                 break;
             }
             if (repository.getSegmentsCopy().get(i).currentDeletedAndNotRecords() == repository.getSegmentsCopy().get(i).getMaxRecordAmount() && i == repository.getMaxSegments() - 1) {

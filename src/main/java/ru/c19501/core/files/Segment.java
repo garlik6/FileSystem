@@ -105,4 +105,7 @@ public class Segment {
         fileRecords.stream().filter(fileRecord -> fileRecord.getNumber() > foundFileRecord.getNumber())
                 .forEach(fileRecord -> fileRecord.setNumber(fileRecord.getNumber() + 1));
     }
-}
+
+    public int getReadyToAddSpace(){
+        return fileRecords.stream().filter(FileRecord::isDeletedOrFree).mapToInt(FileRecord::getVolumeInBlocks).sum();
+    }}

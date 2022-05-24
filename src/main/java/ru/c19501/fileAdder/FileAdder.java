@@ -26,6 +26,25 @@ public class FileAdder {
                 throw new IllegalStateException("Not enough file records defragmentation needed");
             }
         }
+        if(repository.getSegmentNumber(currentSegment) == repository.getMaxSegments() - 1 && repository.getFreeSpace() != 0)
+        {
+            Optional<FileRecord> foundFileRecord = currentSegment.getFileRecords().stream()
+                    .filter(fileRecord -> fileRecord.getNumber() == (currentSegment.getFileRecordsSize() - 1))
+                    .findFirst();
+            int firstBlock = currentSegment.getStartingBlock();
+            int volume = repository.getFreeSpace();
+            int number = 0;
+            if(foundFileRecord.isPresent()){
+                firstBlock = foundFileRecord.get().getFirstBlock()+ foundFileRecord.get().getVolumeInBlocks();
+                number = foundFileRecord.get().getNumber() + 1;
+                volume = volume - foundFileRecord.get().getVolumeInBlocks();
+            }
+            FileRecord additionalEmptyFileRecord = new FileRecord("", "", firstBlock, volume,1);
+            additionalEmptyFileRecord.setNumber(number);
+            additionalEmptyFileRecord.freeSpace();
+            repository.setFreeSpace(repository.getFreeSpace() - additionalEmptyFileRecord.getVolumeInBlocks());
+            currentSegment.addFileRecord(additionalEmptyFileRecord);
+        }
         mergeDeletedFiles();
         Optional<FileRecord> findFileRecord = findFirstReadyToAddSpaceOfLength(fileParams.getVolumeInBlocks());
         if (findFileRecord.isPresent()) {

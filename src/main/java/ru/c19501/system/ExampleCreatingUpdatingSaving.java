@@ -14,10 +14,10 @@ public class ExampleCreatingUpdatingSaving {
         FileSystemFactory factory = new FileSystemFactoryImpl();
         FileSystem fileSystem = factory.getSystem();
         fileSystem.addFile("a1", "txt", 1);
-        String fileId = fileSystem.addFile("a1", "txt", 3);
-        fileSystem.addFile("a3", "txt", 2);
-        fileSystem.deleteFileById(fileId);
         fileSystem.addFile("a1", "txt", 1);
+        String fileId = fileSystem.addFile("a3", "txt", 2);
+        fileSystem.deleteFileById(fileId);
+        fileSystem.addFile("a1", "txt", 3);
         System.out.println(fileSystem.retrieveAllFiles());
 //        fileSystem.addFileInSegment("a4", "txt", 1, 0);
 //        fileSystem.addFileInSegment("a5", "txt", 1, 0);

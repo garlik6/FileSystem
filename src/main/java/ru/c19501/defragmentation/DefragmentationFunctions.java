@@ -49,7 +49,7 @@ public class DefragmentationFunctions {
     }
 
 
-    public boolean checkDef(JsonRepository repository) {
+    public static boolean checkDef(JsonRepository repository) {
         return defragExt(repository) > 0.4;
     }
 }

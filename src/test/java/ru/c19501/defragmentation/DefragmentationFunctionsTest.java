@@ -1,6 +1,7 @@
 package ru.c19501.defragmentation;
 
 import org.junit.jupiter.api.Test;
+import ru.c19501.core.files.FileRecord;
 import ru.c19501.core.files.Segment;
 import ru.c19501.core.repository.repositories.JsonRepository;
 import ru.c19501.exceptions.CoreException;
@@ -12,86 +13,98 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DefragmentationFunctionsTest {
 
-    @Test
-    void defragExt() throws CoreException {
-        List<Segment> list = new ArrayList<>();
-        list.add(new Segment(2));
-        list.add(new Segment(2));
-        JsonRepository repository  = new JsonRepository(6, 6, 6, list);
-        repository.addFileRecord("a1","txt",2);
-        String id2 = repository.addFileRecord("a2","txt",2);
-        repository.addFileRecord("a3","txt",1);
-        String id4 = repository.addFileRecord("a4","txt",1);
+    public static FileRecord getFileRecordNotDeleted(FileRecord fileRecord) {
+        fileRecord.setFileStatus(FileRecord.FileStatus.NOT_DELETED);
+        return fileRecord;
+    }
 
-        repository.deleteFileRecordById(id2);
-        repository.deleteFileRecordById(id4);
+    public static FileRecord getFileRecordDeleted(FileRecord fileRecord) {
+        fileRecord.setFileStatus(FileRecord.FileStatus.DELETED);
+        return fileRecord;
+    }
+    @Test
+    void defragExt(){
+        List<Segment> list = new ArrayList<>();
+        ArrayList<FileRecord> listRec = new ArrayList<>();
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a1","txt",0,1,0)));
+        listRec.add(getFileRecordDeleted(new FileRecord("a2","txt",1,3,1)));
+        list.add(new Segment(2,0,listRec));
+        listRec = new ArrayList<>();
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a3","txt",4,2,0)));
+        list.add(new Segment(2,4,listRec));
+
+        JsonRepository repository =  new JsonRepository(6,0,3,list);
+
 
         assertEquals(DefragmentationFunctions.defragExt(repository), 0.5);
     }
 
     @Test
-    void maxLengthToInsert1() throws CoreException {
+    void maxLengthToInsert1() {
         List<Segment> list = new ArrayList<>();
-        list.add(new Segment(2));
-        list.add(new Segment(2));
-        JsonRepository repository  = new JsonRepository(6, 6, 6, list);
-        repository.addFileRecord("a1","txt",2);
-        String id2 = repository.addFileRecord("a2","txt",2);
-        repository.addFileRecord("a3","txt",1);
-        String id4 = repository.addFileRecord("a4","txt",1);
+        ArrayList<FileRecord> listRec = new ArrayList<>();
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a1","txt",0,2,0)));
+        listRec.add(getFileRecordDeleted(new FileRecord("a2","txt",1,2,1)));
+        list.add(new Segment(2,0,listRec));
+        listRec = new ArrayList<>();
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a3","txt",4,1,0)));
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a4","txt",5,1,0)));
+        list.add(new Segment(2,4,listRec));
 
-        repository.deleteFileRecordById(id2);
-        repository.deleteFileRecordById(id4);
+        JsonRepository repository =  new JsonRepository(6,0,3,list);
 
 
         assertEquals(DefragmentationFunctions.maxLengthToInsert(repository), 2);
     }
 
     @Test
-    void maxLengthToInsert2() throws CoreException {
+    void maxLengthToInsert2() {
         List<Segment> list = new ArrayList<>();
-        list.add(new Segment(2));
-        list.add(new Segment(2));
-        JsonRepository repository  = new JsonRepository(6, 6, 6, list);
-        repository.addFileRecord("a1","txt",2);
-        repository.addFileRecord("a2","txt",2);
+        ArrayList<FileRecord> listRec = new ArrayList<>();
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a1","txt",0,2,0)));
+        listRec.add(getFileRecordDeleted(new FileRecord("a2","txt",1,2,1)));
+        list.add(new Segment(2,0,listRec));
+        listRec = new ArrayList<>();
+        list.add(new Segment(2,4,listRec));
 
+        JsonRepository repository =  new JsonRepository(6,2,2, list);
 
         assertEquals(DefragmentationFunctions.maxLengthToInsert(repository), 2);
     }
 
+    @Test
+    void possibleToInsert(){
 
-//    @Test
-//    void possibleToInsert1() throws CoreException {
-//        List<Segment> list = new ArrayList<>();
-//        list.add(new Segment(2));
-//        list.add(new Segment(2));
-//        JsonRepository repository  = new JsonRepository(6, 6, 6, list);
-//        repository.addFileRecord("a1","txt",2);
-//        String id2 = repository.addFileRecord("a2","txt",2);
-//        repository.addFileRecord("a3","txt",1);
-//        String id4 = repository.addFileRecord("a4","txt",1);
-//
-//        repository.deleteFileRecordById(id2);
-//        repository.deleteFileRecordById(id4);
-//
-//
-//        assertTrue(DefragmentationFunctions.possibleToInsert(repository, 2));
-//    }
+        List<Segment> list = new ArrayList<>();
+        ArrayList<FileRecord> listRec = new ArrayList<>();
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a1","txt",0,2,0)));
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a2","txt",1,2,1)));
+        list.add(new Segment(2,0,listRec));
+        listRec = new ArrayList<>();
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a3","txt",4,1,0)));
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a4","txt",5,1,0)));
+        list.add(new Segment(2,4,listRec));
+
+        JsonRepository repository =  new JsonRepository(6,0,0,list);
+
+        assertFalse(DefragmentationFunctions.possibleToInsert(repository, 1));
+    }
 
     @Test
-    void possibleToInsert() throws CoreException {
+    void checkDef(){
         List<Segment> list = new ArrayList<>();
-        list.add(new Segment(2));
-        list.add(new Segment(2));
-        JsonRepository repository  = new JsonRepository(6, 6, 6, list);
-        repository.addFileRecord("a1","txt",2);
-        repository.addFileRecord("a2","txt",2);
-        repository.addFileRecord("a3","txt",1);
-        repository.addFileRecord("a4","txt",1);
+        ArrayList<FileRecord> listRec = new ArrayList<>();
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a1","txt",0,2,0)));
+        listRec.add(getFileRecordDeleted(new FileRecord("a2","txt",1,2,1)));
+        list.add(new Segment(2,0,listRec));
+        listRec = new ArrayList<>();
+        listRec.add(getFileRecordNotDeleted(new FileRecord("a3","txt",4,1,0)));
+        listRec.add(getFileRecordDeleted(new FileRecord("a4","txt",5,1,0)));
+        list.add(new Segment(2,4,listRec));
 
+        JsonRepository repository =  new JsonRepository(6,0,3,list);
 
-        assertFalse(DefragmentationFunctions.possibleToInsert(repository, 3));
+        assertTrue(DefragmentationFunctions.checkDef(repository));
     }
 
 }

@@ -37,7 +37,7 @@ class DefragmentationTest {
         listRec.add(getFileRecordNotDeleted(new FileRecord("a3","txt",4,2,0)));
         list.add(new Segment(2,4,listRec));
 
-        JsonRepository repository =  new JsonRepository(6,0,3,list);
+        JsonRepository repository =  new JsonRepository(8,0,3,list);
 
 
 
@@ -50,7 +50,7 @@ class DefragmentationTest {
         list.add(new Segment(2, 3, new ArrayList<>()));
         list.add(new Segment(2, 3, new ArrayList<>()));
 
-        JsonRepository  repository2 =  new JsonRepository(6,3,3,list);
+        JsonRepository  repository2 =  new JsonRepository(8,3,3,list);
 
         defragment(repository);
         assertEquals(repository.getCurrentJson(),repository2.getCurrentJson());

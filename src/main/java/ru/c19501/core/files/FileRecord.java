@@ -14,6 +14,7 @@ import java.util.UUID;
 @Setter
 @Getter
 public class FileRecord {
+    @JsonIgnore
     public boolean isDeleted() {
         return fileStatus == FileStatus.DELETED;
     }
@@ -59,6 +60,9 @@ public class FileRecord {
         this.volumeInBlocks = fileParams.volumeInBlocks;
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         this.creationDate = dtf.format(LocalDateTime.now());
+    }
+    public FileRecord(){
+
     }
 
     public FileRecord(String fileName, String fileType, int firstBlock, int volumeInBlocks, int number) {

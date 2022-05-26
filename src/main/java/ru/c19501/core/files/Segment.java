@@ -106,7 +106,8 @@ public class Segment {
                 .forEach(fileRecord -> fileRecord.setNumber(fileRecord.getNumber() + 1));
     }
 
-    public int getReadyToAddSpace(){
+    @JsonIgnore
+    public int getReadyToAddSpace() {
         return fileRecords.stream().filter(FileRecord::isDeletedOrFree).mapToInt(FileRecord::getVolumeInBlocks).sum();
     }
 

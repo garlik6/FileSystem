@@ -84,6 +84,7 @@ public class FileSystemImpl implements FileSystem {
         try {
             repository = loader.loadRepository();
         }catch (IOException e){
+            e.printStackTrace();
             return false;
         }
         return true;

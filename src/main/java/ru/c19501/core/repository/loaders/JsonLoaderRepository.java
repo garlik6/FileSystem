@@ -18,12 +18,12 @@ public class JsonLoaderRepository implements RepoLoader {
     public Repository loadRepository() throws IOException {
         JsonRepository jsonRepository = new JsonRepository();
         ObjectMapper objectMapper = new ObjectMapper();
-            jsonRepository = objectMapper.readerWithView(Views.Internal.class).readValue(new File(jsonRepository.getSystemRepository() + '/' + jsonRepository.getSystemFileName()), JsonRepository.class);
+        jsonRepository = objectMapper.readerWithView(Views.Internal.class).readValue(new File(jsonRepository.getSystemRepository() + '/' + jsonRepository.getSystemFileName()), JsonRepository.class);
         return jsonRepository;
     }
 
     @Override
     public Repository getCopy(Repository repository) {
-        return  new JsonRepository(repository);
+        return new JsonRepository(repository);
     }
 }

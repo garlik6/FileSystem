@@ -1,0 +1,49 @@
+{
+  "space": 6,
+  "freeSpace": 0,
+  "readyToAddSpace": 1,
+  "maxSegments": 2,
+  "segments": [{
+    "maxRecordAmount": 2,
+    "startingBlock": 0,
+    "fileRecords": [{
+      "fileStatus": "NOT_DELETED",
+      "fileName": "a1",
+      "fileType": "txt",
+      "firstBlock": 0,
+      "volumeInBlocks": 1,
+      "number": 0,
+      "deleted": false
+    }, {
+      "fileStatus": "NOT_DELETED",
+      "fileName": "a4",
+      "fileType": "txt",
+      "firstBlock": 1,
+      "volumeInBlocks": 2,
+      "number": 1,
+      "deleted": false
+    }, {
+      "fileStatus": "EMPTY_SPACE",
+      "fileName": "",
+      "fileType": "",
+      "firstBlock": 3,
+      "volumeInBlocks": 1,
+      "number": 2,
+      "deleted": false
+    }],
+    "readyToAddSpace": 1
+  }, {
+    "maxRecordAmount": 2,
+    "startingBlock": 4,
+    "fileRecords": [{
+      "fileStatus": "NOT_DELETED",
+      "fileName": "a3",
+      "fileType": "txt",
+      "firstBlock": 4,
+      "volumeInBlocks": 2,
+      "number": 0,
+      "deleted": false
+    }],
+    "readyToAddSpace": 0
+  }]
+}

@@ -89,6 +89,7 @@ public class FileAdderTest{
             repository.addFileRecord("a4","txt",2);
             System.out.println(StringUtils.difference(repository.getCurrentJson(),repository2.getCurrentJson()));
 
+            System.out.println(repository.getCurrentJson());
             assertEquals(repository.getCurrentJson(),repository2.getCurrentJson());
         } catch (CoreException | JsonProcessingException e) {
             e.printStackTrace();

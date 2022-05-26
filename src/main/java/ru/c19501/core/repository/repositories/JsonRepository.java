@@ -10,6 +10,8 @@ import ru.c19501.core.files.JsonRelated.MixInFR;
 import ru.c19501.core.files.JsonRelated.MixInR;
 import ru.c19501.core.files.JsonRelated.Views;
 import ru.c19501.core.repository.Repository;
+import ru.c19501.defragmentation.Defragmentation;
+import ru.c19501.exceptions.CoreException;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -97,5 +99,10 @@ public class JsonRepository extends Repository {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void defragmentation() throws CoreException {
+        Defragmentation.defragment(this);
     }
 }

@@ -1,9 +1,8 @@
 package ru.c19501.service;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.c19501.core.FileSystem;
-import ru.c19501.core.config.ConfigLoader;
+import ru.c19501.system.FileSystem;
+import ru.c19501.config.ConfigLoader;
 import ru.c19501.exceptions.CoreException;
 import ru.c19501.model.FileRecord.FileRecordDTO;
 import ru.c19501.model.FileRecord.FileRecordReturnDTO;
@@ -21,7 +20,7 @@ public class CoreServiceImpl implements CoreService {
     private final ObjectMapper objectMapper;
 
     public CoreServiceImpl(FileSystem fileSystem, ObjectMapper objectMapper) {
-        this.countSegments = Integer.parseInt(ConfigLoader.properties.getProperty("fs.segmentAmountInCatalog"));
+        this.countSegments = Integer.parseInt(ConfigLoader.properties.getProperty("fs.defaultSegmentAmountInCatalog"));
         this.fileSystem = fileSystem;
         this.objectMapper = objectMapper;
     }
@@ -31,11 +30,12 @@ public class CoreServiceImpl implements CoreService {
 
         if (foundFile(name, type) == null) {
             try {
-                for (int i = 0; i < countSegments; i++) {
-                    if (fileSystem.getFreeSpaceInSegment(i) >= length) {
-                        fileSystem.addFileInSegment(name, type, length, i);
-                        return true;
-                    }
+//                for (int i = 0; i < countSegments; i++) {
+
+//                }
+                if (fileSystem.getFreeSpace() >= length) {
+                    fileSystem.addFile(name, type, length);
+                    return true;
                 }
             } catch (CoreException e) {
                 System.err.println(e.getMessage());
@@ -53,11 +53,16 @@ public class CoreServiceImpl implements CoreService {
         }
 
         FileRecordDTO file;
-        for (int i = 0; i < countSegments; i++) {
-            file = foundFileByNameAndType(name, type, i);
-            if (file != null && !file.isDeleted()) {
-                return FileRecordMapper.dtoToReturnDto(file);
-            }
+//        for (int i = 0; i < countSegments; i++) {
+//            file = foundFileByNameAndType(name, type, i);
+//            if (file != null && !file.isDeleted()) {
+//                return FileRecordMapper.dtoToReturnDto(file);
+//            }
+//        }
+
+        file = foundFileByNameAndType(name, type);
+        if (file != null && !file.isDeleted()) {
+            return FileRecordMapper.dtoToReturnDto(file);
         }
         return null;
     }
@@ -66,12 +71,18 @@ public class CoreServiceImpl implements CoreService {
     public List<FileRecordReturnDTO> readFiles() {
         List<FileRecordDTO> fileRecordDTOList = new ArrayList<>();
         try {
-            for (int i = 0; i < countSegments; i++) {
-                FileRecordDTO[] fileRecordDTOs = getFilesBySegment(i);
-                for (FileRecordDTO file : fileRecordDTOs) {
-                    if (!file.isDeleted()) {
-                        fileRecordDTOList.add(file);
-                    }
+//            for (int i = 0; i < countSegments; i++) {
+//                FileRecordDTO[] fileRecordDTOs = getFilesBySegment(i);
+//                for (FileRecordDTO file : fileRecordDTOs) {
+//                    if (!file.isDeleted()) {
+//                        fileRecordDTOList.add(file);
+//                    }
+//                }
+//            }
+            FileRecordDTO[] fileRecordDTOs = getFiles();
+            for (FileRecordDTO file : fileRecordDTOs) {
+                if (!file.isDeleted()) {
+                    fileRecordDTOList.add(file);
                 }
             }
         } catch (JsonProcessingException e) {
@@ -91,14 +102,20 @@ public class CoreServiceImpl implements CoreService {
 
         try {
             FileRecordDTO file;
-            for (int i = 0; i < countSegments; i++) {
-                file = foundFileByNameAndType(name, type, i);
-                if (file != null) {
-                    fileSystem.deleteFileFromSegmentById(i, file.getId());
-                    return true;
-                }
+//            for (int i = 0; i < countSegments; i++) {
+//                file = foundFileByNameAndType(name, type, i);
+//                if (file != null) {
+//                    fileSystem.deleteFileById(i, file.getId());
+//                    return true;
+//                }
+//            }
+
+            file = foundFileByNameAndType(name, type);
+            if (file != null) {
+                fileSystem.deleteFileById(file.getId());
+                return true;
             }
-        } catch (IllegalStateException e) {
+        } catch (IllegalStateException | CoreException e) {
             System.err.println(e.getMessage());
         }
         return false;
@@ -109,10 +126,10 @@ public class CoreServiceImpl implements CoreService {
 
     }
 
-    private FileRecordDTO foundFileByNameAndType(String name, String type, int segmentId) {
+    private FileRecordDTO foundFileByNameAndType(String name, String type) {
         List<FileRecordDTO> fileRecordDTOList = new ArrayList<>();
         try {
-            FileRecordDTO[] fileRecordDTOs = getFilesBySegmentAndName(segmentId, name);
+            FileRecordDTO[] fileRecordDTOs = getFilesByName(name);
             fileRecordDTOList.addAll(List.of(fileRecordDTOs));
 
             for (FileRecordDTO file : fileRecordDTOList) {
@@ -126,12 +143,12 @@ public class CoreServiceImpl implements CoreService {
         return null;
     }
 
-    private FileRecordDTO[] getFilesBySegmentAndName(int segmentId, String name) throws JsonProcessingException {
-        return objectMapper.readValue(fileSystem.findFilesInSegmentByName(segmentId, name), FileRecordDTO[].class);
+    private FileRecordDTO[] getFilesByName(String name) throws JsonProcessingException {
+        return objectMapper.readValue(fileSystem.findFilesByName( name), FileRecordDTO[].class);
     }
 
-    private FileRecordDTO[] getFilesBySegment(int segmentId) throws JsonProcessingException {
-        return objectMapper.readValue(fileSystem.retrieveAllFilesFromSegment(segmentId), FileRecordDTO[].class);
+    private FileRecordDTO[] getFiles() throws JsonProcessingException {
+        return objectMapper.readValue(fileSystem.retrieveAllFiles(), FileRecordDTO[].class);
     }
 
     private boolean isCorrectName(String name){

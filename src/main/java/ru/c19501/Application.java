@@ -1,8 +1,8 @@
 package ru.c19501;
 
-import ru.c19501.core.FileSystem;
-import ru.c19501.core.FileSystemFactory;
-import ru.c19501.core.system.FileSystemFactoryImpl;
+import ru.c19501.system.FileSystem;
+import ru.c19501.system.FileSystemFactory;
+import ru.c19501.system.FileSystemFactoryImpl;
 import ru.c19501.service.CoreService;
 import ru.c19501.service.CoreServiceImpl;
 import ru.c19501.service.config.JacksonConfig;
@@ -42,7 +42,6 @@ public class Application {
                 System.out.println(file);
             }
         }
-
         fileSystem.save();
     }
 }

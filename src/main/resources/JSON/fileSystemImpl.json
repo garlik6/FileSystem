@@ -3,53 +3,59 @@
   "owner" : "c19-501",
   "systemFileName" : "fileSystemImpl.json",
   "systemRepository" : "src/main/resources/JSON",
+  "space" : 6,
+  "freeSpace" : 0,
+  "readyToAddSpace" : 1,
+  "maxSegments" : 2,
   "segments" : [ {
-    "number" : 0,
-    "amountOfBlocks" : 20,
-    "freeAndDeletedSpace" : 6,
-    "freeSpace" : 4,
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
     "fileRecords" : [ {
-      "deleted" : false,
+      "fileStatus" : "NOT_DELETED",
       "fileName" : "a1",
       "fileType" : "txt",
       "firstBlock" : 0,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/11 22:45:30",
+      "creationDate" : "2022/05/20 20:29:35",
       "number" : 0,
-      "id" : "c9b9ef34-9ebd-43c2-81bb-14f19e3cd840"
+      "id" : "8188d5d7-b76a-4451-9bff-555d00fb1937",
+      "deleted" : false
     }, {
-      "deleted" : true,
-      "fileName" : "a2",
+      "fileStatus" : "NOT_DELETED",
+      "fileName" : "a1",
       "fileType" : "txt",
-      "firstBlock" : 2,
+      "firstBlock" : 1,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/12 23:47:21",
+      "creationDate" : "2022/05/20 20:29:35",
       "number" : 1,
-      "id" : "67afc74f-9aed-4a39-932d-82f23b8ed253"
-    }, {
-      "deleted" : false,
-      "fileName" : "a3",
+      "id" : "c9f47fc8-7a84-43db-9522-3965675b52fa",
+      "deleted" : false
+    } ],
+    "readyToAddSpace" : 0
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 2,
+    "fileRecords" : [ {
+      "fileStatus" : "NOT_DELETED",
+      "fileName" : "a1",
       "fileType" : "txt",
       "firstBlock" : 2,
-      "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/11 22:45:30",
-      "number" : 2,
-      "id" : "db4356b2-049d-4968-8b60-f179ac9a25a4"
+      "volumeInBlocks" : 3,
+      "creationDate" : "2022/05/20 20:29:36",
+      "number" : 0,
+      "id" : "cc85700b-970a-4bcd-b3cf-28d9eda22b84",
+      "deleted" : false
     }, {
-      "deleted" : false,
-      "fileName" : "a4",
-      "fileType" : "txt",
-      "firstBlock" : 3,
+      "fileStatus" : "EMPTY_SPACE",
+      "fileName" : "",
+      "fileType" : "",
+      "firstBlock" : 5,
       "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/11 22:45:30",
-      "number" : 3,
-      "id" : "c148033c-41ed-4f72-919d-036a651c5c2f"
-    } ]
-  }, {
-    "number" : 1,
-    "amountOfBlocks" : 20,
-    "freeAndDeletedSpace" : 20,
-    "freeSpace" : 20,
-    "fileRecords" : [ ]
+      "creationDate" : "2022/05/20 20:29:36",
+      "number" : 1,
+      "id" : "7de798bd-559a-4398-8fae-6a4999cf068b",
+      "deleted" : false
+    } ],
+    "readyToAddSpace" : 1
   } ]
 }

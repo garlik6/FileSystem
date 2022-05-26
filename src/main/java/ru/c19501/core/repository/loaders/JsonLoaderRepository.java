@@ -1,7 +1,8 @@
 package ru.c19501.core.repository.loaders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.c19501.core.files.Views;
+import lombok.AllArgsConstructor;
+import ru.c19501.core.files.JsonRelated.Views;
 import ru.c19501.core.repository.RepoLoader;
 import ru.c19501.core.repository.Repository;
 import ru.c19501.core.repository.repositories.JsonRepository;
@@ -9,6 +10,8 @@ import ru.c19501.core.repository.repositories.JsonRepository;
 import java.io.File;
 import java.io.IOException;
 
+
+@AllArgsConstructor
 public class JsonLoaderRepository implements RepoLoader {
 
     @Override
@@ -17,5 +20,10 @@ public class JsonLoaderRepository implements RepoLoader {
         ObjectMapper objectMapper = new ObjectMapper();
             jsonRepository = objectMapper.readerWithView(Views.Internal.class).readValue(new File(jsonRepository.getSystemRepository() + '/' + jsonRepository.getSystemFileName()), JsonRepository.class);
         return jsonRepository;
+    }
+
+    @Override
+    public Repository getCopy(Repository repository) {
+        return  new JsonRepository(repository);
     }
 }

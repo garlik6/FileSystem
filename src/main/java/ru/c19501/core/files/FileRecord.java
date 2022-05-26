@@ -15,7 +15,7 @@ import java.util.UUID;
 @Setter
 @Getter
 public class FileRecord {
-    @JsonProperty("deleted")
+    @JsonView(Views.Internal.class)
     public boolean isDeleted() {
         return fileStatus == FileStatus.DELETED;
     }
@@ -28,6 +28,9 @@ public class FileRecord {
     public enum FileStatus {
         DELETED, NOT_DELETED, EMPTY_SPACE
     }
+
+
+    public void setDeleted(boolean deleted){}
 
     @JsonView(Views.Internal.class)
     private FileStatus fileStatus;

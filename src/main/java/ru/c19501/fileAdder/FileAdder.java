@@ -69,6 +69,7 @@ public class FileAdder {
             addAdditionalFileRecord(foundFileRecord, reduction);
             currentSegment.sortFileRecords();
         }
+        repository.setReadyToAddSpace(repository.getReadyToAddSpace() - fileParams.getVolumeInBlocks());
     }
 
     private String addNewFileRecord(FileRecord newFileRecord) {

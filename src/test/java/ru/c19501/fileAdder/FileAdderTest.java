@@ -162,6 +162,5 @@ public class FileAdderTest{
         Throwable thrown = assertThrows(CoreException.class, () -> {
             repository.addFileRecord("a4","txt",2);
         });
-
     }
 }

@@ -24,7 +24,7 @@ public class CreateFile extends BaseCommand implements iCommand {
         if (b) {
             System.out.println("Файл " + fileName[1] + "." + fileName[2] + " успешно создан.");
         } else
-            System.out.println("Не достаточно свободного места в файловой системе для создания файла " + fileName[1] + "." + fileName[2] + ".");
+            System.out.println("Не удалось добавить файл(не хватает места либо неправильный формат) " + fileName[1] + "." + fileName[2] + ".");
         fs.save();
     }
 

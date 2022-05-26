@@ -1,7 +1,8 @@
 package ru.c19501.program.monitor;
 
-import ru.c19501.core.FileSystem;
 import ru.c19501.program.struct.*;
+import ru.c19501.system.FileSystem;
+
 import java.lang.reflect.InvocationTargetException;
 import static ru.c19501.program.monitor.RegisteredCommands.registeredCommands;
 

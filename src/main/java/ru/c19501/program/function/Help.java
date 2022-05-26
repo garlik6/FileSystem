@@ -2,7 +2,7 @@ package ru.c19501.program.function;
 
 import static ru.c19501.program.monitor.RegisteredCommands.registeredCommands;
 
-import ru.c19501.core.FileSystem;
+import ru.c19501.system.FileSystem;
 import ru.c19501.program.struct.*;
 
 public class Help extends BaseCommand implements iCommand {

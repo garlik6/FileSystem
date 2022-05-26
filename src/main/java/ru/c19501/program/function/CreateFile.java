@@ -1,6 +1,6 @@
 package ru.c19501.program.function;
 
-import ru.c19501.core.FileSystem;
+import ru.c19501.system.FileSystem;
 import ru.c19501.program.struct.iCommand;
 import ru.c19501.program.struct.iMonitor;
 import ru.c19501.service.CoreService;

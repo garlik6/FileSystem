@@ -1,6 +1,6 @@
 package ru.c19501;
 
-import ru.c19501.core.system.FileSystemFactoryImpl;
+import ru.c19501.system.FileSystemFactoryImpl;
 import ru.c19501.program.monitor.MonitorClass;
 import ru.c19501.program.monitor.RegisteredCommands;
 import ru.c19501.program.monitor.StreamActions;

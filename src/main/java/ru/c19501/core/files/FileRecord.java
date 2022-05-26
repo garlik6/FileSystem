@@ -1,6 +1,7 @@
 package ru.c19501.core.files;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Setter
 @Getter
 public class FileRecord {
-    @JsonIgnore
+    @JsonProperty("deleted")
     public boolean isDeleted() {
         return fileStatus == FileStatus.DELETED;
     }

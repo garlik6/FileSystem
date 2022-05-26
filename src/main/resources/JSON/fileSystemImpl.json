@@ -5,13 +5,13 @@
   "systemRepository" : "src/main/resources/JSON",
   "space" : 6,
   "freeSpace" : 3,
-  "readyToAddSpace" : 3,
+  "readyToAddSpace" : 4,
   "maxSegments" : 2,
   "segments" : [ {
     "maxRecordAmount" : 2,
     "startingBlock" : 0,
     "fileRecords" : [ {
-      "fileStatus" : "NOT_DELETED",
+      "fileStatus" : "DELETED",
       "fileName" : "1",
       "fileType" : "1",
       "firstBlock" : 0,

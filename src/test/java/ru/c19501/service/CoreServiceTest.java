@@ -19,12 +19,12 @@ public class CoreServiceTest {
 
     CoreService  coreService = new CoreServiceImpl(fileSystem,objectMapper);
 
-    private static String INCORRECT_FILENAME = "яжик";
+    private static String INCORRECT_FILENAME = "ГїГ¦ГЁГЄ";
     private static String NOT_EXISTING_FILENAME = "file1";
     private static String EXISTING_FILENAME = "file2";
 
     @BeforeEach
-    void clearTest() throws CoreException {
+    void clear() throws CoreException {
         fileSystem.deleteAllFiles();
     }
 
@@ -32,7 +32,7 @@ public class CoreServiceTest {
     void createFileTest() throws CoreException {
         fileSystem.addFile(EXISTING_FILENAME,"txt",2);
         assertFalse(coreService.createFile(EXISTING_FILENAME, "txt", 5));
-        assertTrue(coreService.createFile(NOT_EXISTING_FILENAME,"txt",2));//! размер
+        assertTrue(coreService.createFile(NOT_EXISTING_FILENAME,"txt",2));//! Г°Г Г§Г¬ГҐГ°
     }
     @Test
     void foundFileTest() throws CoreException {

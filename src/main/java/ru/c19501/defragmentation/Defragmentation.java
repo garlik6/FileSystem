@@ -1,37 +1,45 @@
 package ru.c19501.defragmentation;
 
+import ru.c19501.config.ConfigLoader;
 import ru.c19501.core.files.FileRecord;
 import ru.c19501.core.files.Segment;
+import ru.c19501.core.repository.repositories.JsonRepository;
+import ru.c19501.exceptions.CoreException;
+import ru.c19501.fileAdder.FileAdder;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Defragmentation {
-    public static void defragment(Segment segment) {
-        List<FileRecord> fileRecords = segment.getFileRecords();
+    public static void defragment(JsonRepository disk) throws CoreException {
+        ArrayList<Segment.NewFileParams> data = new ArrayList<>();
 
-        //find first deleted item
-        int currentIndex = 0;
-        while (!fileRecords.get(currentIndex).isDeleted()) {
-            currentIndex++;
-        }
-
-        //move deleted items into the end
-        int nextReplacedIndex = currentIndex;
-        while (currentIndex < fileRecords.size()) {
-            if (!fileRecords.get(currentIndex).isDeleted() && currentIndex > nextReplacedIndex) {
-                Collections.swap(fileRecords, currentIndex, nextReplacedIndex);
-                nextReplacedIndex++;
+        for (Segment segment: disk.getSegmentsCopy()) {
+            for (FileRecord fileRecord: segment.getFileRecords()) {
+                if (fileRecord.getFileStatus().equals(FileRecord.FileStatus.NOT_DELETED)) {
+                    Segment.NewFileParams newFileParams = new Segment.NewFileParams(
+                            fileRecord.getFileName(),
+                            fileRecord.getFileType(),
+                            fileRecord.getVolumeInBlocks()
+                    );
+                    data.add(newFileParams);
+                }
             }
-
-            currentIndex++;
         }
 
-        //numbering the elements of the array
-        currentIndex = 0;
-        while (currentIndex < fileRecords.size()) {
-            fileRecords.get(currentIndex).setNumber(currentIndex);
-            currentIndex++;
+        //обнуляем репозиторий
+        disk.setFreeSpace(Integer.parseInt(ConfigLoader.properties.getProperty("fs.space")));
+        disk.setReadyToAddSpace(disk.getFreeSpace());
+        for (Segment segment: disk.getSegmentsCopy()) {
+            segment.setStartingBlock(0);
+            segment.nullifyFileRecords();
         }
+
+        FileAdder fileAdder = new FileAdder(disk, disk.getSegment(0));
+        for (Segment.NewFileParams newFileParams: data) {
+            fileAdder.addFileRecord(newFileParams);
+        }
+
+
     }
 }

@@ -20,8 +20,11 @@ public class CreateFile extends BaseCommand implements iCommand {
     public void execute(FileSystem fs) {
         readParameters();
         CoreService coreService = new CoreServiceImpl(fs, JacksonConfig.createObjectMapper());
-        coreService.createFile(fileName[1], this.fileName[2], length);
-        System.out.println("Файл " + fileName[1] + "." + this.fileName[2] + " успешно создан.");
+        boolean b = coreService.createFile(fileName[1], this.fileName[2], length);
+        if (b) {
+            System.out.println("Файл " + fileName[1] + "." + fileName[2] + " успешно создан.");
+        } else
+            System.out.println("Не достаточно свободного места в файловой системе для создания файла " + fileName[1] + "." + fileName[2] + ".");
         fs.save();
     }
 

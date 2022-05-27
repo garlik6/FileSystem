@@ -7,6 +7,7 @@ public interface FileSystem {
     /**
      * Saves file system in format, path specified in config.properties
      */
+    void save(String name);
     void save();
     /**  Loads system in format, path specified in config.properties
      * @return is loading successful
@@ -65,5 +66,7 @@ public interface FileSystem {
     String getJson();
 
     String getDefragmentationExt();
+
+
 
 }

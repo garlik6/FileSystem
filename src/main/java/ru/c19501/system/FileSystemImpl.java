@@ -24,6 +24,12 @@ public class FileSystemImpl implements FileSystem {
     private static RepoLoader loader;
     private static FileSystemImpl instance;
 
+    public void save(String name) {
+        repository.setSystemFileName(name);
+        repository.writeRepository();
+    }
+
+    @Override
     public void save() {
         repository.writeRepository();
     }

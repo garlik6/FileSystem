@@ -5,29 +5,21 @@
   "systemRepository" : "src/main/resources/JSON",
   "space" : 6,
   "freeSpace" : 3,
-  "readyToAddSpace" : 4,
+  "readyToAddSpace" : 3,
   "maxSegments" : 2,
   "segments" : [ {
     "maxRecordAmount" : 2,
     "startingBlock" : 0,
     "fileRecords" : [ {
-      "fileStatus" : "DELETED",
-      "fileName" : "1",
-      "fileType" : "1",
-      "firstBlock" : 0,
-      "volumeInBlocks" : 1,
-      "creationDate" : "2022/05/27 00:16:26",
-      "number" : 0,
-      "id" : "c548fb89-77b9-4722-a283-49fd80c4b282"
-    }, {
       "fileStatus" : "NOT_DELETED",
-      "fileName" : "2",
-      "fileType" : "2",
-      "firstBlock" : 1,
-      "volumeInBlocks" : 2,
-      "creationDate" : "2022/05/27 00:22:55",
-      "number" : 1,
-      "id" : "6be515be-863d-43ec-a19f-15e08823f865"
+      "fileName" : "rt",
+      "fileType" : "er",
+      "firstBlock" : 0,
+      "volumeInBlocks" : 3,
+      "creationDate" : "2022/05/27 10:15:17",
+      "number" : 0,
+      "id" : "49274289-250d-41dc-9767-5b07ee0b117a",
+      "deleted" : false
     } ]
   }, {
     "maxRecordAmount" : 2,

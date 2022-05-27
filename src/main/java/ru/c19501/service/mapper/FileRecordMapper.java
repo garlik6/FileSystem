@@ -10,6 +10,7 @@ public abstract class FileRecordMapper {
                 .fileName(dto.getFileName())
                 .fileType(dto.getFileType())
                 .creationDate(dto.getCreationDate())
+                .volumeInBlocks(dto.getVolumeInBlocks())
                 .build();
     }
 

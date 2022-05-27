@@ -13,4 +13,5 @@ public class FileRecordReturnDTO {
     String fileName;
     String fileType;
     String creationDate;
+    int volumeInBlocks;
 }

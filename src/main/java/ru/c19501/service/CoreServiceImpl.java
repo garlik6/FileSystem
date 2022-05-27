@@ -45,8 +45,8 @@ public class CoreServiceImpl implements CoreService {
         return false;
     }
 
-    @Override
-    public FileRecordReturnDTO foundFile(String name, String type) {
+
+    private FileRecordReturnDTO foundFile(String name, String type) {
 
         if(isCorrectName(name)){
             System.err.println("Not correct name");
@@ -129,6 +129,11 @@ public class CoreServiceImpl implements CoreService {
         } catch (CoreException e){
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public String getSystemInfo() {
+        return fileSystem.getJson();
     }
 
     private FileRecordDTO foundFileByNameAndType(String name, String type) {

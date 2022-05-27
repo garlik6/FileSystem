@@ -114,6 +114,8 @@ public abstract class Repository {
         }
     }
 
+    public abstract String getPublicJson();
+
     public int getMaxSegments() {
         return maxSegments;
     }
@@ -164,6 +166,8 @@ public abstract class Repository {
     }
 
     public abstract void defragmentation() throws CoreException;
+
+    public abstract String defragExt();
 }
 
 

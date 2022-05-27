@@ -34,13 +34,6 @@ public class CoreServiceTest {
         assertFalse(coreService.createFile(EXISTING_FILENAME, "txt", 5));
         assertTrue(coreService.createFile(NOT_EXISTING_FILENAME,"txt",2));//! ðàçìåð
     }
-    @Test
-    void foundFileTest() throws CoreException {
-        fileSystem.addFile(EXISTING_FILENAME,"txt",5);
-        assertNotNull(coreService.foundFile(EXISTING_FILENAME,"txt"));
-        assertNull(coreService.foundFile(NOT_EXISTING_FILENAME,"txt"));
-        assertNull(coreService.foundFile(INCORRECT_FILENAME,"txt"));
-    }
 
     @Test
     void readFilesTest() throws CoreException {

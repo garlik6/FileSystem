@@ -11,6 +11,7 @@ import ru.c19501.core.files.JsonRelated.MixInR;
 import ru.c19501.core.files.JsonRelated.Views;
 import ru.c19501.core.repository.Repository;
 import ru.c19501.defragmentation.Defragmentation;
+import ru.c19501.defragmentation.DefragmentationFunctions;
 import ru.c19501.exceptions.CoreException;
 
 import java.io.File;
@@ -67,6 +68,16 @@ public class JsonRepository extends Repository {
         objectMapper = new ObjectMapper();
         return "";
     }
+    @JsonIgnore
+    public String getPublicJson(){
+        try {
+            return objectMapper.writerWithView(Views.Public.class).writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        objectMapper = new ObjectMapper();
+        return "";
+    }
 
     @Override
     public String fileRecordsToString(FileRecord fileRecord) {
@@ -104,5 +115,10 @@ public class JsonRepository extends Repository {
     @Override
     public void defragmentation() throws CoreException {
         Defragmentation.defragment(this);
+    }
+
+    @Override
+    public String defragExt() {
+        return Double.toString(DefragmentationFunctions.defragExt(this));
     }
 }

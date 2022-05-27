@@ -30,7 +30,7 @@ public class Segment {
     }
 
     public int currentDeletedAndNotRecords() {
-        return (int) fileRecords.stream().filter(fileRecord -> fileRecord.isDeleted() || fileRecord.getFileStatus() == FileRecord.FileStatus.NOT_DELETED).count();
+        return (int) fileRecords.stream().filter(fileRecord -> fileRecord.getFileStatus() == FileRecord.FileStatus.DELETED || fileRecord.getFileStatus() == FileRecord.FileStatus.NOT_DELETED).count();
     }
 
     @Data

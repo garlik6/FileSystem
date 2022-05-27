@@ -4,26 +4,66 @@
   "systemFileName" : "fileSystemImpl.json",
   "systemRepository" : "src/main/resources/JSON",
   "space" : 6,
-  "freeSpace" : 3,
-  "readyToAddSpace" : 3,
+  "freeSpace" : 0,
+  "readyToAddSpace" : 2,
   "maxSegments" : 2,
   "segments" : [ {
     "maxRecordAmount" : 2,
     "startingBlock" : 0,
     "fileRecords" : [ {
       "fileStatus" : "NOT_DELETED",
-      "fileName" : "rt",
-      "fileType" : "er",
+      "fileName" : "1",
+      "fileType" : "1",
       "firstBlock" : 0,
-      "volumeInBlocks" : 3,
-      "creationDate" : "2022/05/27 10:15:17",
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/27 10:18:47",
       "number" : 0,
-      "id" : "49274289-250d-41dc-9767-5b07ee0b117a",
+      "id" : "90d12836-3edd-4dfe-bd65-b52670c56e18",
+      "deleted" : false
+    }, {
+      "fileStatus" : "NOT_DELETED",
+      "fileName" : "2",
+      "fileType" : "1",
+      "firstBlock" : 1,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/27 10:19:00",
+      "number" : 1,
+      "id" : "5b28a4fd-a921-4d14-9a46-41a7ff196d58",
       "deleted" : false
     } ]
   }, {
     "maxRecordAmount" : 2,
-    "startingBlock" : 3,
-    "fileRecords" : [ ]
+    "startingBlock" : 2,
+    "fileRecords" : [ {
+      "fileStatus" : "NOT_DELETED",
+      "fileName" : "3",
+      "fileType" : "1",
+      "firstBlock" : 2,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/27 10:19:08",
+      "number" : 0,
+      "id" : "23e6a4c6-c011-4fbd-aafa-28e80ee8d5c3",
+      "deleted" : false
+    }, {
+      "fileStatus" : "NOT_DELETED",
+      "fileName" : "4",
+      "fileType" : "1",
+      "firstBlock" : 3,
+      "volumeInBlocks" : 1,
+      "creationDate" : "2022/05/27 10:19:15",
+      "number" : 1,
+      "id" : "5f169392-ac43-4d55-a968-1c37c2dca673",
+      "deleted" : false
+    }, {
+      "fileStatus" : "EMPTY_SPACE",
+      "fileName" : "",
+      "fileType" : "",
+      "firstBlock" : 4,
+      "volumeInBlocks" : 2,
+      "creationDate" : "2022/05/27 10:19:15",
+      "number" : 2,
+      "id" : "f2ff2896-cc8a-4d3f-9c1c-b9266fd45b54",
+      "deleted" : true
+    } ]
   } ]
 }

@@ -14,15 +14,9 @@ public class Main {
 
     static MonitorClass monitor = new MonitorClass(new FileSystemFactoryImpl().getSystem(), new StreamActions());
 
-    public static void init() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException{
-        var commandObject = monitor.runFunction("start");
-        if (commandObject != null)
-            commandObject.execute(monitor.fs);
-    }
-
     public static void mainRealization(iStreamActions stream) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        stream.println("Введите команду \n(Если не помните команду, введите help)");
         while (true) {
+            stream.println("Введите команду \n(Справка по команде вызывается командой help)");
             stream.print(">");
             String command = stream.getLine();
 
@@ -39,7 +33,7 @@ public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         RegisteredCommands.init();
-        init();
+        monitor.readString("Для загрузки файловой системы введите down или нажмите enter для создания новой.");
         mainRealization(monitor.stream);
     }
 }

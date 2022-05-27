@@ -21,11 +21,11 @@ public class PrintA extends BaseCommand implements iCommand {
         StringBuilder string = new StringBuilder();
         CoreService coreService = new CoreServiceImpl(fs, JacksonConfig.createObjectMapper());
 
-        string.append("Файловая система: ").append("\n");
+        string.append("Файловая система (в алфавитном порядке): ").append("\n");
 
         ArrayList<String> s = new ArrayList<>();
 
-        for (FileRecordReturnDTO file : coreService.readFiles()) {
+        for (FileRecordReturnDTO file : coreService.readFilesNaturalOrder()) {
             string.append(file).append("\n");
         }
         return string.toString();

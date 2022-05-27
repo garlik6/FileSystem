@@ -24,6 +24,8 @@ public class Help extends BaseCommand implements iCommand {
                     "У этой команды нет аргументов.";
             case "printA" -> commandName + " - " + "Вывод всех данных о системе в виде списка названий файлов и их длинны в алфавитном порядке." + "\n" +
                     "У этой команды нет аргументов.";
+            case "exit" -> commandName + " - " + "Завершение работы программы." + "\n" +
+                    "У этой команды нет аргументов.";
             case "help" -> commandName + " - " + "Справка по команде." + "\n" +
                     "У этой команды нет аргументов.";
             case "commands" -> commandName + " - " + "Вывод списка всех доступных команд." + "\n" +
@@ -34,7 +36,7 @@ public class Help extends BaseCommand implements iCommand {
                     "У этой команды нет аргументов.";
             case "createSys" -> commandName + " - " + "Создание файловой системы." + "\n" +
                     "В качестве аргументов команда принимает Имя, Размер, Количество сегментов файловой системы.";
-            case "exit" -> null;
+            case "out" -> null;
             default -> "Кажется по введённой вами команде ещё нет справки. Или вы ошиблись вводом. Попробуем ещё раз?";
         };
     }
@@ -42,7 +44,7 @@ public class Help extends BaseCommand implements iCommand {
         if (stringHelpPerCommand == null)
             return false;
         monitor.writeMessage(stringHelpPerCommand + "\n" +
-                "Если нужна справка по команде, введите её название. Если нет - введите exit.");
+                "Если нужна справка по команде, введите её название. Если нет - введите out.");
         return true;
     }
 

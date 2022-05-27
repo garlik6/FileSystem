@@ -23,8 +23,6 @@ public class PrintA extends BaseCommand implements iCommand {
 
         string.append("Файловая система (в алфавитном порядке): ").append("\n");
 
-        ArrayList<String> s = new ArrayList<>();
-
         for (FileRecordReturnDTO file : coreService.readFilesNaturalOrder()) {
             string.append(file).append("\n");
         }

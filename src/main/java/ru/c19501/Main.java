@@ -11,8 +11,23 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Main {
 
-
     static MonitorClass monitor = new MonitorClass(new FileSystemFactoryImpl().getSystem(), new StreamActions());
+
+    public static void init(iStreamActions stream) throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        stream.println("Монитор команд запущен.");
+        do {
+            stream.println("(Введите download или createSys)");
+        } while( initialization(stream.getLine() ) );
+    }
+
+    public static boolean initialization(String choice) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        var commandObject = monitor.runStart(choice);
+        if (commandObject == null)
+            return true;
+
+        commandObject.execute(monitor.fs);
+        return false;
+    }
 
     public static void mainRealization(iStreamActions stream) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         while (true) {
@@ -33,7 +48,7 @@ public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         RegisteredCommands.init();
-        monitor.readString("Для загрузки файловой системы введите down или нажмите enter для создания новой.");
+        monitor.readString("Для загрузки файловой системы введите down или create для создания новой.");
         mainRealization(monitor.stream);
     }
 }

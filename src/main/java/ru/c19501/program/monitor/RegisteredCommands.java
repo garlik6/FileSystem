@@ -14,7 +14,9 @@ public class RegisteredCommands {
         registeredCommands.put("print", Print.class.getName());
         registeredCommands.put("print¿", PrintA.class.getName());
         registeredCommands.put("help", Help.class.getName());
-        registeredCommands.put("down", Hello.class.getName());
+        registeredCommands.put("download", Hello.class.getName());
+        registeredCommands.put("createSys", Create.class.getName());
+        registeredCommands.put("info", Info.class.getName());
         registeredCommands.put("defrag", Defragmentation.class.getName());
     }
 

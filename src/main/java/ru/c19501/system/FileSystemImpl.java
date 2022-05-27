@@ -17,12 +17,16 @@ import java.io.IOException;
 import java.util.Objects;
 
 @Getter
+
+
 public class FileSystemImpl implements FileSystem {
 
     @Getter(AccessLevel.NONE)
     private Repository repository;
     private static RepoLoader loader;
     private static FileSystemImpl instance;
+
+
 
     public void save(String name) {
         repository.setSystemFileName(name);
@@ -36,7 +40,7 @@ public class FileSystemImpl implements FileSystem {
 
     @Override
     public String addFile(String name, String type, int length) throws CoreException {
-        if(Objects.equals(name, ""))
+        if (Objects.equals(name, ""))
             throw new IllegalArgumentException("empty string is reserved name");
         return repository.addFileRecord(name, type, length);
     }
@@ -86,14 +90,19 @@ public class FileSystemImpl implements FileSystem {
         }
     }
 
-    public boolean load()  {
+    public boolean load() {
         configure();
         try {
             repository = loader.loadRepository();
-        }catch (IOException e){
+        } catch (IOException e) {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String getName() {
+        return repository.getSystemFileName();
     }
 
     public void print() {

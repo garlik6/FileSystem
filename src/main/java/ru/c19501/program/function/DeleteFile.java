@@ -24,7 +24,7 @@ public class DeleteFile extends BaseCommand implements iCommand {
             System.out.println("‘айл " + fileName[1] + "." + fileName[2] + " не найден в системе.");
         } else
             System.out.println("‘айл " + fileName[1] + "." + fileName[2] + " удалЄн.");
-        fs.save();
+        fs.save(fs.getName());
     }
 
     @Override

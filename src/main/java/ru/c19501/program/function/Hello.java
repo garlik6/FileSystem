@@ -10,17 +10,21 @@ public class Hello extends BaseCommand implements iCommand {
     public Hello(iMonitor im, FileSystem fileSystem) {
         super(im, fileSystem);
     }
+
+    protected String Sysname;
+
     @Override
     public void execute(FileSystem fs) {
         readParameters();
         if (!fs.load()) {
-            fs.save();
+            fs.save(Sysname);
         }
+        monitor.writeMessage("Файловая система "+fs.getName()+" загружена.");
     }
 
     @Override
     public void readParameters() {
-        monitor.writeMessage("Монитор команд запущен. Файловая система загружена.");
+        this.Sysname = monitor.readString("Введите имя файловой системы.");
     }
 
 }

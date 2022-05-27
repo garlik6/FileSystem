@@ -20,7 +20,7 @@ public interface FileSystem {
      * @return returns unique id of the added file
      */
 
-
+    String getName();
     String addFile(String name, String type, int length) throws CoreException;
     /**
      * @param id      unique id of the file to delete

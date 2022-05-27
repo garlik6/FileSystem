@@ -12,7 +12,7 @@ public class RegisteredCommands {
         registeredCommands.put("create", CreateFile.class.getName());
         registeredCommands.put("delete", DeleteFile.class.getName());
         registeredCommands.put("print", Print.class.getName());
-        registeredCommands.put("print¿", PrintA.class.getName());
+        registeredCommands.put("printA", PrintA.class.getName());
         registeredCommands.put("help", Help.class.getName());
         registeredCommands.put("commands", AllComm.class.getName());
         registeredCommands.put("download", Hello.class.getName());

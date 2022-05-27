@@ -14,8 +14,11 @@ public class Print extends BaseCommand implements iCommand {
 
     public static String toString(FileSystem fs) {
 
+
             StringBuilder string = new StringBuilder();
             CoreService coreService = new CoreServiceImpl(fs, JacksonConfig.createObjectMapper());
+
+            string.append("Свободное место на диске: ").append(fs.getFreeSpace()).append("\n");
 
             for (FileRecordReturnDTO file : coreService.readFiles()) {
                 string.append(file).append("\n");

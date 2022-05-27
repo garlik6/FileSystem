@@ -19,12 +19,13 @@ public class FileAdder {
         for (int i = 0; i < repository.getMaxSegments(); i++) {
             currentSegment = repository.getSegmentsCopy().get(i);
             int deletedAndNot =  repository.getSegmentsCopy().get(i).currentDeletedAndNotRecords();
+            if (repository.getSegmentsCopy().get(i).currentDeletedAndNotRecords() == repository.getSegmentsCopy().get(i).getMaxRecordAmount() && i == repository.getMaxSegments() - 1) {
+                throw new CoreException("Not enough file records");
+            }
             if (deletedAndNot < currentSegment.getMaxRecordAmount() || currentSegment.getReadyToAddSpace() >= fileParams.getVolumeInBlocks()) {
                 break;
             }
-            if (repository.getSegmentsCopy().get(i).currentDeletedAndNotRecords() == repository.getSegmentsCopy().get(i).getMaxRecordAmount() && i == repository.getMaxSegments() - 1) {
-                throw new IllegalStateException("Not enough file records defragmentation needed");
-            }
+
         }
         if(repository.getSegmentNumber(currentSegment) == repository.getMaxSegments() - 1 && repository.getFreeSpace() != 0)
         {

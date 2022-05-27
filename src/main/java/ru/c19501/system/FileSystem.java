@@ -62,4 +62,6 @@ public interface FileSystem {
 
     void defragmentation() throws CoreException;
 
+    String getJson();
+
 }

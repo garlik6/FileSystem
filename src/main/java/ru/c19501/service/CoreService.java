@@ -1,7 +1,6 @@
 package ru.c19501.service;
 
 import ru.c19501.model.FileRecord.FileRecordReturnDTO;
-
 import java.util.List;
 
 /**
@@ -27,7 +26,7 @@ public interface CoreService {
      * @param type расширение файла (без точки)
      * @return найденный файл, либо null
      */
-    FileRecordReturnDTO foundFile(String name, String type);
+
 
     /**
      * Метод для того, чтобы узнать все активные в системе файлы
@@ -51,4 +50,6 @@ public interface CoreService {
      * Метод вызывающий дефрагментацию системы
      */
     void defragmentation();
+
+    String getSystemInfo();
 }

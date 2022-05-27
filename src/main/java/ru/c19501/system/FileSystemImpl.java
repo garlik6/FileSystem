@@ -112,4 +112,9 @@ public class FileSystemImpl implements FileSystem {
     public void defragmentation() throws CoreException {
         repository.defragmentation();
     }
+
+    @Override
+    public String getJson() {
+        return repository.getPublicJson();
+    }
 }

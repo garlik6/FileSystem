@@ -17,7 +17,7 @@ import java.util.UUID;
 public class FileRecord {
     @JsonView(Views.Public.class)
     public boolean isDeleted() {
-        return fileStatus == FileStatus.DELETED;
+        return fileStatus == FileStatus.DELETED || fileStatus == FileStatus.EMPTY_SPACE;
     }
 
     public void freeSpace() {

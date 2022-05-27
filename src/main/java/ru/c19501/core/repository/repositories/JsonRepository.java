@@ -67,6 +67,16 @@ public class JsonRepository extends Repository {
         objectMapper = new ObjectMapper();
         return "";
     }
+    @JsonIgnore
+    public String getPublicJson(){
+        try {
+            return objectMapper.writerWithView(Views.Public.class).writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        objectMapper = new ObjectMapper();
+        return "";
+    }
 
     @Override
     public String fileRecordsToString(FileRecord fileRecord) {

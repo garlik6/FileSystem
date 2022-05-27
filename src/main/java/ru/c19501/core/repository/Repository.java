@@ -114,6 +114,8 @@ public abstract class Repository {
         }
     }
 
+    public abstract String getPublicJson();
+
     public int getMaxSegments() {
         return maxSegments;
     }

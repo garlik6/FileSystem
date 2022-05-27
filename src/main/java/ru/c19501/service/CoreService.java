@@ -19,13 +19,8 @@ public interface CoreService {
      */
     boolean createFile(String name, String type, int length);
 
-    /**
-     * Метод для поиска файла, помогает узнать дату создания файла
-     *
-     * @param name имя файла
-     * @param type расширение файла (без точки)
-     * @return найденный файл, либо null
-     */
+
+    boolean addInfoToFile(String name, String type, int length);
 
 
     /**

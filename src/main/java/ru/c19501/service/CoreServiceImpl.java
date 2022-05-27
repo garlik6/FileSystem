@@ -1,4 +1,5 @@
 package ru.c19501.service;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import ru.c19501.defragmentation.Defragmentation;
@@ -45,10 +46,19 @@ public class CoreServiceImpl implements CoreService {
         return false;
     }
 
+    @Override
+    public boolean addInfoToFile(String name, String type, int length) {
+        if (deleteFile(name, type)) {
+            createFile(name, type, length);
+            return true;
+        }
+        return false;
+    }
+
 
     private FileRecordReturnDTO foundFile(String name, String type) {
 
-        if(isCorrectName(name)){
+        if (isCorrectName(name)) {
             System.err.println("Not correct name");
             return null;
         }
@@ -96,7 +106,7 @@ public class CoreServiceImpl implements CoreService {
 
     @Override
     public boolean deleteFile(String name, String type) {
-        if(isCorrectName(name)){
+        if (isCorrectName(name)) {
             System.err.println("Not correct name");
             return false;
         }
@@ -126,7 +136,7 @@ public class CoreServiceImpl implements CoreService {
     public void defragmentation() {
         try {
             fileSystem.defragmentation();
-        } catch (CoreException e){
+        } catch (CoreException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -154,17 +164,17 @@ public class CoreServiceImpl implements CoreService {
     }
 
     private FileRecordDTO[] getFilesByName(String name) throws JsonProcessingException {
-        return objectMapper.readValue(fileSystem.findFilesByName( name), FileRecordDTO[].class);
+        return objectMapper.readValue(fileSystem.findFilesByName(name), FileRecordDTO[].class);
     }
 
     private FileRecordDTO[] getFiles() throws JsonProcessingException {
         return objectMapper.readValue(fileSystem.retrieveAllFiles(), FileRecordDTO[].class);
     }
 
-    private boolean isCorrectName(String name){
+    private boolean isCorrectName(String name) {
         Pattern p = Pattern.compile("[^a-z0-9]", Pattern.CASE_INSENSITIVE);
         Matcher matcher = p.matcher(name);
-        return  matcher.find();
+        return matcher.find();
     }
 
 }

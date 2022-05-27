@@ -7,6 +7,8 @@ import ru.c19501.service.CoreService;
 import ru.c19501.service.CoreServiceImpl;
 import ru.c19501.service.config.JacksonConfig;
 
+import java.util.ArrayList;
+
 public class Print extends BaseCommand implements iCommand {
     public Print(iMonitor im, FileSystem fileSystem) {
         super(im, fileSystem);
@@ -18,7 +20,9 @@ public class Print extends BaseCommand implements iCommand {
             StringBuilder string = new StringBuilder();
             CoreService coreService = new CoreServiceImpl(fs, JacksonConfig.createObjectMapper());
 
-            string.append("Свободное место на диске: ").append(fs.getFreeSpace()).append("\n");
+            string.append("Файловая система: ").append("\n");
+
+        ArrayList<String> s = new ArrayList<>();
 
             for (FileRecordReturnDTO file : coreService.readFiles()) {
                 string.append(file).append("\n");

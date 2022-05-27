@@ -11,18 +11,27 @@ import java.lang.reflect.InvocationTargetException;
 
 public class Main {
 
-
     static MonitorClass monitor = new MonitorClass(new FileSystemFactoryImpl().getSystem(), new StreamActions());
 
-    public static void init() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException{
-        var commandObject = monitor.runFunction("start");
-        if (commandObject != null)
-            commandObject.execute(monitor.fs);
+    public static void init(iStreamActions stream) throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+        stream.println("Монитор команд запущен.");
+        do {
+            stream.println("(Введите download или createSys)");
+        } while( initialization(stream.getLine() ) );
+    }
+
+    public static boolean initialization(String choice) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        var commandObject = monitor.runStart(choice);
+        if (commandObject == null)
+            return true;
+
+        commandObject.execute(monitor.fs);
+        return false;
     }
 
     public static void mainRealization(iStreamActions stream) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        stream.println("Введите команду \n(Если не помните команду, введите help)");
         while (true) {
+            stream.println("Введите команду \n(Справка по команде вызывается командой help)");
             stream.print(">");
             String command = stream.getLine();
 
@@ -39,7 +48,7 @@ public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         RegisteredCommands.init();
-        init();
+        init(monitor.stream);
         mainRealization(monitor.stream);
     }
 }

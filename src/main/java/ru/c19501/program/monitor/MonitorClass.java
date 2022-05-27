@@ -15,6 +15,12 @@ public class MonitorClass implements iMonitor {
         this.stream = stream;
     }
 
+    public iCommand runStart(String commandName) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+        if (commandName.equals("download") || commandName.equals("createSys"))
+            return runFunction(commandName);
+        return null;
+    }
+
     public iCommand runFunction(String commandName) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         String command = registeredCommands.get(commandName);
         if (command==null){

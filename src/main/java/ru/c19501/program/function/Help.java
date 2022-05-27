@@ -30,13 +30,15 @@ public class Help extends BaseCommand implements iCommand {
                     "В качестве аргументов команда принимает Имя, Тип и Размер нового файла.";
             case "delete" -> commandName + " - " + "Удаление существующего файла по имени." + "\n" +
                     "В качестве аргументов команда принимает Имя и Тип удаляемого файла.";
-            case "find" -> commandName + " - " + "Поиск существующего файла по имени." + "\n" +
-                    "В качестве аргументов команда принимает Имя и Тип искомого файла.";
-            case "print" -> commandName + " - " + "Вывод всех данных о системе в виде списка названий файлов и их длинны" + "\n" +
+            case "print" -> commandName + " - " + "Вывод всех данных о системе в виде списка названий файлов и их длинны." + "\n" +
+                    "У этой команды нет аргументов.";
+            case "printA" -> commandName + " - " + "Вывод всех данных о системе в виде списка названий файлов и их длинны в алфавитном порядке." + "\n" +
                     "У этой команды нет аргументов.";
             case "help" -> commandName + " - " + "Вывод списка команд и функциональности каждой." + "\n" +
                     "У этой команды нет аргументов.";
             case "defrag" -> commandName + " - " + "Проведение дефрагментации системы с целью оптимизации свободного места." + "\n" +
+                    "У этой команды нет аргументов.";
+            case "down" -> commandName + " - " + "Проведение загрузки существующей файловой системы." + "\n" +
                     "У этой команды нет аргументов.";
             case "exit" -> null;
             default -> "Кажется по введённой вами команде ещё нет справки. Или вы ошиблись вводом. Попробуем ещё раз?";
@@ -45,17 +47,15 @@ public class Help extends BaseCommand implements iCommand {
     public boolean showStringHelpPerCommand(String stringHelpPerCommand){
         if (stringHelpPerCommand == null)
             return false;
-
         monitor.writeMessage(stringHelpPerCommand + "\n" +
-                "Если нужна информация по команде, введите её название. Если нет - введите exit.");
+                "Если нужна справка по команде, введите её название. Если нет - введите exit.");
         return true;
     }
 
     @Override
     public void execute(FileSystem fs) {
-        showStringAllCommandsHelp();
 
-        monitor.writeMessage("Если нужно подробнее об одной из них, введите её название. Если нет - введите ВЫХОД.");
+        monitor.writeMessage("Если нужна справка по команде, введите её название. Если нет - введите exit.");
 
         String stringHelpPerCommand;
         do{

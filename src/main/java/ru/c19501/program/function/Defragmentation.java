@@ -18,13 +18,12 @@ public class Defragmentation extends BaseCommand implements iCommand {
     public void execute(FileSystem fs) {
         CoreService coreService = new CoreServiceImpl(fs, JacksonConfig.createObjectMapper());
         coreService.defragmentation();
-        readParameters();
-        fs.save();
+        monitor.writeMessage("Дефрагментация файловой системы успешно проведена.");
+        fs.save(fs.getName());
     }
 
     @Override
     public void readParameters() {
-        monitor.writeMessage("Дефрагментация файловой системы успешно проведена.");
     }
 
 

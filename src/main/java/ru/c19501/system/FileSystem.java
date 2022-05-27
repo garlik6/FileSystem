@@ -21,6 +21,9 @@ public interface FileSystem {
      */
 
     String getName();
+    int getSeg();
+    int getSpace();
+
     String addFile(String name, String type, int length) throws CoreException;
     /**
      * @param id      unique id of the file to delete

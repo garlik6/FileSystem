@@ -11,16 +11,14 @@ public class Hello extends BaseCommand implements iCommand {
         super(im, fileSystem);
     }
 
-    protected String Sysname;
-
     @Override
     public void execute(FileSystem fs) {
         if (!fs.load()) {
             fs.save(fs.getName());
         }
-        monitor.writeMessage("Файловая система "+fs.getName()+" загружена.");
+        monitor.writeMessage("Файловая система "+fs.getName()+" загружена.\nКоличество сегментов:"+fs.getSeg()+"\nРазмер файловой системы: "+fs.getSpace()+"\nСвободно: "+fs.getFreeSpace());
+
     }
-//Количество сегментов и количество
     @Override
     public void readParameters() {
     }

@@ -105,6 +105,16 @@ public class FileSystemImpl implements FileSystem {
         return repository.getSystemFileName();
     }
 
+    @Override
+    public int getSeg() {
+        return repository.getMaxSegments();
+    }
+
+    @Override
+    public int getSpace() {
+        return repository.getSpace();
+    }
+
     public void print() {
         repository.print();
     }

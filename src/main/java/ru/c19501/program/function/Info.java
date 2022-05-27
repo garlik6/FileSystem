@@ -16,12 +16,10 @@ public class Info extends BaseCommand implements iCommand {
 
     public static String toString(FileSystem fs) {
 
-
-        StringBuilder string = new StringBuilder();
+        String string;
         CoreService coreService = new CoreServiceImpl(fs, JacksonConfig.createObjectMapper());
 
-        string.append("Свободное место на диске: ").append(fs.getFreeSpace()).append("\n").append("Степень дерагментации:").append(fs.getDefragmentationExt()).append("\n");
-
+        string = "Файловая система "+fs.getName()+" загружена.\nКоличество сегментов:"+fs.getSeg()+"\nРазмер файловой системы: "+fs.getSpace()+"\nСвободно: "+fs.getFreeSpace()+"\nСтепень дефрагментации: "+fs.getDefragmentationExt();
 
         return string.toString();
     }

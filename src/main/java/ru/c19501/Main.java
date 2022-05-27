@@ -16,7 +16,7 @@ public class Main {
     public static void init(iStreamActions stream) throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         stream.println("Монитор команд запущен.");
         do {
-            stream.println("(Введите download или createSys)");
+            stream.println("(Введите download для загрузки существующей или createSys для создания новой файловой системы)");
         } while( initialization(stream.getLine() ) );
     }
 
@@ -31,7 +31,7 @@ public class Main {
 
     public static void mainRealization(iStreamActions stream) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         while (true) {
-            stream.println("Введите команду \n(Справка по команде вызывается командой help)");
+            stream.println("Введите команду \n(Для просмотра списка команд введите commands)");
             stream.print(">");
             String command = stream.getLine();
 

@@ -8,7 +8,7 @@ import ru.c19501.service.CoreServiceImpl;
 import ru.c19501.service.config.JacksonConfig;
 
 public class CreateFile extends BaseCommand implements iCommand {
-    protected String[] fileName = new String[4];
+    protected String[] fileName = new String[3];
     protected int length;
 
     public CreateFile(iMonitor im, FileSystem fileSystem) {

@@ -48,7 +48,7 @@ public class Main {
 
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         RegisteredCommands.init();
-        monitor.readString("Для загрузки файловой системы введите down или create для создания новой.");
+        init(monitor.stream);
         mainRealization(monitor.stream);
     }
 }

@@ -15,16 +15,14 @@ public class Hello extends BaseCommand implements iCommand {
 
     @Override
     public void execute(FileSystem fs) {
-        readParameters();
         if (!fs.load()) {
-            fs.save(Sysname);
+            fs.save(fs.getName());
         }
         monitor.writeMessage("Файловая система "+fs.getName()+" загружена.");
     }
-
+//Количество сегментов и количество
     @Override
     public void readParameters() {
-        this.Sysname = monitor.readString("Введите имя файловой системы.");
     }
 
 }

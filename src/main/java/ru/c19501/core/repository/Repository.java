@@ -166,6 +166,8 @@ public abstract class Repository {
     }
 
     public abstract void defragmentation() throws CoreException;
+
+    public abstract String defragExt();
 }
 
 

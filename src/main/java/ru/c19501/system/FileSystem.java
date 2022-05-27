@@ -64,4 +64,6 @@ public interface FileSystem {
 
     String getJson();
 
+    String getDefragmentationExt();
+
 }

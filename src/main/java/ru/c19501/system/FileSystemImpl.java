@@ -7,6 +7,7 @@ import ru.c19501.config.ConfigLoader;
 import ru.c19501.core.files.FileRecord;
 import ru.c19501.core.repository.repositories.JsonRepository;
 import ru.c19501.defragmentation.Defragmentation;
+import ru.c19501.defragmentation.DefragmentationFunctions;
 import ru.c19501.exceptions.CoreException;
 import ru.c19501.core.repository.RepoLoader;
 import ru.c19501.core.repository.Repository;
@@ -116,5 +117,10 @@ public class FileSystemImpl implements FileSystem {
     @Override
     public String getJson() {
         return repository.getPublicJson();
+    }
+
+    @Override
+    public String getDefragmentationExt() {
+        return repository.defragExt();
     }
 }

@@ -48,9 +48,22 @@ public class CoreServiceImpl implements CoreService {
 
     @Override
     public boolean addInfoToFile(String name, String type, int length) {
-        if (deleteFile(name, type)) {
-            createFile(name, type, length);
-            return true;
+        if (isCorrectName(name)) {
+            System.err.println("Not correct name");
+            return false;
+        }
+
+        FileRecordDTO file;
+        file = foundFileByNameAndType(name, type);
+        if (file != null && !file.isDeleted()) {
+            if (deleteFile(name, type)) {
+                if (createFile(name, type, length)) {
+                    return true;
+                } else {
+                    createFile(file.getFileName(), file.getFileType(), file.getVolumeInBlocks());
+                }
+
+            }
         }
         return false;
     }

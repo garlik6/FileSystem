@@ -47,9 +47,11 @@ public class CoreServiceImpl implements CoreService {
         return false;
     }
 
+
     @Override
     public boolean addInfoToFile(String name, String type, int length) {
         if (deleteFile(name, type)) {
+  //          deleteFile returns false if incorrect filename or file doesn't exist
             createFile(name, type, length);
             return true;
         }
@@ -65,12 +67,6 @@ public class CoreServiceImpl implements CoreService {
         }
 
         FileRecordDTO file;
-//        for (int i = 0; i < countSegments; i++) {
-//            file = foundFileByNameAndType(name, type, i);
-//            if (file != null && !file.isDeleted()) {
-//                return FileRecordMapper.dtoToReturnDto(file);
-//            }
-//        }
 
         file = foundFileByNameAndType(name, type);
         if (file != null && !file.isDeleted()) {
@@ -83,14 +79,7 @@ public class CoreServiceImpl implements CoreService {
     public List<FileRecordReturnDTO> readFiles() {
         List<FileRecordDTO> fileRecordDTOList = new ArrayList<>();
         try {
-//            for (int i = 0; i < countSegments; i++) {
-//                FileRecordDTO[] fileRecordDTOs = getFilesBySegment(i);
-//                for (FileRecordDTO file : fileRecordDTOs) {
-//                    if (!file.isDeleted()) {
-//                        fileRecordDTOList.add(file);
-//                    }
-//                }
-//            }
+//
             FileRecordDTO[] fileRecordDTOs = getFiles();
             for (FileRecordDTO file : fileRecordDTOs) {
                 if (!file.isDeleted()) {
@@ -109,14 +98,7 @@ public class CoreServiceImpl implements CoreService {
     public List<FileRecordReturnDTO> readFilesNaturalOrder() {
         List<FileRecordDTO> fileRecordDTOList = new ArrayList<>();
         try {
-//            for (int i = 0; i < countSegments; i++) {
-//                FileRecordDTO[] fileRecordDTOs = getFilesBySegment(i);
-//                for (FileRecordDTO file : fileRecordDTOs) {
-//                    if (!file.isDeleted()) {
-//                        fileRecordDTOList.add(file);
-//                    }
-//                }
-//            }
+//
             FileRecordDTO[] fileRecordDTOs = getFiles();
             for (FileRecordDTO file : fileRecordDTOs) {
                 if (!file.isDeleted()) {

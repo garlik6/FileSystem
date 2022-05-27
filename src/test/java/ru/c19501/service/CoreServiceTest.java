@@ -52,6 +52,13 @@ public class CoreServiceTest {
         assertFalse(coreService.deleteFile(EXISTING_FILENAME,"doc"));
         assertTrue(coreService.deleteFile(EXISTING_FILENAME,"txt"));
     }
+    @Test
+    void addToFileTest() throws CoreException {
+        fileSystem.addFile(EXISTING_FILENAME,"txt",2);
+        assertFalse(coreService.addInfoToFile(INCORRECT_FILENAME,"txt",3));
+        assertFalse(coreService.addInfoToFile(NOT_EXISTING_FILENAME,"txt",3));
+        assertTrue(coreService.addInfoToFile(EXISTING_FILENAME,"txt",3));
+    }
 
 
 }

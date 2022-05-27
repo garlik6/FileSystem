@@ -1,6 +1,7 @@
 package ru.c19501.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import ru.c19501.defragmentation.Defragmentation;
 import ru.c19501.system.FileSystem;
 import ru.c19501.config.ConfigLoader;
 import ru.c19501.exceptions.CoreException;
@@ -123,7 +124,11 @@ public class CoreServiceImpl implements CoreService {
 
     @Override
     public void defragmentation() {
-
+        try {
+            fileSystem.defragmentation();
+        } catch (CoreException e){
+            System.out.println(e.getMessage());
+        }
     }
 
     private FileRecordDTO foundFileByNameAndType(String name, String type) {

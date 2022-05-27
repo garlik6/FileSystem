@@ -1,6 +1,6 @@
 package ru.c19501.program.function;
 
-import ru.c19501.core.FileSystem;
+import ru.c19501.system.FileSystem;
 import ru.c19501.model.FileRecord.FileRecordReturnDTO;
 import ru.c19501.program.struct.*;
 import ru.c19501.service.CoreService;
@@ -14,8 +14,11 @@ public class Print extends BaseCommand implements iCommand {
 
     public static String toString(FileSystem fs) {
 
+
             StringBuilder string = new StringBuilder();
             CoreService coreService = new CoreServiceImpl(fs, JacksonConfig.createObjectMapper());
+
+            string.append("Свободное место на диске: ").append(fs.getFreeSpace()).append("\n");
 
             for (FileRecordReturnDTO file : coreService.readFiles()) {
                 string.append(file).append("\n");

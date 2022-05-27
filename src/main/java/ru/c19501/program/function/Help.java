@@ -2,7 +2,7 @@ package ru.c19501.program.function;
 
 import static ru.c19501.program.monitor.RegisteredCommands.registeredCommands;
 
-import ru.c19501.core.FileSystem;
+import ru.c19501.system.FileSystem;
 import ru.c19501.program.struct.*;
 
 public class Help extends BaseCommand implements iCommand {
@@ -13,11 +13,11 @@ public class Help extends BaseCommand implements iCommand {
     }
 
     public static String stringAllCommandsHelp(){
-        String returnStr="";
+        StringBuilder returnStr= new StringBuilder();
         for (String key : registeredCommands.keySet()) {
-            returnStr+="* " + key + "\n";
+            returnStr.append("* ").append(key).append("\n");
         }
-        return returnStr;
+        return returnStr.toString();
     }
     public void showStringAllCommandsHelp(){
         monitor.writeMessage("Команды:");
@@ -35,6 +35,8 @@ public class Help extends BaseCommand implements iCommand {
             case "print" -> commandName + " - " + "Вывод всех данных о системе в виде списка названий файлов и их длинны" + "\n" +
                     "У этой команды нет аргументов.";
             case "help" -> commandName + " - " + "Вывод списка команд и функциональности каждой." + "\n" +
+                    "У этой команды нет аргументов.";
+            case "defrag" -> commandName + " - " + "Проведение дефрагментации системы с целью оптимизации свободного места." + "\n" +
                     "У этой команды нет аргументов.";
             case "exit" -> null;
             default -> "Кажется по введённой вами команде ещё нет справки. Или вы ошиблись вводом. Попробуем ещё раз?";

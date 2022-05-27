@@ -60,4 +60,6 @@ public interface FileSystem {
      */
     String retrieveAllFiles();
 
+    void defragmentation() throws CoreException;
+
 }

@@ -61,6 +61,7 @@ public class FileAdder {
     private void transformFoundToNew(FileRecord foundFileRecord, Segment.NewFileParams fileParams){
         if (foundFileRecord.getVolumeInBlocks() == fileParams.getVolumeInBlocks()) {
             exchangeFoundToNew(fileParams, foundFileRecord);
+            repository.setReadyToAddSpace(repository.getReadyToAddSpace() - fileParams.getVolumeInBlocks());
         }
         if (foundFileRecord.getVolumeInBlocks() > fileParams.getVolumeInBlocks()) {
             int reduction = foundFileRecord.getVolumeInBlocks() - fileParams.getVolumeInBlocks();
@@ -69,7 +70,7 @@ public class FileAdder {
             addAdditionalFileRecord(foundFileRecord, reduction);
             currentSegment.sortFileRecords();
         }
-        repository.setReadyToAddSpace(repository.getReadyToAddSpace() - fileParams.getVolumeInBlocks());
+
     }
 
     private String addNewFileRecord(FileRecord newFileRecord) {

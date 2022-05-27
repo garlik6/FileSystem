@@ -13,6 +13,7 @@ import ru.c19501.config.ConfigLoader;
 import ru.c19501.core.files.FileRecord;
 import ru.c19501.core.files.Segment;
 import ru.c19501.core.files.JsonRelated.Views;
+import ru.c19501.defragmentation.Defragmentation;
 import ru.c19501.exceptions.CoreException;
 import ru.c19501.fileAdder.FileAdder;
 
@@ -161,6 +162,8 @@ public abstract class Repository {
     public List<FileRecord> findFilesByCondition(Predicate<FileRecord> predicate) {
         return getAllFiles().stream().filter(predicate).toList();
     }
+
+    public abstract void defragmentation() throws CoreException;
 }
 
 

@@ -15,6 +15,7 @@ public class RegisteredCommands {
         registeredCommands.put("find", FindFile.class.getName());
         registeredCommands.put("help", Help.class.getName());
         registeredCommands.put("start", Hello.class.getName());
+        registeredCommands.put("defrag", Defragmentation.class.getName());
     }
 
 }

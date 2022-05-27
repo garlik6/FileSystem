@@ -1,13 +1,17 @@
 package ru.c19501;
 
-import ru.c19501.core.system.FileSystemFactoryImpl;
+
 import ru.c19501.program.monitor.MonitorClass;
 import ru.c19501.program.monitor.RegisteredCommands;
 import ru.c19501.program.monitor.StreamActions;
 import ru.c19501.program.struct.*;
+import ru.c19501.system.FileSystemFactoryImpl;
+
 import java.lang.reflect.InvocationTargetException;
 
 public class Main {
+
+
     static MonitorClass monitor = new MonitorClass(new FileSystemFactoryImpl().getSystem(), new StreamActions());
 
     public static void init() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException{

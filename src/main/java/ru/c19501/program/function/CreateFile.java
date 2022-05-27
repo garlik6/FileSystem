@@ -1,6 +1,6 @@
 package ru.c19501.program.function;
 
-import ru.c19501.core.FileSystem;
+import ru.c19501.system.FileSystem;
 import ru.c19501.program.struct.iCommand;
 import ru.c19501.program.struct.iMonitor;
 import ru.c19501.service.CoreService;
@@ -20,8 +20,11 @@ public class CreateFile extends BaseCommand implements iCommand {
     public void execute(FileSystem fs) {
         readParameters();
         CoreService coreService = new CoreServiceImpl(fs, JacksonConfig.createObjectMapper());
-        coreService.createFile(fileName[1], this.fileName[2], length);
-        System.out.println("Файл " + fileName[1] + "." + this.fileName[2] + " успешно создан.");
+        boolean b = coreService.createFile(fileName[1], this.fileName[2], length);
+        if (b) {
+            System.out.println("Файл " + fileName[1] + "." + fileName[2] + " успешно создан.");
+        } else
+            System.out.println("Не удалось добавить файл(не хватает места либо неправильный формат) " + fileName[1] + "." + fileName[2] + ".");
         fs.save();
     }
 

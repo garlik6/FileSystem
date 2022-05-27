@@ -11,6 +11,7 @@ import ru.c19501.model.FileRecord.FileRecordReturnDTO;
 import ru.c19501.service.mapper.FileRecordMapper;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -105,12 +106,37 @@ public class CoreServiceImpl implements CoreService {
     }
 
     @Override
+    public List<FileRecordReturnDTO> readFilesNaturalOrder() {
+        List<FileRecordDTO> fileRecordDTOList = new ArrayList<>();
+        try {
+//            for (int i = 0; i < countSegments; i++) {
+//                FileRecordDTO[] fileRecordDTOs = getFilesBySegment(i);
+//                for (FileRecordDTO file : fileRecordDTOs) {
+//                    if (!file.isDeleted()) {
+//                        fileRecordDTOList.add(file);
+//                    }
+//                }
+//            }
+            FileRecordDTO[] fileRecordDTOs = getFiles();
+            for (FileRecordDTO file : fileRecordDTOs) {
+                if (!file.isDeleted()) {
+                    fileRecordDTOList.add(file);
+                }
+            }
+        } catch (JsonProcessingException e) {
+            e.getMessage();
+        }
+        return fileRecordDTOList.stream().sorted(Comparator.comparing(FileRecordDTO::getFileName))
+                .map(FileRecordMapper::dtoToReturnDto)
+                .toList();
+    }
+
+    @Override
     public boolean deleteFile(String name, String type) {
         if (isCorrectName(name)) {
             System.err.println("Not correct name");
             return false;
         }
-
         try {
             FileRecordDTO file;
 //            for (int i = 0; i < countSegments; i++) {

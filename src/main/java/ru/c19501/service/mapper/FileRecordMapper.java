@@ -13,5 +13,4 @@ public abstract class FileRecordMapper {
                 .volumeInBlocks(dto.getVolumeInBlocks())
                 .build();
     }
-
 }

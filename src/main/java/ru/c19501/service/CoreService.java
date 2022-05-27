@@ -30,6 +30,9 @@ public interface CoreService {
      */
     List<FileRecordReturnDTO> readFiles();
 
+
+    List<FileRecordReturnDTO> readFilesNaturalOrder();
+
     /**
      * Метод для удаления файла
      *

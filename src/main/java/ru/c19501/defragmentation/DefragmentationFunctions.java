@@ -40,12 +40,21 @@ public class DefragmentationFunctions {
         List<Segment> arr = repository.getSegmentsCopy();
 
         var defragExt = 0;
+        double spaceFragment = 0;
         for (var val : arr){
-            double averageFileLen = (double)val.getReadyToAddSpace() / val.getMaxRecordAmount();
-            defragExt += averageFileLen;
+            for(var files : val.getFileRecords()){
+                if (files.getFileStatus() == FileRecord.FileStatus.DELETED){
+                    spaceFragment += files.getVolumeInBlocks();
+                } else if (files.getFileStatus() == FileRecord.FileStatus.NOT_DELETED) {
+                    defragExt += spaceFragment;
+                }
+            }
+
         }
 
-        return arr.size() != 0 ? (double)defragExt / arr.size() + (double) repository.getFreeSpace()/ repository.getSpace() : 0;
+
+
+        return arr.size() != 0 ? (double)defragExt / repository.getSpace() : 0;
     }
 
 

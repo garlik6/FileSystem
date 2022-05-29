@@ -104,7 +104,7 @@ class DefragmentationFunctionsTest {
 
         JsonRepository repository =  new JsonRepository(6,0,3,list);
 
-        assertTrue(DefragmentationFunctions.checkDef(repository));
+        assertFalse(DefragmentationFunctions.checkDef(repository));
     }
 
 }

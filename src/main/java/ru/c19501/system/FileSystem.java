@@ -9,26 +9,19 @@ public interface FileSystem {
      */
     void save(String name);
     void save();
+    void save(String name, int volume, int segmentAmount);
     /**  Loads system in format, path specified in config.properties
      * @return is loading successful
      */
     boolean load();
-    /**
-     * @param name    name of the file, being added
-     * @param type    type of the file, being added
-     * @param length  volume in blocks 0f the file, being added
-     * @return returns unique id of the added file
-     */
-
+    boolean loadByName(String name);
     String getName();
     int getSeg();
     int getSpace();
-
     String addFile(String name, String type, int length) throws CoreException;
     /**
      * @param id      unique id of the file to delete
      */
-
     void deleteFileById(String id) throws IllegalStateException, CoreException;
     /**
      * @param id      unique id of the file
@@ -50,7 +43,6 @@ public interface FileSystem {
 
     /**
      * Очищение файловой системы
-     * @throws CoreException
      */
     void deleteAllFiles() throws CoreException;
 

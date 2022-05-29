@@ -27,7 +27,6 @@ public class FileSystemImpl implements FileSystem {
     private static FileSystemImpl instance;
 
 
-
     public void save(String name) {
         repository.setSystemFileName(name);
         repository.writeRepository();
@@ -36,6 +35,13 @@ public class FileSystemImpl implements FileSystem {
     @Override
     public void save() {
         repository.writeRepository();
+    }
+
+    @Override
+    public void save(String name, int volume, int segmentAmount) {
+        save(name);
+        repository.setSpace(volume);
+        repository.setMaxSegments(segmentAmount);
     }
 
     @Override
@@ -90,8 +96,21 @@ public class FileSystemImpl implements FileSystem {
         }
     }
 
+    @Override
     public boolean load() {
         configure();
+        try {
+            repository = loader.loadRepository();
+        } catch (IOException e) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean loadByName(String name) {
+        configure();
+        repository.setSystemFileName(name);
         try {
             repository = loader.loadRepository();
         } catch (IOException e) {

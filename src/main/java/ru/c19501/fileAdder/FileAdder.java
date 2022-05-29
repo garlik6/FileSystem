@@ -27,7 +27,7 @@ public class FileAdder {
             }
 
         }
-        if(repository.getSegmentNumber(currentSegment) == repository.getMaxSegments() - 1 && repository.getFreeSpace() != 0)
+        if(repository.getSegmentNumber(currentSegment) != 0 && repository.getFreeSpace() != 0)
         {
             Optional<FileRecord> foundFileRecord = currentSegment.getFileRecords().stream()
                     .filter(fileRecord -> fileRecord.getNumber() == (currentSegment.getFileRecordsSize() - 1))

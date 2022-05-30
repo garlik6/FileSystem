@@ -21,5 +21,6 @@ public class Create extends BaseCommand implements iCommand {
     @Override
     public void readParameters() {
         this.Sysname = monitor.readString("¬ведите им€ файловой системы.");
+
     }
 }

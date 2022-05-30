@@ -14,19 +14,11 @@ public class Main {
 
     public static void init(iStreamActions stream) throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         stream.println("Монитор команд запущен.");
-        do {
-            stream.println("(Введите download для загрузки существующей или createSys для создания новой файловой системы)");
-        } while( initialization(stream.getLine() ) );
+        var commandObject = monitor.runFunction("Hello");
+        if (commandObject != null)
+            commandObject.execute(monitor.fs);
     }
 
-    public static boolean initialization(String choice) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        var commandObject = monitor.runStart(choice);
-        if (commandObject == null)
-            return true;
-
-        commandObject.execute(monitor.fs);
-        return false;
-    }
 
     public static void mainRealization(iStreamActions stream) throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         while (true) {

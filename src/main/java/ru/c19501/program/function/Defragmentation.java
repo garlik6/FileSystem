@@ -19,7 +19,7 @@ public class Defragmentation extends BaseCommand implements iCommand {
         CoreService coreService = new CoreServiceImpl(fs, JacksonConfig.createObjectMapper());
         coreService.defragmentation();
         monitor.writeMessage("Дефрагментация файловой системы успешно проведена.");
-        fs.save();
+        fs.save(fs.getName());
     }
 
     @Override

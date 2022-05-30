@@ -39,9 +39,13 @@ public class FileSystemImpl implements FileSystem {
 
     @Override
     public void save(String name, int volume, int segmentAmount) {
-        save(name);
+        repository.addSegments(segmentAmount);
         repository.setSpace(volume);
+        repository.setReadyToAddSpace(volume);
+        repository.setFreeSpace(volume);
         repository.setMaxSegments(segmentAmount);
+        repository.writeRepository();
+
     }
 
     @Override

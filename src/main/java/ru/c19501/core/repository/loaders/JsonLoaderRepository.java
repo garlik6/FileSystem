@@ -27,6 +27,7 @@ public class JsonLoaderRepository implements RepoLoader {
         JsonRepository jsonRepository = new JsonRepository(name);
         ObjectMapper objectMapper = new ObjectMapper();
         jsonRepository = objectMapper.readerWithView(Views.Internal.class).readValue(new File(jsonRepository.getSystemRepository() + '/' + jsonRepository.getSystemFileName()), JsonRepository.class);
+        jsonRepository.addSegments(jsonRepository.getMaxSegments());
         return jsonRepository;
     }
 

@@ -28,8 +28,8 @@ public class Defragmentation {
         }
 
         //обнуляем репозиторий
-        disk.setFreeSpace(Integer.parseInt(ConfigLoader.properties.getProperty("fs.space")));
-        disk.setReadyToAddSpace(disk.getFreeSpace());
+        disk.setFreeSpace(disk.getSpace());
+        disk.setReadyToAddSpace(disk.getSpace());
         for (Segment segment: disk.getSegmentsCopy()) {
             segment.setStartingBlock(0);
             segment.nullifyFileRecords();

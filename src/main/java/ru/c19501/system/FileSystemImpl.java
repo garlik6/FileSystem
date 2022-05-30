@@ -112,7 +112,7 @@ public class FileSystemImpl implements FileSystem {
         configure();
         repository.setSystemFileName(name);
         try {
-            repository = loader.loadRepository();
+            repository = loader.loadByName(name);
         } catch (IOException e) {
             return false;
         }

@@ -31,6 +31,13 @@ public class JsonRepository extends Repository {
         this.systemRepository = prop.getProperty("fs.systemJSONRepository");
     }
 
+    public JsonRepository(String name) {
+        super();
+        Properties prop = ConfigLoader.properties;
+        this.systemFileName = name;
+        this.systemRepository = prop.getProperty("fs.systemJSONRepository");
+    }
+
     public JsonRepository(int space, int freeSpace, int readyToAddSpace, List<Segment> segments) {
         super(space,freeSpace,readyToAddSpace,segments);
         Properties prop = ConfigLoader.properties;

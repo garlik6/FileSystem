@@ -23,6 +23,14 @@ public class JsonLoaderRepository implements RepoLoader {
     }
 
     @Override
+    public Repository loadByName(String name) throws IOException {
+        JsonRepository jsonRepository = new JsonRepository(name);
+        ObjectMapper objectMapper = new ObjectMapper();
+        jsonRepository = objectMapper.readerWithView(Views.Internal.class).readValue(new File(jsonRepository.getSystemRepository() + '/' + jsonRepository.getSystemFileName()), JsonRepository.class);
+        return jsonRepository;
+    }
+
+    @Override
     public Repository getCopy(Repository repository) {
         return new JsonRepository(repository);
     }

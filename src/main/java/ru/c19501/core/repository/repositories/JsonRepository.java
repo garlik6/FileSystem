@@ -29,6 +29,7 @@ public class JsonRepository extends Repository {
         Properties prop = ConfigLoader.properties;
         this.systemFileName = prop.getProperty("fs.systemJSONFileName");
         this.systemRepository = prop.getProperty("fs.systemJSONRepository");
+        this.addSegments(Integer.parseInt(prop.getProperty("fs.defaultSegmentAmountInCatalog")));
     }
 
     public JsonRepository(String name) {

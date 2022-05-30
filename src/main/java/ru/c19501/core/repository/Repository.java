@@ -62,6 +62,16 @@ public abstract class Repository {
         space = Integer.parseInt(properties.getProperty("fs.space"));
         readyToAddSpace = space;
         freeSpace = space;
+    }
+
+    protected Repository(int maxSegments) {
+        Properties properties = ConfigLoader.properties;
+        systemVersion = Integer.parseInt(properties.getProperty("fs.systemVersion"));
+        owner = properties.getProperty("fs.owner");
+        this.maxSegments = maxSegments;
+        space = Integer.parseInt(properties.getProperty("fs.space"));
+        readyToAddSpace = space;
+        freeSpace = space;
         for (int i = 0; i < maxSegments; i++) {
             segments.add(Segment.createSegment());
         }
@@ -91,6 +101,7 @@ public abstract class Repository {
 
 
     public abstract void writeRepository();
+
 
     public abstract String getCurrentJson() throws JsonProcessingException;
 
@@ -168,6 +179,12 @@ public abstract class Repository {
     public abstract void defragmentation() throws CoreException;
 
     public abstract String defragExt();
+
+    public void addSegments(int number) {
+        for (int i = 0; i < number; i++) {
+            segments.add(Segment.createSegment());
+        }
+    }
 }
 
 

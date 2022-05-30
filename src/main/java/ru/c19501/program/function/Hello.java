@@ -20,9 +20,9 @@ public class Hello extends BaseCommand implements iCommand {
         if (!fs.loadByName(sysname)) {
             readParameters();
             fs.save(sysname, volume, segmentAmount);
-            monitor.writeMessage("Файловая система "+fs.getName()+" создана.");
+            monitor.writeMessage("Файловая система"+fs.getName()+" создана.");
         }else
-        monitor.writeMessage("Файловая система "+fs.getName()+" загружена.\nКоличество сегментов: "+fs.getSeg()+"\nРазмер файловой системы: "+fs.getSpace()+"\nСвободно: "+fs.getFreeSpace());
+        monitor.writeMessage("Файловая система "+fs.getName()+" загружена.\nКоличество сегментов:"+fs.getSeg()+"\nРазмер файловой системы: "+fs.getSpace()+"\nСвободно: "+fs.getFreeSpace());
 
     }
     @Override

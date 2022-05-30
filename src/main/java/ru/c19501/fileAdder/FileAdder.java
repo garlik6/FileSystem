@@ -22,12 +22,13 @@ public class FileAdder {
             if (repository.getSegmentsCopy().get(i).currentDeletedAndNotRecords() == repository.getSegmentsCopy().get(i).getMaxRecordAmount() && i == repository.getMaxSegments() - 1) {
                 throw new CoreException("Not enough file records");
             }
-            if (repository.getSegmentsCopy().get(i).currentDeletedAndNotRecords() == repository.getSegmentsCopy().get(i).getMaxRecordAmount()) {
-                continue;
-            }
             if (deletedAndNot < currentSegment.getMaxRecordAmount() || currentSegment.getReadyToAddSpace() >= fileParams.getVolumeInBlocks()) {
                 break;
             }
+            if (repository.getSegmentsCopy().get(i).currentDeletedAndNotRecords() == repository.getSegmentsCopy().get(i).getMaxRecordAmount()) {
+                continue;
+            }
+
 
         }
         if(repository.getSegmentNumber(currentSegment) != 0 && repository.getFreeSpace() != 0 && fileParams.getVolumeInBlocks() <= repository.getFreeSpace())
@@ -38,6 +39,10 @@ public class FileAdder {
             int firstBlock = currentSegment.getStartingBlock();
             int volume = fileParams.getVolumeInBlocks();
             int number = 0;
+            if(foundFileRecord.isPresent()){
+                firstBlock = foundFileRecord.get().getFirstBlock()+ foundFileRecord.get().getVolumeInBlocks();
+                number = foundFileRecord.get().getNumber() + 1;
+            }
             FileRecord additionalEmptyFileRecord = new FileRecord("", "", firstBlock, volume,1);
             additionalEmptyFileRecord.setNumber(number);
             additionalEmptyFileRecord.freeSpace();

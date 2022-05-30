@@ -1,0 +1,131 @@
+{
+  "systemVersion" : 1,
+  "owner" : "c19-501",
+  "systemFileName" : "MySys",
+  "systemRepository" : "src/main/resources/JSON",
+  "space" : 100,
+  "freeSpace" : 100,
+  "readyToAddSpace" : 100,
+  "maxSegments" : 30,
+  "segments" : [ {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  }, {
+    "maxRecordAmount" : 2,
+    "startingBlock" : 0,
+    "fileRecords" : [ ]
+  } ]
+}

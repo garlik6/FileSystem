@@ -22,24 +22,22 @@ public class FileAdder {
             if (repository.getSegmentsCopy().get(i).currentDeletedAndNotRecords() == repository.getSegmentsCopy().get(i).getMaxRecordAmount() && i == repository.getMaxSegments() - 1) {
                 throw new CoreException("Not enough file records");
             }
+            if (repository.getSegmentsCopy().get(i).currentDeletedAndNotRecords() == repository.getSegmentsCopy().get(i).getMaxRecordAmount()) {
+                continue;
+            }
             if (deletedAndNot < currentSegment.getMaxRecordAmount() || currentSegment.getReadyToAddSpace() >= fileParams.getVolumeInBlocks()) {
                 break;
             }
 
         }
-        if(repository.getSegmentNumber(currentSegment) != 0 && repository.getFreeSpace() != 0)
+        if(repository.getSegmentNumber(currentSegment) != 0 && repository.getFreeSpace() != 0 && fileParams.getVolumeInBlocks() <= repository.getFreeSpace())
         {
             Optional<FileRecord> foundFileRecord = currentSegment.getFileRecords().stream()
                     .filter(fileRecord -> fileRecord.getNumber() == (currentSegment.getFileRecordsSize() - 1))
                     .findFirst();
             int firstBlock = currentSegment.getStartingBlock();
-            int volume = repository.getFreeSpace();
+            int volume = fileParams.getVolumeInBlocks();
             int number = 0;
-            if(foundFileRecord.isPresent()){
-                firstBlock = foundFileRecord.get().getFirstBlock()+ foundFileRecord.get().getVolumeInBlocks();
-                number = foundFileRecord.get().getNumber() + 1;
-                volume = volume - foundFileRecord.get().getVolumeInBlocks();
-            }
             FileRecord additionalEmptyFileRecord = new FileRecord("", "", firstBlock, volume,1);
             additionalEmptyFileRecord.setNumber(number);
             additionalEmptyFileRecord.freeSpace();
@@ -157,7 +155,8 @@ public class FileAdder {
                     }
                     return !currentSegment.getFileRecords().get(fileRecord.getNumber() + 1).isDeletedOrFree();
                 })
-                .findFirst().orElseThrow().getNumber();
+                .findFirst()
+                .orElseThrow().getNumber();
         return tailEnd;
     }
 
@@ -176,6 +175,8 @@ public class FileAdder {
     }
 
     private boolean anyDeletedFilesNotSingle() {
+        if(currentSegment.getFileRecordsSize() == 0)
+            return false;
         return currentSegment.getFileRecords().stream().filter(FileRecord::isDeletedOrFree).anyMatch(fileRecord -> {
                     if (fileRecord.getNumber() == currentSegment.getFileRecords().size() - 1) {
                         return false;

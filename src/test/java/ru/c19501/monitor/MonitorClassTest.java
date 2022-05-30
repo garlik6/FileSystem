@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 public class MonitorClassTest {
     static MonitorClass monitor = new MonitorClass(new FileSystemFactoryImpl().getSystem(), new StreamActionsFake());
     @Test
-    /**
+    /*
      * Проверяем функцию выдачи класса функции системы на правильную команду
      */
     public void checkRunFunction0() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {

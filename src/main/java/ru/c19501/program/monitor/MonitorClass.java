@@ -19,7 +19,7 @@ public class MonitorClass implements iMonitor {
     public iCommand runFunction(String commandName) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
         String command = registeredCommands.get(commandName);
         if (command==null){
-            writeMessage("Команда не найдена, попробуйте ещё раз или введите help");
+            writeMessage("Команда не найдена, попробуйте ещё раз или введите commands");
             return null;
         }
         return (iCommand) Class.forName(command)

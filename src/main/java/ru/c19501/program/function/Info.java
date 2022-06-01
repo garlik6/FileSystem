@@ -19,7 +19,7 @@ public class Info extends BaseCommand implements iCommand {
         String string;
         CoreService coreService = new CoreServiceImpl(fs, JacksonConfig.createObjectMapper());
 
-        string = "Файловая система "+fs.getName()+".\nКоличество сегментов:"+fs.getSeg()+"\nРазмер файловой системы: "+fs.getSpace()+"\nСвободно: "+fs.getFreeSpace()+"\nСтепень дефрагментации: "+fs.getDefragmentationExt();
+        string = "Файловая система "+fs.getName()+" загружена.\nКоличество сегментов:"+fs.getSeg()+"\nРазмер файловой системы: "+fs.getSpace()+"\nСвободно: "+fs.getFreeSpace()+"\nСтепень дефрагментации: "+fs.getDefragmentationExt();
 
         return string.toString();
     }

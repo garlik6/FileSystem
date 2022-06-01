@@ -14,8 +14,8 @@ public class Application {
         FileSystemFactory fileSystemFactory = new FileSystemFactoryImpl();
         FileSystem fileSystem = fileSystemFactory.getSystem();
         {
-            if (!fileSystem.load()) {
-                fileSystem.save();
+            if (!fileSystem.loadByName("10")) {
+                fileSystem.save("10");
             }
 
             CoreService coreService = new CoreServiceImpl(fileSystem, JacksonConfig.createObjectMapper());
@@ -24,18 +24,22 @@ public class Application {
             System.out.println(coreService.createFile("a2", "txt", 1));
             System.out.println(coreService.createFile("a3", "txt", 1));
             System.out.println(coreService.createFile("a4", "txt", 1));
+            System.out.println(coreService.createFile("a5", "txt", 1));
+            System.out.println(coreService.createFile("a6", "txt", 1));
+            System.out.println(coreService.createFile("a7", "txt", 1));
+            System.out.println(coreService.createFile("a8", "txt", 1));
 
-            System.out.println("Вывод");
-            for (FileRecordReturnDTO file : coreService.readFiles()) {
-                System.out.println(file);
-            }
-
-            System.out.println("Поиск");
-            //System.out.println(coreService.foundFile("a2", "txt"));
-            //System.out.println(coreService.foundFile("a5", "txt"));
-
-            System.out.println("Удаление");
-            System.out.println(coreService.deleteFile("a2", "txt"));
+//            System.out.println("Вывод");
+//            for (FileRecordReturnDTO file : coreService.readFiles()) {
+//                System.out.println(file);
+//            }
+//
+//            System.out.println("Поиск");
+//            //System.out.println(coreService.foundFile("a2", "txt"));
+//            //System.out.println(coreService.foundFile("a5", "txt"));
+//
+//            System.out.println("Удаление");
+//            System.out.println(coreService.deleteFile("a2", "txt"));
 
             System.out.println("Вывод");
             for (FileRecordReturnDTO file : coreService.readFiles()) {

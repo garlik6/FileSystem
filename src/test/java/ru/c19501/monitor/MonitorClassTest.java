@@ -73,3 +73,4 @@ public class MonitorClassTest {
         assertNull(actual); //проверили что null
     }
 }
+

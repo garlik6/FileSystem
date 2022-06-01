@@ -119,8 +119,9 @@ public abstract class Repository {
             }
         }
     }
+
     public void clear() throws CoreException {
-        for(FileRecord fileRecord : getAllFiles()){
+        for (FileRecord fileRecord : getAllFiles()) {
             fileRecord.deleteFile();
         }
     }
@@ -181,10 +182,13 @@ public abstract class Repository {
     public abstract String defragExt();
 
     public void addSegments(int number) {
-        for (int i = 0; i < number; i++) {
-            segments.add(Segment.createSegment());
+        if (segments.size() == 0) {
+            for (int i = 0; i < number; i++) {
+                segments.add(Segment.createSegment());
+            }
         }
     }
+
 }
 
 

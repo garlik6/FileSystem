@@ -12,6 +12,7 @@ public class FileSystemFactoryImpl implements FileSystemFactory {
         FileSystemImpl fileSystem = FileSystemImpl.getInstance();
         if (Objects.equals(config, "JSON")) {
             fileSystem.initRepository(new JsonRepository());
+
             return fileSystem;
         }
         return fileSystem;

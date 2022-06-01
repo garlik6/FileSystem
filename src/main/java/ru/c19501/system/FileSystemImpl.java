@@ -28,12 +28,14 @@ public class FileSystemImpl implements FileSystem {
 
 
     public void save(String name) {
+        repository.addSegments(repository.getMaxSegments());
         repository.setSystemFileName(name);
         repository.writeRepository();
     }
 
     @Override
     public void save() {
+        repository.addSegments(repository.getMaxSegments());
         repository.writeRepository();
     }
 

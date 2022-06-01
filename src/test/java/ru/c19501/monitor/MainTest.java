@@ -33,6 +33,8 @@ public class MainTest {
     public void checkMainInit1() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         RegisteredCommands.init();
         StreamActionsFake stream = (StreamActionsFake) monitor.stream;
+
+
         ArrayList<String> expected = new ArrayList<String>();
         expected.add("Монитор команд запущен.");
         expected.add("Введите имя существующей файловой системы: ");
@@ -42,6 +44,9 @@ public class MainTest {
         expected.add("Сеанс закончен, всего доброго!");
         stream.stringListInput.add("MySys");
         stream.stringListInput.add("exit");
+
+        Main.init(stream);
+        assertEquals(expected, stream.stringListInput);
     }
     @Test
     public void checkMainInit2() throws ClassNotFoundException, NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
@@ -60,5 +65,9 @@ public class MainTest {
         stream.stringListInput.add("20");
         stream.stringListInput.add("4");
         stream.stringListInput.add("exit");
+
+
+        Main.init(stream);
+        assertEquals(expected, stream.stringListOutput);
     }
 }

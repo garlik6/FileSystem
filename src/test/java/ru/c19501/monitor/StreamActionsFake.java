@@ -22,7 +22,7 @@ import java.util.ArrayList;
         }
         public String getLine() {
             if (stringListInput.isEmpty())
-                return "бширх";
+                return "exit";
             stringListOutput.add("");
             return stringListInput.remove(0);
         }

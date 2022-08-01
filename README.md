@@ -9,7 +9,7 @@ Group study project aimed at improving teamwork skills and becoming familiar wit
 File system should resemble [RT 11](https://ru.wikipedia.org/wiki/RT-11) filesystem which adds additional constraints (refactoring etc.)
 
 ## Noteworthy technologies
-- Heavy Stream API usage throughout collections related functionality
+- Heavy Stream API usage throughout implementation of collections related functionality
 - Junit5
 Was used for unit testing
 - Jackson 

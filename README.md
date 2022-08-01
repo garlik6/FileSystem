@@ -6,7 +6,7 @@ Group study project aimed at improving teamwork skills and becoming familiar wit
 - SOLID, Low Coupling, High Cohesion
 - Design patterns (Singleton, Factory Method, Command and so on)
 
-File system should resemble [RT 11](https://ru.wikipedia.org/wiki/RT-11) filesystem which adds additional constraints (refactoring etc.)
+File system should resemble [RT 11](https://ru.wikipedia.org/wiki/RT-11) filesystem which adds additional constraints (defragmentation etc.)
 
 ## Noteworthy technologies
 - Heavy Stream API usage throughout implementation of collections related functionality
